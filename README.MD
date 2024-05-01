@@ -1,4 +1,4 @@
-# Rustfinity docs
+# Rustfinity
 
 A repository for all the publicly available content for Rustfinity.
 
