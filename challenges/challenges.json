@@ -1,0 +1,86 @@
+[
+  {
+    "id": 1,
+    "title": "Hello, World",
+    "slug": "hello-world",
+    "short_description": "Write a simple function that returns the string 'Hello, World!' in Rust.",
+    "language": "RUST",
+    "difficulty": "BEGINNER",
+    "track": "RUST_BASICS",
+    "tags": [],
+    "created_at": "2024-04-20T00:00:00Z",
+    "updated_at": "2024-04-20T00:00:00Z"
+  },
+  {
+    "id": 2,
+    "title": "Character counting string",
+    "slug": "character-counting-string",
+    "short_description": "Write a program that takes a string as input and counts the number of characters in the string.",
+    "language": "RUST",
+    "difficulty": "BEGINNER",
+    "track": "RUST_BASICS",
+    "tags": [],
+    "created_at": "2024-04-20T00:00:00Z",
+    "updated_at": "2024-04-20T00:00:00Z"
+  },
+  {
+    "id": 3,
+    "title": "Mathematical operations",
+    "slug": "mathematical-operations",
+    "short_description": "Practice mathematical operations in Rust, including addition, subtraction, multiplication, and division.",
+    "language": "RUST",
+    "difficulty": "BEGINNER",
+    "track": "RUST_BASICS",
+    "tags": [],
+    "created_at": "2024-04-20T00:00:00Z",
+    "updated_at": "2024-04-20T00:00:00Z"
+  },
+  {
+    "id": 4,
+    "title": "Fizz Buzz",
+    "slug": "fizz-buzz",
+    "short_description": "Write a program that prints 'Fizz' for multiples of three, 'Buzz' for multiples of five, and 'FizzBuzz' for multiples of both.",
+    "language": "RUST",
+    "difficulty": "EASY",
+    "track": "RUST_BASICS",
+    "tags": [],
+    "created_at": "2024-04-20T00:00:00Z",
+    "updated_at": "2024-04-20T00:00:00Z"
+  },
+  {
+    "id": 5,
+    "title": "Fibonacci",
+    "slug": "fibonacci",
+    "short_description": "Write a function that returns the nth number in the Fibonacci sequence.",
+    "language": "RUST",
+    "difficulty": "EASY",
+    "track": "RUST_BASICS",
+    "tags": [],
+    "created_at": "2024-04-20T00:00:00Z",
+    "updated_at": "2024-04-20T00:00:00Z"
+  },
+  {
+    "id": 6,
+    "title": "The From trait",
+    "slug": "the-from-trait",
+    "short_description": "Implement the From trait for a custom type.",
+    "language": "RUST",
+    "difficulty": "MEDIUM",
+    "track": "RUST_BASICS",
+    "tags": [],
+    "created_at": "2024-04-30T00:00:00Z",
+    "updated_at": "2024-04-30T00:00:00Z"
+  },
+  {
+    "id": 7,
+    "title": "Animal sanctuary registry",
+    "slug": "animal-sanctuary-registry",
+    "short_description": "Create a program that manages a registry of animals in a sanctuary.",
+    "language": "RUST",
+    "difficulty": "MEDIUM",
+    "track": "RUST_BASICS",
+    "tags": [],
+    "created_at": "2024-04-30T00:00:00Z",
+    "updated_at": "2024-04-30T00:00:00Z"
+  }
+]

@@ -1,0 +1,14 @@
+[workspace]
+members = [
+  "hello-world",
+  "character-counting-string",
+  "fibonacci",
+  "fizz-buzz",
+  "mathematical-operations",
+  "float-arithmetic",
+  "the-from-trait",
+  "custom-hasher",
+  "secret-language",
+  "animal-sanctuary-registry",
+]
+resolver = "2"
