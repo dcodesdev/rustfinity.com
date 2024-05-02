@@ -4,6 +4,7 @@ version = "0.2.4"
 edition = "2021"
 license = "MIT"
 description = "Rustfinity.com CLI"
+repository = "https://github.com/dcodesdev/rustfinity.com/tree/main/crates/cli"
 
 [dependencies]
 clap = { version = "4.5.4", features = ["derive"] }
