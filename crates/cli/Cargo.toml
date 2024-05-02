@@ -7,7 +7,9 @@ description = "Rustfinity.com CLI"
 repository = "https://github.com/dcodesdev/rustfinity.com/tree/main/crates/cli"
 
 [dependencies]
+anyhow = "1.0.82"
 clap = { version = "4.5.4", features = ["derive"] }
 dload = "0.1.2"
+futures = "0.3.30"
 reqwest = "0.12.4"
 tokio = { version = "1.37.0", features = ["full"] }
