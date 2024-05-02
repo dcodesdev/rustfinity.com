@@ -1,0 +1,14 @@
+[workspace]
+members = [
+  "challenges/hello-world",
+  "challenges/character-counting-string",
+  "challenges/fibonacci",
+  "challenges/fizz-buzz",
+  "challenges/mathematical-operations",
+  "challenges/the-from-trait",
+  "challenges/animal-sanctuary-registry",
+
+  "crates/cli",
+]
+
+resolver = "2"

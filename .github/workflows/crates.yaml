@@ -1,0 +1,23 @@
+name: Test crates
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install Rust
+        uses: actions-rs/toolchain@v1.0.7
+        with:
+          toolchain: stable
+          override: true
+
+      - name: Test cli
+        run: cargo test
