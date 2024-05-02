@@ -1,7 +1,8 @@
 use crate::challenge::challenge_exists;
 use dload::Downloader;
+use futures::future::join_all;
+use std::error::Error;
 use std::fs;
-use std::{error::Error, vec};
 
 const FILES: [&'static str; 4] = [
     "description.md",
@@ -13,47 +14,32 @@ const FILES: [&'static str; 4] = [
 const GITHUB_BASE_URL: &'static str =
     "https://raw.githubusercontent.com/dcodesdev/rustfinity.com/main/challenges";
 
-pub async fn download(challenge: &str) {
-    match challenge_exists(challenge).await {
-        false => {
-            println!("Challenge does not exist 🥺\n\nPlease make sure you've written the challenge name correctly.");
-            return;
-        }
-        _ => {}
+pub async fn get_challenge(challenge: &str) -> anyhow::Result<()> {
+    if !challenge_exists(challenge).await {
+        println!("Challenge does not exist 🥺\n\nPlease make sure you've written the challenge name correctly.");
+        return Ok(());
     }
 
-    let mut joins = vec![];
+    let futures: Vec<_> = FILES
+        .iter()
+        .map(|file| {
+            let url = format!("{}/{}/{}", GITHUB_BASE_URL, challenge, file);
+            let challenge = challenge.to_string();
+            async move { download_file(&url, &challenge).await }
+        })
+        .collect();
 
-    // returns success
-    let (tx, mut rc) = tokio::sync::mpsc::channel::<u32>(1);
+    let results = join_all(futures).await;
 
-    for file in FILES.iter() {
-        let url = format!("{}/{}/{}", GITHUB_BASE_URL, challenge, file);
-
-        let challenge = challenge.to_string().clone();
-        let tx = tx.clone();
-        let join = tokio::spawn(async move {
-            download_file(&url, &challenge).await.unwrap();
-
-            tx.send(1).await.unwrap();
-        });
-
-        joins.push(join);
-    }
-
-    let mut count = 0;
-    loop {
-        let result = rc.recv().await.unwrap();
-
-        count += result;
-
-        if count == FILES.len() as u32 {
-            println!(
-                "Challenge downloaded 🥳\n\nRun the following command to get started:\n\ncd {}",
-                challenge
-            );
-            break;
-        }
+    // Check all results are successful
+    if results.iter().all(Result::is_ok) {
+        println!(
+            "Challenge downloaded 🥳\n\nRun the following command to get started:\n\ncd {}",
+            challenge
+        );
+        Ok(())
+    } else {
+        Err(anyhow::anyhow!("One or more files failed to download"))
     }
 }
 
@@ -113,7 +99,9 @@ mod tests {
             env::set_current_dir("temp/test_downloads_challenge").ok();
 
             for challenge in CHALLENGES {
-                download(challenge).await;
+                get_challenge(challenge)
+                    .await
+                    .expect("Failed to download challenge");
 
                 let paths_to_exist = ["description.md", "Cargo.toml", "src/lib.rs", "src/tests.rs"];
 

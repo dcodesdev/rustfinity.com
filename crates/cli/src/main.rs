@@ -8,5 +8,9 @@ use cli::{run, Cli};
 #[tokio::main]
 async fn main() {
     let cli = Cli::parse();
-    run(cli).await;
+
+    match run(cli).await {
+        Ok(_) => (),
+        Err(e) => eprintln!("{}", e),
+    }
 }

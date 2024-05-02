@@ -1,12 +1,10 @@
-use crate::download::download;
+use crate::download::get_challenge;
 use clap::{Parser, Subcommand};
 
-pub async fn run(cli: Cli) {
+pub async fn run(cli: Cli) -> anyhow::Result<()> {
     match cli.command {
         Commands::Get { command: get } => match get {
-            Get::Challenge { challenge } => {
-                download(&challenge).await;
-            }
+            Get::Challenge { challenge } => get_challenge(&challenge).await,
         },
     }
 }
