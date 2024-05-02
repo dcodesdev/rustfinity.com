@@ -1,0 +1,12 @@
+[package]
+name = "rustfinity"
+version = "0.2.3"
+edition = "2021"
+license = "MIT"
+description = "Rustfinity.com CLI"
+
+[dependencies]
+clap = { version = "4.5.4", features = ["derive"] }
+dload = "0.1.2"
+reqwest = "0.12.4"
+tokio = { version = "1.37.0", features = ["full"] }
