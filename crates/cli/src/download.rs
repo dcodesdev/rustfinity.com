@@ -73,12 +73,12 @@ async fn download_file(url: &str, challenge: &str) -> Result<Downloader, Box<dyn
     if file_name == "starter.rs" {
         let dl = dl
             .set_output_dir(&output_dir)
-            .file_name("main.rs")
+            .file_name("lib.rs")
             .download(url)
             .await;
 
         // After the download, prepend "pub mod tests;\n" to the file
-        let file_path = format!("{}/main.rs", output_dir);
+        let file_path = format!("{}/lib.rs", output_dir);
         let contents = fs::read_to_string(&file_path).unwrap();
         let new_contents = format!("pub mod tests;\n\n{}", contents);
         fs::write(&file_path, new_contents).unwrap();
@@ -115,12 +115,7 @@ mod tests {
             for challenge in CHALLENGES {
                 download(challenge).await;
 
-                let paths_to_exist = [
-                    "description.md",
-                    "Cargo.toml",
-                    "src/main.rs",
-                    "src/tests.rs",
-                ];
+                let paths_to_exist = ["description.md", "Cargo.toml", "src/lib.rs", "src/tests.rs"];
 
                 for file in paths_to_exist.iter() {
                     let path = format!("{}/{}", challenge, file);
@@ -174,7 +169,7 @@ mod tests {
 
             assert!(result.is_ok());
 
-            let path = format!("{}/src/main.rs", challenge);
+            let path = format!("{}/src/lib.rs", challenge);
             assert!(Path::new(&path).exists());
 
             // read the contents of the file
