@@ -7,6 +7,7 @@ members = [
   "challenges/mathematical-operations",
   "challenges/the-from-trait",
   "challenges/animal-sanctuary-registry",
+  "challenges/median-and-mode",
 
   "crates/cli",
 ]
