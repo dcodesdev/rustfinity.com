@@ -595,6 +595,10 @@ name = "mathematical-operations"
 version = "0.1.0"
 
 [[package]]
+name = "median-and-mod"
+version = "0.1.0"
+
+[[package]]
 name = "memchr"
 version = "2.7.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"

@@ -82,5 +82,17 @@
     "tags": [],
     "created_at": "2024-04-30T00:00:00Z",
     "updated_at": "2024-04-30T00:00:00Z"
+  },
+  {
+    "id": 8,
+    "title": "Median and mode",
+    "slug": "median-and-mode",
+    "short_description": "Write a program that calculates the median and mode of a list of numbers.",
+    "language": "RUST",
+    "difficulty": "MEDIUM",
+    "track": "RUST_BASICS",
+    "tags": [],
+    "created_at": "2024-05-03T00:00:00Z",
+    "updated_at": "2024-05-03T00:00:00Z"
   }
 ]
