@@ -6,11 +6,7 @@ use clap::Parser;
 use cli::{run, Cli};
 
 #[tokio::main]
-async fn main() {
+async fn main() -> anyhow::Result<()> {
     let cli = Cli::parse();
-
-    match run(cli).await {
-        Ok(_) => (),
-        Err(e) => eprintln!("{}", e),
-    }
+    run(cli).await
 }
