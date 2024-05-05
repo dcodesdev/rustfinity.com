@@ -26,4 +26,5 @@ jobs:
         run: cargo test
 
       - name: Cargo publish
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: cargo publish || true
