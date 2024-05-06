@@ -15,7 +15,7 @@ const GITHUB_BASE_URL: &'static str =
     "https://raw.githubusercontent.com/dcodesdev/rustfinity.com/main/challenges";
 
 pub async fn get_challenge(challenge: &str) -> anyhow::Result<()> {
-    if !challenge_exists(challenge).await {
+    if !challenge_exists(challenge).await? {
         println!("Challenge does not exist 🥺\n\nPlease make sure you've written the challenge name correctly.");
         return Ok(());
     }

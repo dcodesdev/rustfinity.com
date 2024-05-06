@@ -1,5 +1,5 @@
 [package]
-name = "fizz-buzz"
+name = "graceful-error-handling"
 version = "0.1.0"
 edition = "2021"
 

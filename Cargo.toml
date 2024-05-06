@@ -1,5 +1,6 @@
 [workspace]
 members = [
+  "challenges",
   "challenges/hello-world",
   "challenges/character-counting-string",
   "challenges/fibonacci",
@@ -8,8 +9,8 @@ members = [
   "challenges/the-from-trait",
   "challenges/animal-sanctuary-registry",
   "challenges/median-and-mode",
+  "challenges/graceful-error-handling",
 
   "crates/cli",
 ]
-
 resolver = "2"
