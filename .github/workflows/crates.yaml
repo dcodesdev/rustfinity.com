@@ -41,4 +41,4 @@ jobs:
 
       - name: Cargo publish
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        run: cargo publish -p rustfinity
+        run: cargo publish -p rustfinity || true
