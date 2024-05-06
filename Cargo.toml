@@ -8,6 +8,7 @@ members = [
   "challenges/the-from-trait",
   "challenges/animal-sanctuary-registry",
   "challenges/median-and-mode",
+  "challenges/graceful-error-handling",
 
   "crates/cli",
 ]
