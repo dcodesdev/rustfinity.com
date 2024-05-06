@@ -1,5 +1,6 @@
 [workspace]
 members = [
+  "challenges",
   "challenges/hello-world",
   "challenges/character-counting-string",
   "challenges/fibonacci",
@@ -12,5 +13,4 @@ members = [
 
   "crates/cli",
 ]
-
 resolver = "2"
