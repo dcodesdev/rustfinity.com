@@ -25,6 +25,20 @@ jobs:
       - name: Cargo test
         run: cargo test
 
+  publish:
+    runs-on: ubuntu-latest
+    needs: test
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install Rust
+        uses: actions-rs/toolchain@v1.0.7
+        with:
+          toolchain: stable
+          override: true
+
       - name: Cargo publish
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        run: cargo publish || true
+        run: cargo publish -p rustfinity
