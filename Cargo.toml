@@ -10,6 +10,7 @@ members = [
   "challenges/animal-sanctuary-registry",
   "challenges/median-and-mode",
   "challenges/graceful-error-handling",
+  "challenges/if-else",
 
   "crates/cli",
 ]
