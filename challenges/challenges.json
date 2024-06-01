@@ -106,5 +106,17 @@
     "tags": [],
     "created_at": "2024-05-06T00:00:00Z",
     "updated_at": "2024-05-06T00:00:00Z"
+  },
+  {
+    "id": 10,
+    "title": "Basic If-Else Statements",
+    "slug": "if-else",
+    "short_description": "Learn how to use if-else statements in Rust to control the flow of your program.",
+    "language": "RUST",
+    "difficulty": "EASY",
+    "track": "CONTROL_FLOW",
+    "tags": ["control flow", "if-else"],
+    "created_at": "2024-06-01T00:00:00Z",
+    "updated_at": "2024-06-01T00:00:00Z"
   }
 ]
