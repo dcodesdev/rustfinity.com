@@ -14,6 +14,7 @@ enum Difficulty {
 #[allow(non_camel_case_types)]
 enum Track {
     RUST_BASICS,
+    CONTROL_FLOW,
 }
 
 #[derive(Deserialize)]
