@@ -18,14 +18,9 @@ enum Track {
 
 #[cfg(test)]
 mod tests {
-    use std::{fs, path::PathBuf};
-
     use super::*;
-
-    #[derive(Deserialize)]
-    struct ChallengeDir {
-        pub slug: String,
-    }
+    use chrono::NaiveDateTime;
+    use std::{fs, path::PathBuf};
 
     #[derive(Deserialize)]
     struct Package {
@@ -38,6 +33,7 @@ mod tests {
     }
 
     #[derive(Deserialize)]
+    #[allow(unused)]
     struct Challenge {
         pub id: u32,
         pub title: String,
@@ -80,13 +76,13 @@ mod tests {
     }
 
     #[test]
-    fn read_challenges() {
+    fn test_read_challenges() {
         let challenges = challenges_json().expect("Failed to read challenges");
         assert!(!challenges.is_empty(), "Expected some challenges");
     }
 
     #[test]
-    fn check_dirs() {
+    fn test_dirs() {
         let challenges = challenges_dir_list().expect("Failed to read challenges directories");
         for challenge_dir in challenges {
             let dir_name = challenge_dir.file_name().unwrap().to_str().unwrap();
@@ -128,6 +124,54 @@ mod tests {
                 challenge.is_some(),
                 "Missing entry in challenges.json for {}",
                 dir_name
+            );
+        }
+    }
+
+    #[test]
+    fn test_duplicate_ids() {
+        let challenges = challenges_json().expect("Failed to read challenges");
+        let mut ids = vec![];
+
+        for challenge in challenges {
+            if ids.contains(&challenge.id) {
+                panic!("Duplicate id found: {}", challenge.slug);
+            }
+
+            ids.push(challenge.id);
+        }
+    }
+
+    #[test]
+    fn test_duplicate_slugs() {
+        let challenges = challenges_json().expect("Failed to read challenges");
+        let mut slugs = vec![];
+
+        for challenge in challenges {
+            if slugs.contains(&challenge.slug) {
+                panic!("Duplicate slug found: {}", challenge.slug);
+            }
+
+            slugs.push(challenge.slug);
+        }
+    }
+
+    #[test]
+    fn test_date_validity() {
+        let challenges: Vec<Challenge> = challenges_json().expect("Failed to read challenges");
+
+        for challenge in challenges {
+            let created_at: NaiveDateTime =
+                NaiveDateTime::parse_from_str(&challenge.created_at, "%Y-%m-%dT%H:%M:%S%Z")
+                    .expect("Failed to parse created_at date");
+
+            let updated_at: NaiveDateTime =
+                NaiveDateTime::parse_from_str(&challenge.updated_at, "%Y-%m-%dT%H:%M:%S%Z")
+                    .expect("Failed to parse updated_at date");
+
+            assert!(
+                created_at <= updated_at,
+                "created_at date should be before updated_at date"
             );
         }
     }
