@@ -183,5 +183,17 @@
     "tags": ["conditions", "logical operators", "control flow"],
     "created_at": "2024-06-02T00:00:00Z",
     "updated_at": "2024-06-02T00:00:00Z"
+  },
+  {
+    "id": 16,
+    "title": "Factorial Calculator",
+    "slug": "factorial-calculator",
+    "short_description": "Implement a function to calculate the factorial of a non-negative integer using early returns and loops.",
+    "language": "RUST",
+    "difficulty": "EASY",
+    "track": "CONTROL_FLOW",
+    "tags": [],
+    "created_at": "2024-06-02T00:00:00Z",
+    "updated_at": "2024-06-02T00:00:00Z"
   }
 ]
