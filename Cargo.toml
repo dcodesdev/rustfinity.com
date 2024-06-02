@@ -1,22 +1,3 @@
 [workspace]
-members = [
-  "challenges",
-  "challenges/hello-world",
-  "challenges/character-counting-string",
-  "challenges/fibonacci",
-  "challenges/fizz-buzz",
-  "challenges/mathematical-operations",
-  "challenges/the-from-trait",
-  "challenges/animal-sanctuary-registry",
-  "challenges/median-and-mode",
-  "challenges/graceful-error-handling",
-  "challenges/if-else",
-  "challenges/sum-of-even-numbers",
-  "challenges/countdown",
-  "challenges/weekday-from-number",
-  "challenges/is-prime",
-  "challenges/determine-number-characteristics",
-
-  "crates/cli",
-]
+members = ["challenges", "challenges/*", "crates/*"]
 resolver = "2"
