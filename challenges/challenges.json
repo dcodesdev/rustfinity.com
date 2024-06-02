@@ -130,5 +130,70 @@
     "tags": ["for-loop", "iteration", "range"],
     "created_at": "2024-06-02T00:00:00Z",
     "updated_at": "2024-06-02T00:00:00Z"
+  },
+  {
+    "id": 12,
+    "title": "Countdown",
+    "slug": "countdown",
+    "short_description": "Implement a countdown timer using a while loop in Rust.",
+    "language": "RUST",
+    "difficulty": "EASY",
+    "track": "CONTROL_FLOW",
+    "tags": ["while", "loop", "control flow"],
+    "created_at": "2024-06-02T00:00:00Z",
+    "updated_at": "2024-06-02T00:00:00Z"
+  },
+  {
+    "id": 13,
+    "title": "Weekday from Number",
+    "slug": "weekday-from-number",
+    "short_description": "Use Rust's pattern matching to determine the weekday given its number.",
+    "language": "RUST",
+    "difficulty": "EASY",
+    "track": "CONTROL_FLOW",
+    "tags": [],
+    "created_at": "2024-06-02T00:00:00Z",
+    "updated_at": "2024-06-02T00:00:00Z"
+  },
+  {
+    "id": 14,
+    "title": "Is Prime",
+    "slug": "is-prime",
+    "short_description": "Implement a function to check if a number is prime using logical operators and conditional statements.",
+    "language": "RUST",
+    "difficulty": "MEDIUM",
+    "track": "CONTROL_FLOW",
+    "tags": [
+      "primes",
+      "number theory",
+      "logical operators",
+      "conditional statements"
+    ],
+    "created_at": "2024-06-02T00:00:00Z",
+    "updated_at": "2024-06-02T00:00:00Z"
+  },
+  {
+    "id": 15,
+    "title": "Determine Number Characteristics",
+    "slug": "determine-number-characteristics",
+    "short_description": "Implement a function to describe if a number is positive, negative, or zero, and if it is even or odd.",
+    "language": "RUST",
+    "difficulty": "EASY",
+    "track": "CONTROL_FLOW",
+    "tags": ["conditions", "logical operators", "control flow"],
+    "created_at": "2024-06-02T00:00:00Z",
+    "updated_at": "2024-06-02T00:00:00Z"
+  },
+  {
+    "id": 16,
+    "title": "Factorial Calculator",
+    "slug": "factorial-calculator",
+    "short_description": "Implement a function to calculate the factorial of a non-negative integer using early returns and loops.",
+    "language": "RUST",
+    "difficulty": "EASY",
+    "track": "CONTROL_FLOW",
+    "tags": [],
+    "created_at": "2024-06-02T00:00:00Z",
+    "updated_at": "2024-06-02T00:00:00Z"
   }
 ]
