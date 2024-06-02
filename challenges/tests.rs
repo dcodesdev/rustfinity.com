@@ -1,5 +1,4 @@
 use serde::Deserialize;
-use std::{fs, path::PathBuf};
 
 #[derive(Deserialize)]
 enum Difficulty {
@@ -17,72 +16,68 @@ enum Track {
     CONTROL_FLOW,
 }
 
-#[derive(Deserialize)]
-#[allow(dead_code)]
-struct Challenge {
-    pub id: u32,
-    pub title: String,
-    pub slug: String,
-    pub short_description: String,
-    pub language: String,
-    pub difficulty: Difficulty,
-    pub track: Track,
-    pub tags: Vec<String>,
-    pub created_at: String,
-    pub updated_at: String,
-}
-
-#[allow(dead_code)]
-fn challenges_json() -> Result<Vec<Challenge>, std::io::Error> {
-    let challenges_str = fs::read_to_string("challenges.json")?;
-    let challenges = serde_json::from_str::<Vec<Challenge>>(&challenges_str)?;
-    Ok(challenges)
-}
-
-#[derive(Deserialize)]
-#[allow(dead_code)]
-struct ChallengeDir {
-    pub slug: String,
-}
-
-#[allow(dead_code)]
-fn challenges_dir_list() -> Result<Vec<PathBuf>, std::io::Error> {
-    let mut entries = fs::read_dir("../challenges")?;
-    let mut dirs = vec![];
-    let ignored_dirs = ["src/", "target/"];
-
-    while let Some(entry) = entries.next() {
-        let entry = entry?;
-        let path = entry.path();
-        if path.is_dir() {
-            let abs_path = path.canonicalize().unwrap();
-
-            if ignored_dirs.iter().any(|&dir| abs_path.ends_with(dir)) {
-                continue;
-            }
-
-            dirs.push(abs_path);
-        }
-    }
-
-    Ok(dirs)
-}
-
-#[derive(Deserialize)]
-#[allow(dead_code)]
-struct Package {
-    pub name: String,
-}
-
-#[derive(Deserialize)]
-#[allow(dead_code)]
-struct CargoToml {
-    pub package: Package,
-}
-
 #[cfg(test)]
 mod tests {
+    use std::{fs, path::PathBuf};
+
     use super::*;
+
+    #[derive(Deserialize)]
+    struct ChallengeDir {
+        pub slug: String,
+    }
+
+    #[derive(Deserialize)]
+    struct Package {
+        pub name: String,
+    }
+
+    #[derive(Deserialize)]
+    struct CargoToml {
+        pub package: Package,
+    }
+
+    #[derive(Deserialize)]
+    struct Challenge {
+        pub id: u32,
+        pub title: String,
+        pub slug: String,
+        pub short_description: String,
+        pub language: String,
+        pub difficulty: Difficulty,
+        pub track: Track,
+        pub tags: Vec<String>,
+        pub created_at: String,
+        pub updated_at: String,
+    }
+
+    fn challenges_json() -> Result<Vec<Challenge>, std::io::Error> {
+        let challenges_str = fs::read_to_string("challenges.json")?;
+        let challenges = serde_json::from_str::<Vec<Challenge>>(&challenges_str)?;
+        Ok(challenges)
+    }
+
+    fn challenges_dir_list() -> Result<Vec<PathBuf>, std::io::Error> {
+        let mut entries = fs::read_dir("../challenges")?;
+        let mut dirs = vec![];
+        let ignored_dirs = ["src/", "target/"];
+
+        while let Some(entry) = entries.next() {
+            let entry = entry?;
+            let path = entry.path();
+            if path.is_dir() {
+                let abs_path = path.canonicalize().unwrap();
+
+                if ignored_dirs.iter().any(|&dir| abs_path.ends_with(dir)) {
+                    continue;
+                }
+
+                dirs.push(abs_path);
+            }
+        }
+
+        Ok(dirs)
+    }
 
     #[test]
     fn read_challenges() {
