@@ -12,6 +12,7 @@ members = [
   "challenges/graceful-error-handling",
   "challenges/if-else",
   "challenges/sum-of-even-numbers",
+  "challenges/countdown",
 
   "crates/cli",
 ]

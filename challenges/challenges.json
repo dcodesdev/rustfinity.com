@@ -130,5 +130,17 @@
     "tags": ["for-loop", "iteration", "range"],
     "created_at": "2024-06-02T00:00:00Z",
     "updated_at": "2024-06-02T00:00:00Z"
+  },
+  {
+    "id": 12,
+    "title": "Countdown",
+    "slug": "countdown",
+    "short_description": "Implement a countdown timer using a while loop in Rust.",
+    "language": "RUST",
+    "difficulty": "EASY",
+    "track": "CONTROL_FLOW",
+    "tags": ["while", "loop", "control flow"],
+    "created_at": "2024-06-02T00:00:00Z",
+    "updated_at": "2024-06-02T00:00:00Z"
   }
 ]
