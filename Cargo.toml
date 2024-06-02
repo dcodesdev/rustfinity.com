@@ -13,6 +13,7 @@ members = [
   "challenges/if-else",
   "challenges/sum-of-even-numbers",
   "challenges/countdown",
+  "challenges/weekday-from-number",
 
   "crates/cli",
 ]
