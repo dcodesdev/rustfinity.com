@@ -14,6 +14,7 @@ members = [
   "challenges/sum-of-even-numbers",
   "challenges/countdown",
   "challenges/weekday-from-number",
+  "challenges/is-prime",
   "challenges/determine-number-characteristics",
 
   "crates/cli",
