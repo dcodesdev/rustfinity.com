@@ -13,4 +13,10 @@ mod tests {
         let result = countdown(0);
         assert_eq!(result, vec![0]);
     }
+
+    #[test]
+    fn test_countdown_large() {
+        let result = countdown(10000);
+        assert_eq!(result, (0..=10000).rev().collect::<Vec<u32>>());
+    }
 }
