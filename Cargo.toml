@@ -11,6 +11,7 @@ members = [
   "challenges/median-and-mode",
   "challenges/graceful-error-handling",
   "challenges/if-else",
+  "challenges/sum-of-even-numbers",
 
   "crates/cli",
 ]
