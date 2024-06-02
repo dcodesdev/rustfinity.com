@@ -2,9 +2,7 @@ name: Test crates
 
 on:
   push:
-    branches: [main]
   pull_request:
-    branches: [main]
 
 env:
   CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
@@ -40,5 +38,4 @@ jobs:
           override: true
 
       - name: Cargo publish
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: cargo publish -p rustfinity || true
