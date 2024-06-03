@@ -35,8 +35,8 @@ assert_eq!(result, Err("Invalid unit".to_string()));
 
 ## Hints
 
-- To convert Celsius to Fahrenheit: \(F = C \times \frac{9}{5} + 32\)
-- To convert Fahrenheit to Celsius: \(C = (F - 32) \times \frac{5}{9}\)
-- To convert Celsius to Kelvin: \(K = C + 273.15\)
-- To convert Kelvin to Celsius: \(C = K - 273.15\)
+- To convert Celsius to Fahrenheit: `F = C * (9/5) + 32`
+- To convert Fahrenheit to Celsius: `C = (F - 32) * (5/9)`
+- To convert Celsius to Kelvin: `K = C + 273.15`
+- To convert Kelvin to Celsius: `C = K - 273.15`
 - Remember to handle invalid units with proper error messages.
