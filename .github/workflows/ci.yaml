@@ -1,4 +1,4 @@
-name: Test crates
+name: Test and publish crates
 
 on:
   push:
