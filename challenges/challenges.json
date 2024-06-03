@@ -195,5 +195,17 @@
     "tags": [],
     "created_at": "2024-06-02T00:00:00Z",
     "updated_at": "2024-06-02T00:00:00Z"
+  },
+  {
+    "id": 17,
+    "title": "Temperature Converter",
+    "slug": "temperature-converter",
+    "short_description": "Implement a temperature converter that handles various units and errors.",
+    "language": "RUST",
+    "difficulty": "MEDIUM",
+    "track": "CONTROL_FLOW",
+    "tags": ["conversion", "error handling", "conditionals"],
+    "created_at": "2024-06-03T00:00:00Z",
+    "updated_at": "2024-06-03T00:00:00Z"
   }
 ]
