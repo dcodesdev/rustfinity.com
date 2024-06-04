@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod tests {
-    use crate::convert_temperature;
+    use temperature_converter::*;
 
     #[test]
     fn test_convert_celsius_to_fahrenheit() {

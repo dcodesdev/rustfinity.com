@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod tests {
-    use crate::validate_user;
+    use validate_user_input::*;
 
     #[test]
     fn test_valid_user() {

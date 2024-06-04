@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod tests {
-    use crate::is_even;
+    use if_else::*;
 
     #[test]
     fn test_is_even() {

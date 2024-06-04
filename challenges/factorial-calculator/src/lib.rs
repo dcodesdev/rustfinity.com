@@ -1,5 +1,3 @@
-mod tests;
-
 pub fn factorial(n: u32) -> u128 {
     if n == 0 {
         return 1;

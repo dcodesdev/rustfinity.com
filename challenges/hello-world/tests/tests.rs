@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod tests {
-    use crate::hello_world;
+    use hello_world::*;
 
     #[test]
     fn should_return_hello_world() {

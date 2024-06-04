@@ -1,5 +1,3 @@
-mod tests;
-
 pub fn describe_number(n: i32) -> String {
     if n == 0 {
         return String::from("Zero");

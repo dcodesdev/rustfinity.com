@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod tests {
-    use crate::describe_number;
+    use determine_number_characteristics::*;
 
     #[test]
     fn test_positive_even() {

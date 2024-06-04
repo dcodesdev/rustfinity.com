@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod tests {
-    use crate::factorial;
+    use factorial_calculator::*;
 
     #[test]
     fn test_factorial_of_zero() {

@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod tests {
-    use crate::is_prime;
+    use is_prime::*;
 
     #[test]
     fn test_is_prime_small_numbers() {

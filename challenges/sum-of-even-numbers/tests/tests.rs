@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod tests {
-    use crate::sum_of_evens;
+    use sum_of_even_numbers::*;
 
     #[test]
     fn test_sum_of_evens_range() {

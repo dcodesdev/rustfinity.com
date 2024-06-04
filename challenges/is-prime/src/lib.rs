@@ -1,5 +1,3 @@
-mod tests;
-
 pub fn is_prime(n: u32) -> bool {
     if n < 2 {
         return false;

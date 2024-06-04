@@ -1,5 +1,3 @@
-mod tests;
-
 pub fn countdown(n: u32) -> Vec<u32> {
     let mut current = n;
     let mut result = Vec::new();

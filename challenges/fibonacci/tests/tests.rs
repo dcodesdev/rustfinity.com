@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod tests {
-    use crate::fibonacci;
+    use fibonacci::*;
 
     #[test]
     fn zero() {
