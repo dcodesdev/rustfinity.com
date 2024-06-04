@@ -1,14 +1,12 @@
 use crate::challenge::challenge_exists;
 use dload::Downloader;
 use futures::future::join_all;
-use std::error::Error;
-use std::fs;
 
 const FILES: [&'static str; 4] = [
     "description.md",
     "Cargo.toml",
     "src/starter.rs",
-    "src/tests.rs",
+    "tests/tests.rs",
 ];
 
 const GITHUB_BASE_URL: &'static str =
@@ -43,36 +41,36 @@ pub async fn get_challenge(challenge: &str) -> anyhow::Result<()> {
     }
 }
 
-async fn download_file(url: &str, challenge: &str) -> Result<Downloader, Box<dyn Error>> {
-    let is_src = url.contains("src");
+async fn download_file(url: &str, challenge: &str) -> anyhow::Result<Downloader> {
+    let is_src = url.contains("/src/");
+    let is_test = url.contains("/tests/");
 
     let output_dir = if is_src {
         format!("{}/src", challenge)
+    } else if is_test {
+        format!("{}/tests", challenge)
     } else {
         challenge.to_string()
     };
 
-    let file_name = url.split("/").last().unwrap();
+    let file_name = url
+        .split("/")
+        .last()
+        .ok_or(anyhow::anyhow!("Failed to get file name"))?;
 
     let dl = Downloader::new();
 
-    if file_name == "starter.rs" {
-        let dl = dl
-            .set_output_dir(&output_dir)
-            .file_name("lib.rs")
-            .download(url)
-            .await;
-
-        // After the download, prepend "pub mod tests;\n" to the file
-        let file_path = format!("{}/lib.rs", output_dir);
-        let contents = fs::read_to_string(&file_path).unwrap();
-        let new_contents = format!("pub mod tests;\n\n{}", contents);
-        fs::write(&file_path, new_contents).unwrap();
-
-        dl
+    let file_name = if file_name == "starter.rs" {
+        "lib.rs"
     } else {
-        dl.set_output_dir(&output_dir).download(url).await
-    }
+        file_name
+    };
+
+    dl.set_output_dir(&output_dir)
+        .file_name(&file_name)
+        .download(url)
+        .await
+        .map_err(|e| anyhow::anyhow!("Failed to download file: {}", e))
 }
 
 #[cfg(test)]
@@ -119,7 +117,7 @@ mod tests {
     }
 
     mod download_file {
-        use std::{env, path::Path};
+        use std::{env, fs, path::Path};
 
         use super::*;
 
