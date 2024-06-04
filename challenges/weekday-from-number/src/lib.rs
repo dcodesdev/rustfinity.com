@@ -1,5 +1,3 @@
-mod tests;
-
 pub fn weekday_from_number(day: u8) -> &'static str {
     match day {
         1 => "Monday",

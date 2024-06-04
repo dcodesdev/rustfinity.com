@@ -1,5 +1,3 @@
-mod tests;
-
 use std::collections::HashMap;
 
 pub fn median(numbers: &mut Vec<i32>) -> f32 {

@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod tests {
-    use crate::{Days, Hours, Minutes};
+    use the_from_trait::*;
 
     #[test]
     fn should_convert_minutes_to_hours() {

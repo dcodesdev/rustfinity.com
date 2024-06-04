@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod tests {
-    use crate::math_operations;
+    use mathematical_operations::*;
 
     #[test]
     fn math_tests() {

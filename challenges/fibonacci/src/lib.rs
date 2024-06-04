@@ -1,5 +1,3 @@
-mod tests;
-
 pub fn fibonacci(n: u32) -> u32 {
     match n {
         0 => 0,

@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod tests {
-    use crate::fizz_buzz;
+    use fizz_buzz::*;
 
     #[test]
     fn should_return_fizz() {

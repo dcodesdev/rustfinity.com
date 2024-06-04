@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod tests {
-    use crate::countdown;
+    use countdown::*;
 
     #[test]
     fn test_countdown() {

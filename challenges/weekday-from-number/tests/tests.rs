@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod tests {
-    use crate::weekday_from_number;
+    use weekday_from_number::*;
 
     #[test]
     fn test_weekday_from_number_valid() {

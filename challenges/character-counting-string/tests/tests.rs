@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod tests {
-    use crate::count_characters;
+    use character_counting_string::*;
 
     #[test]
     fn should_count_characters() {

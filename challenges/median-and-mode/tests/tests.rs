@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod tests {
-    use crate::{median, mode};
+    use median_and_mode::*;
 
     #[test]
     fn test_median() {

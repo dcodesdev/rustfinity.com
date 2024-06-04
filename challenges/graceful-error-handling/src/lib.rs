@@ -1,5 +1,3 @@
-mod tests;
-
 pub fn parse_percentage(input: &str) -> Result<u8, String> {
     match input.parse::<u8>() {
         Ok(percentage) if percentage <= 100 => Ok(percentage),

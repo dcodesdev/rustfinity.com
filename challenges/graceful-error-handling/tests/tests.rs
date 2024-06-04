@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod tests {
-    use crate::parse_percentage;
+    use graceful_error_handling::*;
 
     #[test]
     fn test_parse_percentage_valid() {

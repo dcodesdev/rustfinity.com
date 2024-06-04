@@ -1,5 +1,3 @@
-mod tests;
-
 use std::collections::HashMap;
 
 type Collection = HashMap<String, Vec<String>>;

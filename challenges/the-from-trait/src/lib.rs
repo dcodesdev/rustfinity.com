@@ -1,8 +1,6 @@
-mod tests;
-
-pub struct Minutes(i32);
-pub struct Hours(i32);
-pub struct Days(i32);
+pub struct Minutes(pub i32);
+pub struct Hours(pub i32);
+pub struct Days(pub i32);
 
 impl From<Minutes> for Hours {
     fn from(minutes: Minutes) -> Hours {
