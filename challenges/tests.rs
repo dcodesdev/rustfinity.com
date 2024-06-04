@@ -90,8 +90,11 @@ mod tests {
             let description_md = challenge_dir.join("description.md");
             let cargo_toml = challenge_dir.join("Cargo.toml");
             let src_lib = challenge_dir.join("src/lib.rs");
-            let src_tests = challenge_dir.join("src/tests.rs");
             let src_starter = challenge_dir.join("src/starter.rs");
+
+            // let src_tests = challenge_dir.join("src/tests.rs");
+            let tests_exist = challenge_dir.join("src/tests.rs").exists()
+                || challenge_dir.join("tests/tests.rs").exists();
 
             assert!(
                 description_md.exists(),
@@ -100,7 +103,7 @@ mod tests {
             );
             assert!(cargo_toml.exists(), "Missing Cargo.toml in {}", dir_name);
             assert!(src_lib.exists(), "Missing src/lib.rs in {}", dir_name);
-            assert!(src_tests.exists(), "Missing src/tests.rs in {}", dir_name);
+            assert!(tests_exist, "Missing tests, you should have either src/tests.rs or tests/tests.rs available in {}", dir_name);
             assert!(
                 src_starter.exists(),
                 "Missing src/starter.rs in {}",

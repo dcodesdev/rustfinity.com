@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod tests {
-    use crate::*;
+    use animal_sanctuary_registry::*;
     use std::collections::HashMap;
 
     #[test]
