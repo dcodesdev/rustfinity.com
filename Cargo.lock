@@ -86,9 +86,9 @@ dependencies = [
 
 [[package]]
 name = "anyhow"
-version = "1.0.82"
+version = "1.0.86"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f538837af36e6f6a9be0faa67f9a314f8119e4e4b5867c6ab40ed60360142519"
+checksum = "b3d1d046238990b9cf5bcde22a3fb3584ee5cf65fb2765f454ed428c7a0063da"
 
 [[package]]
 name = "autocfg"
@@ -253,9 +253,9 @@ version = "0.1.0"
 
 [[package]]
 name = "dload"
-version = "0.1.2"
+version = "0.1.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8cfad715885580e7e4b84c5dc40e6a331a6cd7c6d330d24732b5412d32e53a82"
+checksum = "00239c9d9d772130cf3ef4c6e81aedfcbd00a5938cfb1b9a59a343dd1e06b20c"
 dependencies = [
  "futures",
  "reqwest",
@@ -958,7 +958,7 @@ checksum = "d626bb9dae77e28219937af045c257c28bfd3f69333c512553507f5f9798cb76"
 
 [[package]]
 name = "rustfinity"
-version = "0.2.6"
+version = "0.2.7"
 dependencies = [
  "anyhow",
  "clap",
