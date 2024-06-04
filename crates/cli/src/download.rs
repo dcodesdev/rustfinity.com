@@ -93,6 +93,8 @@ mod tests {
 
         #[tokio::test]
         async fn test_downloads_challenge() {
+            // rm temp dir if exists
+            fs::remove_dir_all("temp/test_downloads_challenge").ok();
             fs::create_dir_all("temp/test_downloads_challenge").ok();
             env::set_current_dir("temp/test_downloads_challenge").ok();
 
@@ -101,7 +103,12 @@ mod tests {
                     .await
                     .expect("Failed to download challenge");
 
-                let paths_to_exist = ["description.md", "Cargo.toml", "src/lib.rs", "src/tests.rs"];
+                let paths_to_exist = [
+                    "description.md",
+                    "Cargo.toml",
+                    "src/lib.rs",
+                    "tests/tests.rs",
+                ];
 
                 for file in paths_to_exist.iter() {
                     let path = format!("{}/{}", challenge, file);
@@ -123,6 +130,7 @@ mod tests {
 
         #[tokio::test]
         async fn test_downloads_file() {
+            fs::remove_dir_all("temp/test_downloads_file").ok();
             fs::create_dir_all("temp/test_downloads_file").ok();
             env::set_current_dir("temp/test_downloads_file").ok();
 
@@ -145,6 +153,7 @@ mod tests {
 
         #[tokio::test]
         async fn test_download_file_sub_dir() {
+            fs::remove_dir_all("temp/test_download_file_sub_dir").ok();
             fs::create_dir_all("temp/test_download_file_sub_dir").ok();
             env::set_current_dir("temp/test_download_file_sub_dir").ok();
 
