@@ -305,6 +305,10 @@ name = "find-the-first-palindrome"
 version = "0.1.0"
 
 [[package]]
+name = "finite-state-automaton"
+version = "0.1.0"
+
+[[package]]
 name = "fizz-buzz"
 version = "0.1.0"
 

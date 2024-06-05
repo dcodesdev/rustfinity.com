@@ -1,0 +1,6 @@
+[package]
+name = "finite-state-automaton"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]

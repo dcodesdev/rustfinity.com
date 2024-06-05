@@ -231,5 +231,17 @@
     "tags": ["control flow", "palindrome"],
     "created_at": "2024-06-05T00:00:00Z",
     "updated_at": "2024-06-05T00:00:00Z"
+  },
+  {
+    "id": 20,
+    "title": "Finite State Automaton",
+    "slug": "finite-state-automaton",
+    "short_description": "Implement a finite state automaton (FSA) to recognize a specific pattern in a sequence of characters.",
+    "language": "RUST",
+    "difficulty": "HARD",
+    "track": "CONTROL_FLOW",
+    "tags": ["pattern recognition", "automata theory", "control flow"],
+    "created_at": "2024-06-05T00:00:00Z",
+    "updated_at": "2024-06-05T00:00:00Z"
   }
 ]
