@@ -219,5 +219,17 @@
     "tags": [],
     "created_at": "2024-06-03T00:00:00Z",
     "updated_at": "2024-06-03T00:00:00Z"
+  },
+  {
+    "id": 19,
+    "title": "Find the First Palindrome",
+    "slug": "find-the-first-palindrome",
+    "short_description": "Implement a function to find the first palindrome number in a range using any control flow construct.",
+    "language": "RUST",
+    "difficulty": "HARD",
+    "track": "CONTROL_FLOW",
+    "tags": ["control flow", "palindrome"],
+    "created_at": "2024-06-05T00:00:00Z",
+    "updated_at": "2024-06-05T00:00:00Z"
   }
 ]
