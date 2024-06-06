@@ -87,17 +87,13 @@ mod tests {
         for challenge_dir in challenges {
             let dir_name = challenge_dir.file_name().unwrap().to_str().unwrap();
 
-            let description_md = challenge_dir.join("description.md");
+            let readme_md = challenge_dir.join("README.md");
             let cargo_toml = challenge_dir.join("Cargo.toml");
             let src_lib = challenge_dir.join("src/lib.rs");
             let src_starter = challenge_dir.join("src/starter.rs");
             let tests = challenge_dir.join("tests/tests.rs");
 
-            assert!(
-                description_md.exists(),
-                "Missing description.md in {}",
-                dir_name
-            );
+            assert!(readme_md.exists(), "Missing README.md in {}", dir_name);
             assert!(cargo_toml.exists(), "Missing Cargo.toml in {}", dir_name);
             assert!(src_lib.exists(), "Missing src/lib.rs in {}", dir_name);
             assert!(tests.exists(), "Missing tests, you should have either src/tests.rs or tests/tests.rs available in {}", dir_name);

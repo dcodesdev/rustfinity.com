@@ -1,6 +1,6 @@
 pub async fn challenge_exists(challenge: &str) -> anyhow::Result<bool> {
     let url = "https://raw.githubusercontent.com/dcodesdev/rustfinity.com/main";
-    let url = format!("{}/challenges/{}/description.md", url, challenge);
+    let url = format!("{}/challenges/{}/README.md", url, challenge);
 
     let client = reqwest::Client::new();
     let text = client.get(url).send().await?.text().await?;

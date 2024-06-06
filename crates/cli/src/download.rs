@@ -3,7 +3,7 @@ use dload::Downloader;
 use futures::future::join_all;
 
 const FILES: [&'static str; 4] = [
-    "description.md",
+    "README.md",
     "Cargo.toml",
     "src/starter.rs",
     "tests/tests.rs",
@@ -103,12 +103,7 @@ mod tests {
                     .await
                     .expect("Failed to download challenge");
 
-                let paths_to_exist = [
-                    "description.md",
-                    "Cargo.toml",
-                    "src/lib.rs",
-                    "tests/tests.rs",
-                ];
+                let paths_to_exist = ["README.md", "Cargo.toml", "src/lib.rs", "tests/tests.rs"];
 
                 for file in paths_to_exist.iter() {
                     let path = format!("{}/{}", challenge, file);
@@ -134,14 +129,14 @@ mod tests {
             fs::create_dir_all("temp/test_downloads_file").ok();
             env::set_current_dir("temp/test_downloads_file").ok();
 
-            let url = "https://raw.githubusercontent.com/dcodesdev/rustfinity.com/main/challenges/hello-world/description.md";
+            let url = "https://raw.githubusercontent.com/dcodesdev/rustfinity.com/main/challenges/hello-world/src/lib.rs";
             let challenge = "hello-world";
 
             let result = download_file(url, challenge).await;
 
             assert!(result.is_ok());
 
-            let path = format!("{}/description.md", challenge);
+            let path = format!("{}/README.md", challenge);
             assert!(Path::new(&path).exists());
 
             // read the contents of the file
