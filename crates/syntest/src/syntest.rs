@@ -72,6 +72,12 @@ impl Syntest {
     }
 }
 
+impl From<&str> for Syntest {
+    fn from(path: &str) -> Self {
+        Syntest::new(PathBuf::from(path)).unwrap()
+    }
+}
+
 #[derive(Debug, PartialEq)]
 pub enum LocalValue {
     Str(String),
@@ -103,12 +109,12 @@ mod tests {
         }
         "#;
         let temp_file = write_temp_test_file(content);
-
         let syntest = Syntest::new(temp_file.path().to_path_buf()).unwrap();
-        let res = syntest.get_local_value("test_fn", "my_local_str").unwrap();
-        let expected_value = LocalValue::Str("local".to_string());
 
-        assert_eq!(res, expected_value);
+        assert_eq!(
+            syntest.get_local_value("test_fn", "my_local_str").unwrap(),
+            LocalValue::Str("local".to_string())
+        );
     }
 
     #[test]
@@ -119,12 +125,12 @@ mod tests {
         }
         "#;
         let temp_file = write_temp_test_file(content);
-
         let syntest = Syntest::new(temp_file.path().to_path_buf()).unwrap();
-        let res = syntest.get_local_value("test_fn", "my_local_int").unwrap();
-        let expected_value = LocalValue::Int(42);
 
-        assert_eq!(res, expected_value);
+        assert_eq!(
+            syntest.get_local_value("test_fn", "my_local_int").unwrap(),
+            LocalValue::Int(42)
+        );
     }
 
     #[test]
@@ -135,14 +141,14 @@ mod tests {
         }
         "#;
         let temp_file = write_temp_test_file(content);
-
         let syntest = Syntest::new(temp_file.path().to_path_buf()).unwrap();
-        let res = syntest
-            .get_local_value("test_fn", "my_local_float")
-            .unwrap();
-        let expected_value = LocalValue::Float(3.14);
 
-        assert_eq!(res, expected_value);
+        assert_eq!(
+            syntest
+                .get_local_value("test_fn", "my_local_float")
+                .unwrap(),
+            LocalValue::Float(3.14)
+        );
     }
 
     #[test]
@@ -153,12 +159,12 @@ mod tests {
         }
         "#;
         let temp_file = write_temp_test_file(content);
-
         let syntest = Syntest::new(temp_file.path().to_path_buf()).unwrap();
-        let res = syntest.get_local_value("test_fn", "my_local_char").unwrap();
-        let expected_value = LocalValue::Char('a');
 
-        assert_eq!(res, expected_value);
+        assert_eq!(
+            syntest.get_local_value("test_fn", "my_local_char").unwrap(),
+            LocalValue::Char('a')
+        );
     }
 
     #[test]
@@ -169,12 +175,12 @@ mod tests {
         }
         "#;
         let temp_file = write_temp_test_file(content);
-
         let syntest = Syntest::new(temp_file.path().to_path_buf()).unwrap();
-        let res = syntest.get_local_value("test_fn", "my_local_bool").unwrap();
-        let expected_value = LocalValue::Bool(true);
 
-        assert_eq!(res, expected_value);
+        assert_eq!(
+            syntest.get_local_value("test_fn", "my_local_bool").unwrap(),
+            LocalValue::Bool(true)
+        );
     }
 
     #[test]
@@ -185,11 +191,11 @@ mod tests {
         }
         "#;
         let temp_file = write_temp_test_file(content);
-
         let syntest = Syntest::new(temp_file.path().to_path_buf()).unwrap();
-        let res = syntest.get_local_value("test_fn", "non_existent_var");
 
-        assert!(res.is_none());
+        assert!(syntest
+            .get_local_value("test_fn", "non_existent_var")
+            .is_none());
     }
 
     #[test]
@@ -200,10 +206,10 @@ mod tests {
         }
         "#;
         let temp_file = write_temp_test_file(content);
-
         let syntest = Syntest::new(temp_file.path().to_path_buf()).unwrap();
-        let res = syntest.get_local_value("non_existent_fn", "my_local_bool");
 
-        assert!(res.is_none());
+        assert!(syntest
+            .get_local_value("non_existent_fn", "my_local_bool")
+            .is_none());
     }
 }
