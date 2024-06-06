@@ -98,8 +98,8 @@ mod tests {
             fs::create_dir_all("temp/test_downloads_challenge").ok();
             env::set_current_dir("temp/test_downloads_challenge").ok();
 
-            for challenge in CHALLENGES {
-                get_challenge(challenge)
+            let test_challenge = |challenge: String| async move {
+                get_challenge(&challenge)
                     .await
                     .expect("Failed to download challenge");
 
@@ -111,15 +111,21 @@ mod tests {
                 ];
 
                 for file in paths_to_exist.iter() {
-                    let path = format!("{}/{}", challenge, file);
-
-                    assert!(Path::new(&path).exists());
+                    let path = Path::new(&challenge).join(file);
+                    assert!(path.exists(), "File does not exist: {:?}", path);
 
                     // all files shouldn't have the content "404: Not Found"
                     let contents = fs::read_to_string(&path).unwrap();
                     assert!(!contents.contains("404: Not Found"));
                 }
-            }
+            };
+
+            let handles = CHALLENGES
+                .iter()
+                .map(|c| tokio::spawn(test_challenge(c.to_string())))
+                .collect::<Vec<_>>();
+
+            futures::future::join_all(handles).await;
         }
     }
 
