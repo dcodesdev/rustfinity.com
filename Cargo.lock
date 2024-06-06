@@ -248,6 +248,13 @@ name = "countdown"
 version = "0.1.0"
 
 [[package]]
+name = "declaring-variables"
+version = "0.1.0"
+dependencies = [
+ "syntest",
+]
+
+[[package]]
 name = "determine-number-characteristics"
 version = "0.1.0"
 
