@@ -689,6 +689,10 @@ name = "mathematical-operations"
 version = "0.1.0"
 
 [[package]]
+name = "maze-solver"
+version = "0.1.0"
+
+[[package]]
 name = "median-and-mode"
 version = "0.1.0"
 
