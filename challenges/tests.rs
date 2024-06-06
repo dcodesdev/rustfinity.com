@@ -1,26 +1,24 @@
-use serde::Deserialize;
-
-#[derive(Deserialize)]
-enum Difficulty {
-    BEGINNER,
-    EASY,
-    MEDIUM,
-    HARD,
-    ADVANCED,
-}
-
-#[derive(Deserialize)]
-#[allow(non_camel_case_types)]
-enum Track {
-    RUST_BASICS,
-    CONTROL_FLOW,
-}
-
 #[cfg(test)]
 mod tests {
-    use super::*;
     use chrono::NaiveDateTime;
+    use serde::Deserialize;
     use std::{fs, path::PathBuf};
+
+    #[derive(Deserialize)]
+    enum Difficulty {
+        BEGINNER,
+        EASY,
+        MEDIUM,
+        HARD,
+        ADVANCED,
+    }
+
+    #[derive(Deserialize)]
+    #[allow(non_camel_case_types)]
+    enum Track {
+        RUST_BASICS,
+        CONTROL_FLOW,
+    }
 
     #[derive(Deserialize)]
     struct Package {
