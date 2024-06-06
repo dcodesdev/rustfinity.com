@@ -1,5 +1,5 @@
 use declaring_variables::*;
-use syntest::Syntest;
+use syntest::{LocalValue, Syntest};
 
 #[test]
 fn test_calculate_area() {
@@ -9,4 +9,13 @@ fn test_calculate_area() {
 #[test]
 fn test_variable_width() {
     let syntest = Syntest::from("./src/lib.rs");
+
+    assert_eq!(
+        syntest.get_local_value("calculate_area", "width").unwrap(),
+        LocalValue::Int(10)
+    );
+    assert_eq!(
+        syntest.get_local_value("calculate_area", "height").unwrap(),
+        LocalValue::Int(5)
+    );
 }
