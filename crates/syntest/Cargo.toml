@@ -1,0 +1,11 @@
+[package]
+name = "syntest"
+description = "A library to test Rust syntax"
+repository = "https://github.com/dcodesdev/rustfinity.com/tree/main/crates/syntest"
+license = "MIT"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anyhow = "1.0.86"
+syn = { version = "2.0.66", features = ["full", "extra-traits"] }

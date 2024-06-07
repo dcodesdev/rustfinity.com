@@ -248,6 +248,14 @@ name = "countdown"
 version = "0.1.0"
 
 [[package]]
+name = "declaring-variables"
+version = "0.1.0"
+dependencies = [
+ "syn",
+ "syntest",
+]
+
+[[package]]
 name = "determine-number-characteristics"
 version = "0.1.0"
 
@@ -302,6 +310,10 @@ version = "0.1.0"
 
 [[package]]
 name = "find-the-first-palindrome"
+version = "0.1.0"
+
+[[package]]
+name = "finite-state-automaton"
 version = "0.1.0"
 
 [[package]]
@@ -685,6 +697,10 @@ name = "mathematical-operations"
 version = "0.1.0"
 
 [[package]]
+name = "maze-solver"
+version = "0.1.0"
+
+[[package]]
 name = "median-and-mode"
 version = "0.1.0"
 
@@ -885,9 +901,9 @@ checksum = "d231b230927b5e4ad203db57bbcbee2802f6bce620b1e4a9024a07d94e2907ec"
 
 [[package]]
 name = "proc-macro2"
-version = "1.0.81"
+version = "1.0.85"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3d1597b0c024618f09a9c3b8655b7e430397a36d23fdafec26d6965e9eec3eba"
+checksum = "22244ce15aa966053a896d1accb3a6e68469b97c7f33f284b99f0d576879fc23"
 dependencies = [
  "unicode-ident",
 ]
@@ -1144,9 +1160,9 @@ version = "0.1.0"
 
 [[package]]
 name = "syn"
-version = "2.0.60"
+version = "2.0.66"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "909518bc7b1c9b779f1bbf07f2929d35af9f0f37e47c6e9ef7f9dddc1e1821f3"
+checksum = "c42f3f41a2de00b01c0aaad383c5a45241efc8b2d1eda5661812fda5f3cdcff5"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -1158,6 +1174,14 @@ name = "sync_wrapper"
 version = "0.1.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2047c6ded9c721764247e62cd3b03c09ffc529b2ba5b10ec482ae507a4a70160"
+
+[[package]]
+name = "syntest"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "syn",
+]
 
 [[package]]
 name = "system-configuration"
