@@ -1,3 +1,4 @@
+use std::fmt::Display;
 use std::fs;
 use std::path::PathBuf;
 use syn::{
@@ -440,6 +441,12 @@ impl LocalVariable {
             LocalVariable::Closure { .. } => "closure".to_string(),
             LocalVariable::Other { .. } => "other".to_string(),
         }
+    }
+}
+
+impl Display for LocalVariable {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{}", self.name())
     }
 }
 
