@@ -1,6 +1,9 @@
 use std::fs;
 use std::path::PathBuf;
-use syn::{parse_file, Expr, ExprBinary, Item, ItemFn, Lit, Local, Pat, PathSegment, Stmt};
+use syn::{
+    parse_file, punctuated::Punctuated, token::PathSep, Expr, Item, ItemFn, Lit, Local, Pat,
+    PathSegment, Stmt,
+};
 
 pub struct Syntest {
     pub file: syn::File,
@@ -192,75 +195,101 @@ impl Syntest {
         self.func_stmts(fn_name, |_, stmt| match stmt {
             Stmt::Local(local) => {
                 let used = false;
-                let mut local_value = LocalVariable::Other {
-                    name: "".to_string(),
-                    used: false,
-                };
+                let mut local_value = None;
 
                 if let Pat::Ident(ident) = &local.pat {
                     if let Some(init) = &local.init {
                         match *init.expr.clone() {
                             Expr::Lit(expr_lit) => match expr_lit.lit {
                                 Lit::Str(lit_str) => {
-                                    local_value = LocalVariable::Str {
+                                    local_value = Some(LocalVariable::Str {
                                         name: ident.ident.to_string(),
                                         value: lit_str.value(),
                                         used,
-                                    };
+                                    });
                                 }
                                 Lit::Int(lit_int) => {
-                                    local_value = LocalVariable::Int {
+                                    local_value = Some(LocalVariable::Int {
                                         name: ident.ident.to_string(),
                                         value: lit_int.base10_parse().unwrap(),
                                         used,
-                                    };
+                                    });
                                 }
                                 Lit::Float(lit_float) => {
-                                    local_value = LocalVariable::Float {
+                                    local_value = Some(LocalVariable::Float {
                                         name: ident.ident.to_string(),
                                         value: lit_float.base10_parse().unwrap(),
                                         used,
-                                    };
+                                    });
                                 }
                                 Lit::Char(lit_char) => {
-                                    local_value = LocalVariable::Char {
+                                    local_value = Some(LocalVariable::Char {
                                         name: ident.ident.to_string(),
                                         value: lit_char.value(),
                                         used,
-                                    };
+                                    });
                                 }
                                 Lit::Bool(lit_bool) => {
-                                    local_value = LocalVariable::Bool {
+                                    local_value = Some(LocalVariable::Bool {
                                         name: ident.ident.to_string(),
                                         value: lit_bool.value(),
                                         used,
-                                    };
+                                    });
                                 }
-                                _ => {
-                                    println!("OTHER")
-                                }
+                                _ => {}
                             },
                             Expr::Closure(_) => {
-                                local_value = LocalVariable::Closure {
+                                local_value = Some(LocalVariable::Closure {
                                     name: ident.ident.to_string(),
                                     used,
-                                };
+                                });
+                            }
+                            Expr::Binary(expr_binary) => {
+                                if let Expr::Path(expr_path) = *expr_binary.left.clone() {
+                                    self.match_expr(&mut variables, &expr_path.path.segments);
+                                }
+
+                                if let Expr::Path(expr_path) = *expr_binary.right.clone() {
+                                    self.match_expr(&mut variables, &expr_path.path.segments);
+                                }
+
+                                local_value = Some(LocalVariable::Other {
+                                    name: ident.ident.to_string(),
+                                    used,
+                                })
+                            }
+                            Expr::Path(expr_path) => {
+                                self.create_var_from_segments(
+                                    &mut variables,
+                                    &expr_path.path.segments,
+                                );
                             }
                             _ => {
-                                local_value = LocalVariable::Other {
+                                local_value = Some(LocalVariable::Other {
                                     name: ident.ident.to_string(),
                                     used,
-                                };
+                                });
                             }
                         }
                     }
                 }
 
-                variables.push(local_value);
+                if let Some(local_value) = local_value {
+                    variables.push(local_value);
+                }
             }
             Stmt::Expr(expr, _) => match expr {
                 Expr::Binary(binary_expr) => {
-                    self.match_expr_binary(&mut variables, binary_expr);
+                    if let Expr::Path(expr_path) = *binary_expr.left.clone() {
+                        self.match_expr(&mut variables, &expr_path.path.segments);
+                    }
+
+                    if let Expr::Path(expr_path) = *binary_expr.right.clone() {
+                        self.match_expr(&mut variables, &expr_path.path.segments);
+                    }
+                }
+                Expr::Path(path_expr) => {
+                    self.match_expr(&mut variables, &path_expr.path.segments);
                 }
                 _ => {}
             },
@@ -271,7 +300,24 @@ impl Syntest {
         variables
     }
 
-    fn match_expr_binary(&self, variables: &mut Vec<LocalVariable>, binary_expr: &ExprBinary) {
+    fn create_var_from_segments(
+        &self,
+        variables: &mut Vec<LocalVariable>,
+        segments: &Punctuated<PathSegment, PathSep>,
+    ) {
+        segments.iter().for_each(|segment| {
+            variables.push(LocalVariable::Other {
+                name: segment.ident.to_string(),
+                used: false,
+            })
+        });
+    }
+
+    fn match_expr(
+        &self,
+        variables: &mut Vec<LocalVariable>,
+        segments: &Punctuated<PathSegment, PathSep>,
+    ) {
         let mut check_segment = |path_segment: &PathSegment| {
             let mut found = false;
             variables.iter_mut().for_each(|variable| match variable {
@@ -327,13 +373,7 @@ impl Syntest {
             }
         };
 
-        if let Expr::Path(expr_path) = *binary_expr.left.clone() {
-            expr_path.path.segments.iter().for_each(&mut check_segment);
-        }
-
-        if let Expr::Path(expr_path) = *binary_expr.right.clone() {
-            expr_path.path.segments.iter().for_each(check_segment);
-        }
+        segments.iter().for_each(&mut check_segment);
     }
 }
 
