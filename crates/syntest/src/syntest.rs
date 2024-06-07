@@ -1,6 +1,6 @@
 use std::fs;
 use std::path::PathBuf;
-use syn::{parse_file, Expr, Item, ItemFn, Lit, Local, Pat, PathSegment, Stmt};
+use syn::{parse_file, Expr, ExprBinary, Item, ItemFn, Lit, Local, Pat, PathSegment, Stmt};
 
 pub struct Syntest {
     pub file: syn::File,
@@ -236,61 +236,10 @@ impl Syntest {
                                         used,
                                     };
                                 }
-                                _ => {}
+                                _ => {
+                                    println!("OTHER")
+                                }
                             },
-                            Expr::Binary(expr_binary) => {
-                                variables.iter_mut().for_each(|variable| {
-                                    let mut handle_segment =
-                                        |path_segment: &PathSegment| match variable {
-                                            LocalVariable::Str { name, used, .. } => {
-                                                if name == &path_segment.ident.to_string() {
-                                                    *used = true;
-                                                }
-                                            }
-                                            LocalVariable::Int { name, used, .. } => {
-                                                if name == &path_segment.ident.to_string() {
-                                                    *used = true;
-                                                }
-                                            }
-                                            LocalVariable::Float { name, used, .. } => {
-                                                if name == &path_segment.ident.to_string() {
-                                                    *used = true;
-                                                }
-                                            }
-                                            LocalVariable::Char { name, used, .. } => {
-                                                if name == &path_segment.ident.to_string() {
-                                                    *used = true;
-                                                }
-                                            }
-                                            LocalVariable::Bool { name, used, .. } => {
-                                                if name == &path_segment.ident.to_string() {
-                                                    *used = true;
-                                                }
-                                            }
-                                            LocalVariable::Closure { name, used, .. } => {
-                                                if name == &path_segment.ident.to_string() {
-                                                    *used = true;
-                                                }
-                                            }
-                                            LocalVariable::Other { name, used, .. } => {
-                                                if name == &path_segment.ident.to_string() {
-                                                    *used = true;
-                                                }
-                                            }
-                                        };
-
-                                    if let Expr::Path(expr_path) = *expr_binary.left.clone() {
-                                        expr_path
-                                            .path
-                                            .segments
-                                            .iter()
-                                            .for_each(&mut handle_segment);
-                                    }
-                                    if let Expr::Path(expr_path) = *expr_binary.right.clone() {
-                                        expr_path.path.segments.iter().for_each(handle_segment);
-                                    }
-                                });
-                            }
                             Expr::Closure(_) => {
                                 local_value = LocalVariable::Closure {
                                     name: ident.ident.to_string(),
@@ -311,68 +260,7 @@ impl Syntest {
             }
             Stmt::Expr(expr, _) => match expr {
                 Expr::Binary(binary_expr) => {
-                    let mut check_segment = |path_segment: &PathSegment| {
-                        let mut found = false;
-                        variables.iter_mut().for_each(|variable| match variable {
-                            LocalVariable::Str { name, used, .. } => {
-                                if name == &path_segment.ident.to_string() {
-                                    *used = true;
-                                    found = true;
-                                }
-                            }
-                            LocalVariable::Int { name, used, .. } => {
-                                if name == &path_segment.ident.to_string() {
-                                    *used = true;
-                                    found = true;
-                                }
-                            }
-                            LocalVariable::Float { name, used, .. } => {
-                                if name == &path_segment.ident.to_string() {
-                                    *used = true;
-                                    found = true;
-                                }
-                            }
-                            LocalVariable::Char { name, used, .. } => {
-                                if name == &path_segment.ident.to_string() {
-                                    *used = true;
-                                    found = true;
-                                }
-                            }
-                            LocalVariable::Bool { name, used, .. } => {
-                                if name == &path_segment.ident.to_string() {
-                                    *used = true;
-                                    found = true;
-                                }
-                            }
-                            LocalVariable::Closure { name, used, .. } => {
-                                if name == &path_segment.ident.to_string() {
-                                    *used = true;
-                                    found = true;
-                                }
-                            }
-                            LocalVariable::Other { name, used, .. } => {
-                                if name == &path_segment.ident.to_string() {
-                                    *used = true;
-                                    found = true;
-                                }
-                            }
-                        });
-
-                        if !found {
-                            variables.push(LocalVariable::Other {
-                                name: path_segment.ident.to_string(),
-                                used: true,
-                            });
-                        }
-                    };
-
-                    if let Expr::Path(expr_path) = *binary_expr.left.clone() {
-                        expr_path.path.segments.iter().for_each(&mut check_segment);
-                    }
-
-                    if let Expr::Path(expr_path) = *binary_expr.right.clone() {
-                        expr_path.path.segments.iter().for_each(check_segment);
-                    }
+                    self.match_expr_binary(&mut variables, binary_expr);
                 }
                 _ => {}
             },
@@ -381,6 +269,71 @@ impl Syntest {
         });
 
         variables
+    }
+
+    fn match_expr_binary(&self, variables: &mut Vec<LocalVariable>, binary_expr: &ExprBinary) {
+        let mut check_segment = |path_segment: &PathSegment| {
+            let mut found = false;
+            variables.iter_mut().for_each(|variable| match variable {
+                LocalVariable::Str { name, used, .. } => {
+                    if name == &path_segment.ident.to_string() {
+                        *used = true;
+                        found = true;
+                    }
+                }
+                LocalVariable::Int { name, used, .. } => {
+                    if name == &path_segment.ident.to_string() {
+                        *used = true;
+                        found = true;
+                    }
+                }
+                LocalVariable::Float { name, used, .. } => {
+                    if name == &path_segment.ident.to_string() {
+                        *used = true;
+                        found = true;
+                    }
+                }
+                LocalVariable::Char { name, used, .. } => {
+                    if name == &path_segment.ident.to_string() {
+                        *used = true;
+                        found = true;
+                    }
+                }
+                LocalVariable::Bool { name, used, .. } => {
+                    if name == &path_segment.ident.to_string() {
+                        *used = true;
+                        found = true;
+                    }
+                }
+                LocalVariable::Closure { name, used, .. } => {
+                    if name == &path_segment.ident.to_string() {
+                        *used = true;
+                        found = true;
+                    }
+                }
+                LocalVariable::Other { name, used, .. } => {
+                    if name == &path_segment.ident.to_string() {
+                        *used = true;
+                        found = true;
+                    }
+                }
+            });
+
+            if !found {
+                variables.push(LocalVariable::Other {
+                    name: path_segment.ident.to_string(),
+                    used: true,
+                });
+            }
+        };
+
+        if let Expr::Path(expr_path) = *binary_expr.left.clone() {
+            expr_path.path.segments.iter().for_each(&mut check_segment);
+        }
+
+        if let Expr::Path(expr_path) = *binary_expr.right.clone() {
+            expr_path.path.segments.iter().for_each(check_segment);
+        }
     }
 }
 
