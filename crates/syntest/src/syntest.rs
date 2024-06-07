@@ -364,8 +364,8 @@ impl From<&str> for Syntest {
 
 #[derive(Debug, PartialEq)]
 pub struct VarDetails {
-    name: String,
-    used: bool,
+    pub name: String,
+    pub used: bool,
 }
 
 #[derive(Debug, PartialEq)]
@@ -403,6 +403,44 @@ pub enum LocalVariable {
         name: String,
         used: bool,
     },
+}
+
+impl LocalVariable {
+    pub fn is_used(&self) -> bool {
+        match self {
+            LocalVariable::Str { used, .. } => *used,
+            LocalVariable::Int { used, .. } => *used,
+            LocalVariable::Float { used, .. } => *used,
+            LocalVariable::Char { used, .. } => *used,
+            LocalVariable::Bool { used, .. } => *used,
+            LocalVariable::Closure { used, .. } => *used,
+            LocalVariable::Other { used, .. } => *used,
+        }
+    }
+
+    pub fn name(&self) -> &str {
+        match self {
+            LocalVariable::Str { name, .. } => name,
+            LocalVariable::Int { name, .. } => name,
+            LocalVariable::Float { name, .. } => name,
+            LocalVariable::Char { name, .. } => name,
+            LocalVariable::Bool { name, .. } => name,
+            LocalVariable::Closure { name, .. } => name,
+            LocalVariable::Other { name, .. } => name,
+        }
+    }
+
+    pub fn value(&self) -> String {
+        match self {
+            LocalVariable::Str { value, .. } => value.clone(),
+            LocalVariable::Int { value, .. } => value.to_string(),
+            LocalVariable::Float { value, .. } => value.to_string(),
+            LocalVariable::Char { value, .. } => value.to_string(),
+            LocalVariable::Bool { value, .. } => value.to_string(),
+            LocalVariable::Closure { .. } => "closure".to_string(),
+            LocalVariable::Other { .. } => "other".to_string(),
+        }
+    }
 }
 
 #[cfg(test)]
