@@ -5,7 +5,7 @@ use syn::{
     Stmt,
 };
 
-use crate::var::{LocalVariable, VarDetails};
+use crate::var::LocalVariable;
 
 pub struct Syntest {
     pub file: syn::File,
@@ -278,83 +278,10 @@ impl Syntest {
         segments.iter().for_each(&mut check_segment);
     }
 
-    pub fn var_details(&self, fn_name: &str, var_name: &str) -> Option<VarDetails> {
+    pub fn var_details(&self, fn_name: &str, var_name: &str) -> Option<LocalVariable> {
         let vars = self.variables(fn_name);
 
-        let variable = vars.iter().find_map(|var| match var {
-            LocalVariable::Str { name, used, .. } => {
-                if name == var_name {
-                    Some(VarDetails {
-                        name: name.clone(),
-                        used: *used,
-                    })
-                } else {
-                    None
-                }
-            }
-            LocalVariable::Int { name, used, .. } => {
-                if name == var_name {
-                    Some(VarDetails {
-                        name: name.clone(),
-                        used: *used,
-                    })
-                } else {
-                    None
-                }
-            }
-            LocalVariable::Float { name, used, .. } => {
-                if name == var_name {
-                    Some(VarDetails {
-                        name: name.clone(),
-                        used: *used,
-                    })
-                } else {
-                    None
-                }
-            }
-            LocalVariable::Char { name, used, .. } => {
-                if name == var_name {
-                    Some(VarDetails {
-                        name: name.clone(),
-                        used: *used,
-                    })
-                } else {
-                    None
-                }
-            }
-            LocalVariable::Bool { name, used, .. } => {
-                if name == var_name {
-                    Some(VarDetails {
-                        name: name.clone(),
-                        used: *used,
-                    })
-                } else {
-                    None
-                }
-            }
-            LocalVariable::Closure { name, used, .. } => {
-                if name == var_name {
-                    Some(VarDetails {
-                        name: name.clone(),
-                        used: *used,
-                    })
-                } else {
-                    None
-                }
-            }
-            LocalVariable::Other { name, used, .. } => {
-                if name == var_name {
-                    Some(VarDetails {
-                        name: name.clone(),
-                        used: *used,
-                    })
-                } else {
-                    None
-                }
-            }
-        });
-
-        variable
+        vars.into_iter().find(|var| var.name() == var_name)
     }
 }
 
@@ -537,12 +464,12 @@ mod tests {
             let details = syntest.var_details("test_fn", var).unwrap();
 
             if var == "local_str" {
-                assert_eq!(details.used, false);
+                assert_eq!(details.is_used(), false);
             } else {
-                assert_eq!(details.used, true);
+                assert_eq!(details.is_used(), true);
             }
 
-            assert_eq!(details.name, var);
+            assert_eq!(details.name(), var);
         })
     }
 }
