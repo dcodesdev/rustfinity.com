@@ -139,13 +139,8 @@ impl Syntest {
                                 });
                             }
                             Expr::Binary(expr_binary) => {
-                                if let Expr::Path(expr_path) = *expr_binary.left.clone() {
-                                    self.match_segments(&mut variables, &expr_path.path.segments);
-                                }
-
-                                if let Expr::Path(expr_path) = *expr_binary.right.clone() {
-                                    self.match_segments(&mut variables, &expr_path.path.segments);
-                                }
+                                self.match_expr(&expr_binary.left, &mut variables);
+                                self.match_expr(&expr_binary.right, &mut variables);
 
                                 local_value = Some(LocalVariable::Other {
                                     name: ident.ident.to_string(),
@@ -182,13 +177,8 @@ impl Syntest {
     fn match_expr(&self, expr: &Expr, variables: &mut Vec<LocalVariable>) {
         match expr {
             Expr::Binary(binary_expr) => {
-                if let Expr::Path(expr_path) = *binary_expr.left.clone() {
-                    self.match_segments(variables, &expr_path.path.segments);
-                }
-
-                if let Expr::Path(expr_path) = *binary_expr.right.clone() {
-                    self.match_segments(variables, &expr_path.path.segments);
-                }
+                self.match_expr(&binary_expr.left, variables);
+                self.match_expr(&binary_expr.right, variables);
             }
             Expr::Path(path_expr) => {
                 self.match_segments(variables, &path_expr.path.segments);
@@ -511,6 +501,29 @@ mod tests {
                 assert_eq!(details.is_used(), true);
             }
 
+            assert_eq!(details.name(), var, "Variable name mismatch");
+        })
+    }
+
+    #[test]
+    fn test_multi_op_one_line() {
+        let content = r#"
+        pub fn test_fn() {
+            let my_local_int = 42;
+            let another_local_int = 10;
+
+            let re_assigned = my_local_int + another_local_int * 2 / 2 - 2;
+
+            return re_assigned;
+        }
+        "#;
+        let syntest = Syntest::from_code(content).unwrap();
+        let vars = ["my_local_int", "another_local_int", "re_assigned"];
+
+        vars.iter().for_each(|&var| {
+            let details = syntest.var_details("test_fn", var).unwrap();
+
+            assert!(details.is_used(), "Variable {} not used", var);
             assert_eq!(details.name(), var, "Variable name mismatch");
         })
     }
