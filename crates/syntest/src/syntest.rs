@@ -1,8 +1,8 @@
 use std::fs;
 use std::path::PathBuf;
 use syn::{
-    parse_file, punctuated::Punctuated, token::PathSep, Expr, Item, ItemFn, Lit, Local, Pat,
-    PathSegment, Stmt,
+    parse_file, punctuated::Punctuated, token::PathSep, Expr, Item, ItemFn, Lit, Pat, PathSegment,
+    Stmt,
 };
 
 pub struct Syntest {
@@ -43,27 +43,6 @@ impl Syntest {
         })
     }
 
-    pub fn local<F>(&self, mut handler: F)
-    where
-        F: FnMut(&Local),
-    {
-        let mut ran = false;
-        self.file.items.iter().for_each(|item| {
-            if let Item::Fn(f) = item {
-                f.block.stmts.iter().for_each(|stmt| {
-                    if let Stmt::Local(local) = stmt {
-                        handler(local);
-                        ran = true;
-                    }
-                })
-            }
-        });
-
-        if !ran {
-            panic!("No local found");
-        }
-    }
-
     pub fn func<F>(&self, fn_name: &str, mut handler: F)
     where
         F: FnMut(&ItemFn),
@@ -79,7 +58,7 @@ impl Syntest {
         });
 
         if !ran {
-            panic!("No function found");
+            panic!("Function {} not found", fn_name);
         }
     }
 
@@ -96,7 +75,7 @@ impl Syntest {
         });
 
         if !ran {
-            panic!("No function found");
+            panic!("Function {} not found", fn_name);
         }
     }
 
@@ -473,53 +452,17 @@ mod tests {
         }
     }
 
-    // #[test]
-    // fn test_get_local_value_bool() {
-    //     let content = r#"
-    //     pub fn test_fn() {
-    //         let my_local_bool = true;
-    //     }
-    //     "#;
-    //     let temp_file = write_temp_test_file(content);
-    //     let syntest = Syntest::new(temp_file.path().to_path_buf()).unwrap();
+    #[test]
+    #[should_panic(expected = "Function non_existent_fn not found")]
+    fn test_get_non_existent_function() {
+        let content = r#"
+        pub fn test_fn() {
+            let my_local_bool = true;
+        }
+        "#;
 
-    //     assert_eq!(
-    //         syntest.get_local_value("test_fn", "my_local_bool").unwrap(),
-    //         LocalVariable::Bool {
-    //             name: "my_local_bool".to_string(),
-    //             value: true,
-    //             used: false
-    //         }
-    //     );
-    // }
-
-    // #[test]
-    // fn test_get_local_value_non_existent_variable() {
-    //     let content = r#"
-    //     pub fn test_fn() {
-    //         let my_local_bool = true;
-    //     }
-    //     "#;
-    //     let temp_file = write_temp_test_file(content);
-    //     let syntest = Syntest::new(temp_file.path().to_path_buf()).unwrap();
-
-    //     assert!(syntest
-    //         .get_local_value("test_fn", "non_existent_var")
-    //         .is_none());
-    // }
-
-    // #[test]
-    // fn test_get_local_value_non_existent_function() {
-    //     let content = r#"
-    //     pub fn test_fn() {
-    //         let my_local_bool = true;
-    //     }
-    //     "#;
-    //     let temp_file = write_temp_test_file(content);
-    //     let syntest = Syntest::new(temp_file.path().to_path_buf()).unwrap();
-
-    //     assert!(syntest
-    //         .get_local_value("non_existent_fn", "my_local_bool")
-    //         .is_none());
-    // }
+        Syntest::from_code(content)
+            .unwrap()
+            .variables("non_existent_fn");
+    }
 }
