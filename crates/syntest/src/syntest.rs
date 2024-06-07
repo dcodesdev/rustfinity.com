@@ -275,6 +275,51 @@ impl Syntest {
 
         segments.iter().for_each(&mut check_segment);
     }
+
+    pub fn var_exists(&self, fn_name: &str, var_name: &str) -> bool {
+        let vars = self.variables(fn_name);
+        let mut exists = false;
+
+        vars.iter().for_each(|var| match var {
+            LocalVariable::Str { name, .. } => {
+                if name == var_name {
+                    exists = true;
+                }
+            }
+            LocalVariable::Int { name, .. } => {
+                if name == var_name {
+                    exists = true;
+                }
+            }
+            LocalVariable::Float { name, .. } => {
+                if name == var_name {
+                    exists = true;
+                }
+            }
+            LocalVariable::Char { name, .. } => {
+                if name == var_name {
+                    exists = true;
+                }
+            }
+            LocalVariable::Bool { name, .. } => {
+                if name == var_name {
+                    exists = true;
+                }
+            }
+            LocalVariable::Closure { name, .. } => {
+                if name == var_name {
+                    exists = true;
+                }
+            }
+            LocalVariable::Other { name, .. } => {
+                if name == var_name {
+                    exists = true;
+                }
+            }
+        });
+
+        exists
+    }
 }
 
 impl From<&str> for Syntest {
@@ -464,5 +509,28 @@ mod tests {
         Syntest::from_code(content)
             .unwrap()
             .variables("non_existent_fn");
+    }
+
+    #[test]
+    fn test_var_exists() {
+        let content = r#"
+        pub fn test_fn() {
+            let my_local_int = 42;
+            let another_local_int = 10;
+            let local_str = "string";
+
+            let re_assigned = my_local_int + another_local_int;
+
+            return re_assigned;
+        }
+        "#;
+
+        let syntest = Syntest::from_code(content).unwrap();
+
+        assert_eq!(syntest.var_exists("test_fn", "my_local_int"), true);
+        assert_eq!(syntest.var_exists("test_fn", "another_local_int"), true);
+        assert_eq!(syntest.var_exists("test_fn", "local_str"), true);
+        assert_eq!(syntest.var_exists("test_fn", "re_assigned"), true);
+        assert_eq!(syntest.var_exists("test_fn", "non_existent"), false);
     }
 }
