@@ -253,8 +253,8 @@
     "difficulty": "HARD",
     "track": "CONTROL_FLOW",
     "tags": ["pattern recognition", "automata theory", "control flow"],
-    "created_at": "2024-06-05T00:00:00Z",
-    "updated_at": "2024-06-05T00:00:00Z"
+    "created_at": "2024-06-07T00:00:00Z",
+    "updated_at": "2024-06-07T00:00:00Z"
   },
   {
     "id": 21,
@@ -265,7 +265,7 @@
     "difficulty": "ADVANCED",
     "track": "CONTROL_FLOW",
     "tags": ["control flow", "algorithms", "path-finding"],
-    "created_at": "2024-06-06T00:00:00Z",
-    "updated_at": "2024-06-06T00:00:00Z"
+    "created_at": "2024-06-07T00:00:00Z",
+    "updated_at": "2024-06-07T00:00:00Z"
   }
 ]
