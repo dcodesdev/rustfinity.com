@@ -1,12 +1,6 @@
 use std::fmt::Display;
 
 #[derive(Debug, PartialEq)]
-pub struct VarDetails {
-    pub name: String,
-    pub used: bool,
-}
-
-#[derive(Debug, PartialEq)]
 pub enum LocalVariable {
     Str {
         name: String,
@@ -43,6 +37,17 @@ pub enum LocalVariable {
     },
 }
 
+#[derive(Debug, PartialEq)]
+pub enum Value {
+    Str(String),
+    Int(usize),
+    Float(f64),
+    Char(char),
+    Bool(bool),
+    Closure,
+    Other,
+}
+
 impl LocalVariable {
     pub fn is_used(&self) -> bool {
         match self {
@@ -68,15 +73,15 @@ impl LocalVariable {
         }
     }
 
-    pub fn value(&self) -> String {
+    pub fn value(&self) -> Value {
         match self {
-            LocalVariable::Str { value, .. } => value.clone(),
-            LocalVariable::Int { value, .. } => value.to_string(),
-            LocalVariable::Float { value, .. } => value.to_string(),
-            LocalVariable::Char { value, .. } => value.to_string(),
-            LocalVariable::Bool { value, .. } => value.to_string(),
-            LocalVariable::Closure { .. } => "closure".to_string(),
-            LocalVariable::Other { .. } => "other".to_string(),
+            LocalVariable::Str { value, .. } => Value::Str(value.clone()),
+            LocalVariable::Int { value, .. } => Value::Int(*value),
+            LocalVariable::Float { value, .. } => Value::Float(*value),
+            LocalVariable::Char { value, .. } => Value::Char(*value),
+            LocalVariable::Bool { value, .. } => Value::Bool(*value),
+            LocalVariable::Closure { .. } => Value::Closure,
+            LocalVariable::Other { .. } => Value::Other,
         }
     }
 }
