@@ -1,4 +1,4 @@
 mod syntest;
 
-pub use syntest::LocalValue;
+pub use syntest::LocalVariable;
 pub use syntest::Syntest;
