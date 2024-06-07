@@ -16,97 +16,10 @@ impl Syntest {
         })
     }
 
-    pub fn get_local_value(&self, fn_name: &str, local_name: &str) -> Option<LocalVariable> {
-        let mut used = false;
-        let mut local_value: Option<LocalVariable> = None;
-
-        self.file.items.iter().for_each(|item| {
-            if let Item::Fn(f) = item {
-                f.block.stmts.iter().for_each(|stmt| {
-                    if let Stmt::Expr(expr, _) = stmt {
-                        match expr {
-                            Expr::Binary(expr_binary) => {
-                                if let Expr::Path(expr_path) = *expr_binary.left.clone() {
-                                    expr_path.path.segments.iter().for_each(|path_segment| {
-                                        if path_segment.ident == local_name {
-                                            used = true;
-                                        }
-                                    });
-                                }
-                            }
-                            _ => {}
-                        }
-                    }
-
-                    if let Stmt::Local(local) = stmt {
-                        if f.sig.ident == fn_name {
-                            if let Pat::Ident(pat) = &local.pat {
-                                if pat.ident != local_name {
-                                    return;
-                                }
-
-                                if let Some(init) = &local.init {
-                                    match *init.expr.clone() {
-                                        Expr::Lit(expr_lit) => match expr_lit.lit {
-                                            Lit::Str(lit_str) => {
-                                                local_value = Some(LocalVariable::Str {
-                                                    name: pat.ident.to_string(),
-                                                    value: lit_str.value(),
-                                                    used,
-                                                });
-                                            }
-                                            Lit::Int(lit_int) => {
-                                                local_value = Some(LocalVariable::Int {
-                                                    name: pat.ident.to_string(),
-                                                    value: lit_int.base10_parse().unwrap(),
-                                                    used,
-                                                });
-                                            }
-                                            Lit::Float(lit_float) => {
-                                                local_value = Some(LocalVariable::Float {
-                                                    name: pat.ident.to_string(),
-                                                    value: lit_float.base10_parse().unwrap(),
-                                                    used,
-                                                });
-                                            }
-                                            Lit::Char(lit_char) => {
-                                                local_value = Some(LocalVariable::Char {
-                                                    name: pat.ident.to_string(),
-                                                    value: lit_char.value(),
-                                                    used,
-                                                });
-                                            }
-                                            Lit::Bool(lit_bool) => {
-                                                local_value = Some(LocalVariable::Bool {
-                                                    name: pat.ident.to_string(),
-                                                    value: lit_bool.value(),
-                                                    used,
-                                                });
-                                            }
-                                            _ => {}
-                                        },
-                                        Expr::Closure(_) => {
-                                            local_value = Some(LocalVariable::Closure {
-                                                name: pat.ident.to_string(),
-                                                used,
-                                            });
-                                        }
-                                        _ => {
-                                            local_value = Some(LocalVariable::Other {
-                                                name: pat.ident.to_string(),
-                                                used,
-                                            });
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                })
-            }
-        });
-
-        local_value
+    pub fn from_code(code: &str) -> anyhow::Result<Self> {
+        Ok(Self {
+            file: parse_file(code)?,
+        })
     }
 
     pub fn expr<F>(&self, mut handler: F)
@@ -189,7 +102,7 @@ impl Syntest {
 
     /// Finds all variables defined in a function block
     /// and checks if they are used or not
-    pub fn find_variables(&self, fn_name: &str) -> Vec<LocalVariable> {
+    pub fn variables(&self, fn_name: &str) -> Vec<LocalVariable> {
         let mut variables = Vec::new();
 
         self.func_stmts(fn_name, |_, stmt| match stmt {
@@ -246,11 +159,11 @@ impl Syntest {
                             }
                             Expr::Binary(expr_binary) => {
                                 if let Expr::Path(expr_path) = *expr_binary.left.clone() {
-                                    self.match_expr(&mut variables, &expr_path.path.segments);
+                                    self.match_segments(&mut variables, &expr_path.path.segments);
                                 }
 
                                 if let Expr::Path(expr_path) = *expr_binary.right.clone() {
-                                    self.match_expr(&mut variables, &expr_path.path.segments);
+                                    self.match_segments(&mut variables, &expr_path.path.segments);
                                 }
 
                                 local_value = Some(LocalVariable::Other {
@@ -278,26 +191,34 @@ impl Syntest {
                     variables.push(local_value);
                 }
             }
-            Stmt::Expr(expr, _) => match expr {
-                Expr::Binary(binary_expr) => {
-                    if let Expr::Path(expr_path) = *binary_expr.left.clone() {
-                        self.match_expr(&mut variables, &expr_path.path.segments);
-                    }
-
-                    if let Expr::Path(expr_path) = *binary_expr.right.clone() {
-                        self.match_expr(&mut variables, &expr_path.path.segments);
-                    }
-                }
-                Expr::Path(path_expr) => {
-                    self.match_expr(&mut variables, &path_expr.path.segments);
-                }
-                _ => {}
-            },
-
+            Stmt::Expr(expr, _) => self.match_expr(expr, &mut variables),
             _ => {}
         });
 
         variables
+    }
+
+    fn match_expr(&self, expr: &Expr, variables: &mut Vec<LocalVariable>) {
+        match expr {
+            Expr::Binary(binary_expr) => {
+                if let Expr::Path(expr_path) = *binary_expr.left.clone() {
+                    self.match_segments(variables, &expr_path.path.segments);
+                }
+
+                if let Expr::Path(expr_path) = *binary_expr.right.clone() {
+                    self.match_segments(variables, &expr_path.path.segments);
+                }
+            }
+            Expr::Path(path_expr) => {
+                self.match_segments(variables, &path_expr.path.segments);
+            }
+            Expr::Return(return_expr) => {
+                if let Some(expr) = return_expr.expr.clone() {
+                    self.match_expr(&expr, variables)
+                }
+            }
+            _ => {}
+        }
     }
 
     fn create_var_from_segments(
@@ -313,7 +234,7 @@ impl Syntest {
         });
     }
 
-    fn match_expr(
+    fn match_segments(
         &self,
         variables: &mut Vec<LocalVariable>,
         segments: &Punctuated<PathSegment, PathSep>,
@@ -423,144 +344,182 @@ pub enum LocalVariable {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use std::io::Write;
-    use tempfile::NamedTempFile;
-
-    fn write_temp_test_file(content: &str) -> NamedTempFile {
-        let mut temp_file = NamedTempFile::new().expect("Unable to create temp file");
-        write!(temp_file, "{}", content).expect("Unable to write to temp file");
-        temp_file
-    }
 
     #[test]
     fn test_get_local_value_str() {
-        let content = r#"
+        let content: &str = r#"
         pub fn test_fn() {
             let my_local_str = "local";
         }
         "#;
-        let temp_file = write_temp_test_file(content);
-        let syntest = Syntest::new(temp_file.path().to_path_buf()).unwrap();
+        let vars = Syntest::from_code(content).unwrap().variables("test_fn");
 
-        assert_eq!(
-            syntest.get_local_value("test_fn", "my_local_str").unwrap(),
-            LocalVariable::Str {
-                name: "my_local_str".to_string(),
-                value: "local".to_string(),
-                used: false
+        vars.iter().for_each(|var| match var {
+            LocalVariable::Str { name, value, used } => {
+                assert_eq!(name, "my_local_str");
+                assert_eq!(value, "local");
+                assert_eq!(*used, false);
             }
-        );
+            _ => {
+                panic!("Invalid variable type")
+            }
+        })
     }
 
     #[test]
-    fn test_get_local_value_int() {
+    fn test_multiple_values() {
         let content = r#"
         pub fn test_fn() {
             let my_local_int = 42;
+            let another_local_int = 10;
+            let local_str = "string";
+
+            let re_assigned = my_local_int + another_local_int;
         }
         "#;
-        let temp_file = write_temp_test_file(content);
-        let syntest = Syntest::new(temp_file.path().to_path_buf()).unwrap();
 
-        assert_eq!(
-            syntest.get_local_value("test_fn", "my_local_int").unwrap(),
-            LocalVariable::Int {
-                name: "my_local_int".to_string(),
-                value: 42,
-                used: false
+        let vars = Syntest::from_code(content).unwrap().variables("test_fn");
+
+        vars.iter().for_each(|var| match var {
+            LocalVariable::Int { name, value, used } => match name.as_str() {
+                "my_local_int" => {
+                    assert_eq!(*value, 42);
+                    assert_eq!(*used, true);
+                }
+                "another_local_int" => {
+                    assert_eq!(*value, 10);
+                    assert_eq!(*used, true);
+                }
+                _ => {
+                    panic!("Invalid variable name")
+                }
+            },
+            LocalVariable::Str { name, value, used } => {
+                assert_eq!(name, "local_str");
+                assert_eq!(value, "string");
+                assert_eq!(*used, false);
             }
-        );
-    }
-
-    #[test]
-    fn test_get_local_value_float() {
-        let content = r#"
-        pub fn test_fn() {
-            let my_local_float = 3.14;
-        }
-        "#;
-        let temp_file = write_temp_test_file(content);
-        let syntest = Syntest::new(temp_file.path().to_path_buf()).unwrap();
-
-        assert_eq!(
-            syntest
-                .get_local_value("test_fn", "my_local_float")
-                .unwrap(),
-            LocalVariable::Float {
-                name: "my_local_float".to_string(),
-                value: 3.14,
-                used: false
+            LocalVariable::Other { name, used } => {
+                assert_eq!(name, "re_assigned");
+                assert_eq!(*used, false);
             }
-        );
-    }
-
-    #[test]
-    fn test_get_local_value_char() {
-        let content = r#"
-        pub fn test_fn() {
-            let my_local_char = 'a';
-        }
-        "#;
-        let temp_file = write_temp_test_file(content);
-        let syntest = Syntest::new(temp_file.path().to_path_buf()).unwrap();
-
-        assert_eq!(
-            syntest.get_local_value("test_fn", "my_local_char").unwrap(),
-            LocalVariable::Char {
-                name: "my_local_char".to_string(),
-                value: 'a',
-                used: false
+            _ => {
+                panic!("Invalid variable type")
             }
-        );
+        })
     }
 
     #[test]
-    fn test_get_local_value_bool() {
+    fn test_return_tail() {
         let content = r#"
         pub fn test_fn() {
-            let my_local_bool = true;
+            let my_local_int = 42;
+            let another_local_int = 10;
+            let local_str = "string";
+
+            let re_assigned = my_local_int + another_local_int;
+
+            re_assigned
         }
         "#;
-        let temp_file = write_temp_test_file(content);
-        let syntest = Syntest::new(temp_file.path().to_path_buf()).unwrap();
 
-        assert_eq!(
-            syntest.get_local_value("test_fn", "my_local_bool").unwrap(),
-            LocalVariable::Bool {
-                name: "my_local_bool".to_string(),
-                value: true,
-                used: false
+        let vars = Syntest::from_code(content).unwrap().variables("test_fn");
+
+        let mut asserted = false;
+
+        vars.iter().for_each(|var| match var {
+            LocalVariable::Other { name, used } => {
+                assert_eq!(name, "re_assigned");
+                assert_eq!(*used, true);
+                asserted = true;
             }
-        );
+            _ => {}
+        });
+
+        if !asserted {
+            panic!("No return value found");
+        }
     }
 
     #[test]
-    fn test_get_local_value_non_existent_variable() {
+    fn test_return_keyword() {
         let content = r#"
         pub fn test_fn() {
-            let my_local_bool = true;
+            let my_local_int = 42;
+            let another_local_int = 10;
+            let local_str = "string";
+
+            let re_assigned = my_local_int + another_local_int;
+
+            return re_assigned;
         }
         "#;
-        let temp_file = write_temp_test_file(content);
-        let syntest = Syntest::new(temp_file.path().to_path_buf()).unwrap();
 
-        assert!(syntest
-            .get_local_value("test_fn", "non_existent_var")
-            .is_none());
-    }
+        let vars = Syntest::from_code(content).unwrap().variables("test_fn");
 
-    #[test]
-    fn test_get_local_value_non_existent_function() {
-        let content = r#"
-        pub fn test_fn() {
-            let my_local_bool = true;
+        let mut asserted = false;
+
+        vars.iter().for_each(|var| match var {
+            LocalVariable::Other { name, used } => {
+                assert_eq!(name, "re_assigned");
+                assert_eq!(*used, true);
+                asserted = true;
+            }
+            _ => {}
+        });
+
+        if !asserted {
+            panic!("No return value found");
         }
-        "#;
-        let temp_file = write_temp_test_file(content);
-        let syntest = Syntest::new(temp_file.path().to_path_buf()).unwrap();
-
-        assert!(syntest
-            .get_local_value("non_existent_fn", "my_local_bool")
-            .is_none());
     }
+
+    // #[test]
+    // fn test_get_local_value_bool() {
+    //     let content = r#"
+    //     pub fn test_fn() {
+    //         let my_local_bool = true;
+    //     }
+    //     "#;
+    //     let temp_file = write_temp_test_file(content);
+    //     let syntest = Syntest::new(temp_file.path().to_path_buf()).unwrap();
+
+    //     assert_eq!(
+    //         syntest.get_local_value("test_fn", "my_local_bool").unwrap(),
+    //         LocalVariable::Bool {
+    //             name: "my_local_bool".to_string(),
+    //             value: true,
+    //             used: false
+    //         }
+    //     );
+    // }
+
+    // #[test]
+    // fn test_get_local_value_non_existent_variable() {
+    //     let content = r#"
+    //     pub fn test_fn() {
+    //         let my_local_bool = true;
+    //     }
+    //     "#;
+    //     let temp_file = write_temp_test_file(content);
+    //     let syntest = Syntest::new(temp_file.path().to_path_buf()).unwrap();
+
+    //     assert!(syntest
+    //         .get_local_value("test_fn", "non_existent_var")
+    //         .is_none());
+    // }
+
+    // #[test]
+    // fn test_get_local_value_non_existent_function() {
+    //     let content = r#"
+    //     pub fn test_fn() {
+    //         let my_local_bool = true;
+    //     }
+    //     "#;
+    //     let temp_file = write_temp_test_file(content);
+    //     let syntest = Syntest::new(temp_file.path().to_path_buf()).unwrap();
+
+    //     assert!(syntest
+    //         .get_local_value("non_existent_fn", "my_local_bool")
+    //         .is_none());
+    // }
 }
