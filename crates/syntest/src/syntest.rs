@@ -276,49 +276,83 @@ impl Syntest {
         segments.iter().for_each(&mut check_segment);
     }
 
-    pub fn var_exists(&self, fn_name: &str, var_name: &str) -> bool {
+    pub fn var_details(&self, fn_name: &str, var_name: &str) -> Option<VarDetails> {
         let vars = self.variables(fn_name);
-        let mut exists = false;
 
-        vars.iter().for_each(|var| match var {
-            LocalVariable::Str { name, .. } => {
+        let variable = vars.iter().find_map(|var| match var {
+            LocalVariable::Str { name, used, .. } => {
                 if name == var_name {
-                    exists = true;
+                    Some(VarDetails {
+                        name: name.clone(),
+                        used: *used,
+                    })
+                } else {
+                    None
                 }
             }
-            LocalVariable::Int { name, .. } => {
+            LocalVariable::Int { name, used, .. } => {
                 if name == var_name {
-                    exists = true;
+                    Some(VarDetails {
+                        name: name.clone(),
+                        used: *used,
+                    })
+                } else {
+                    None
                 }
             }
-            LocalVariable::Float { name, .. } => {
+            LocalVariable::Float { name, used, .. } => {
                 if name == var_name {
-                    exists = true;
+                    Some(VarDetails {
+                        name: name.clone(),
+                        used: *used,
+                    })
+                } else {
+                    None
                 }
             }
-            LocalVariable::Char { name, .. } => {
+            LocalVariable::Char { name, used, .. } => {
                 if name == var_name {
-                    exists = true;
+                    Some(VarDetails {
+                        name: name.clone(),
+                        used: *used,
+                    })
+                } else {
+                    None
                 }
             }
-            LocalVariable::Bool { name, .. } => {
+            LocalVariable::Bool { name, used, .. } => {
                 if name == var_name {
-                    exists = true;
+                    Some(VarDetails {
+                        name: name.clone(),
+                        used: *used,
+                    })
+                } else {
+                    None
                 }
             }
-            LocalVariable::Closure { name, .. } => {
+            LocalVariable::Closure { name, used, .. } => {
                 if name == var_name {
-                    exists = true;
+                    Some(VarDetails {
+                        name: name.clone(),
+                        used: *used,
+                    })
+                } else {
+                    None
                 }
             }
-            LocalVariable::Other { name, .. } => {
+            LocalVariable::Other { name, used, .. } => {
                 if name == var_name {
-                    exists = true;
+                    Some(VarDetails {
+                        name: name.clone(),
+                        used: *used,
+                    })
+                } else {
+                    None
                 }
             }
         });
 
-        exists
+        variable
     }
 }
 
@@ -326,6 +360,12 @@ impl From<&str> for Syntest {
     fn from(path: &str) -> Self {
         Syntest::new(PathBuf::from(path)).unwrap()
     }
+}
+
+#[derive(Debug, PartialEq)]
+pub struct VarDetails {
+    name: String,
+    used: bool,
 }
 
 #[derive(Debug, PartialEq)]
@@ -512,7 +552,7 @@ mod tests {
     }
 
     #[test]
-    fn test_var_exists() {
+    fn test_var_details() {
         let content = r#"
         pub fn test_fn() {
             let my_local_int = 42;
@@ -527,10 +567,23 @@ mod tests {
 
         let syntest = Syntest::from_code(content).unwrap();
 
-        assert_eq!(syntest.var_exists("test_fn", "my_local_int"), true);
-        assert_eq!(syntest.var_exists("test_fn", "another_local_int"), true);
-        assert_eq!(syntest.var_exists("test_fn", "local_str"), true);
-        assert_eq!(syntest.var_exists("test_fn", "re_assigned"), true);
-        assert_eq!(syntest.var_exists("test_fn", "non_existent"), false);
+        let vars = [
+            "my_local_int",
+            "another_local_int",
+            "local_str",
+            "re_assigned",
+        ];
+
+        vars.iter().for_each(|&var| {
+            let details = syntest.var_details("test_fn", var).unwrap();
+
+            if var == "local_str" {
+                assert_eq!(details.used, false);
+            } else {
+                assert_eq!(details.used, true);
+            }
+
+            assert_eq!(details.name, var);
+        })
     }
 }
