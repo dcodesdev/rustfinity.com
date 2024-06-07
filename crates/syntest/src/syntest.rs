@@ -472,4 +472,46 @@ mod tests {
             assert_eq!(details.name(), var);
         })
     }
+
+    #[test]
+    fn test_multiple_math_ops() {
+        let content = r#"
+        pub fn test_fn() {
+            let my_local_int = 42;
+            let another_local_int = 10;
+            let local_str = "string";
+
+            let re_assigned = my_local_int + another_local_int;
+            let re_assigned2 = re_assigned * 2;
+            let re_assigned3 = re_assigned2 / 2;
+            let re_assigned4 = re_assigned3 - 2;
+
+            return re_assigned4;
+        }
+        "#;
+
+        let syntest = Syntest::from_code(content).unwrap();
+
+        let vars = [
+            "my_local_int",
+            "another_local_int",
+            "local_str",
+            "re_assigned",
+            "re_assigned2",
+            "re_assigned3",
+            "re_assigned4",
+        ];
+
+        vars.iter().for_each(|&var| {
+            let details = syntest.var_details("test_fn", var).unwrap();
+
+            if var == "local_str" {
+                assert_eq!(details.is_used(), false);
+            } else {
+                assert_eq!(details.is_used(), true);
+            }
+
+            assert_eq!(details.name(), var, "Variable name mismatch");
+        })
+    }
 }
