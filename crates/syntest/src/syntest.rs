@@ -1,10 +1,11 @@
-use std::fmt::Display;
 use std::fs;
 use std::path::PathBuf;
 use syn::{
     parse_file, punctuated::Punctuated, token::PathSep, Expr, Item, ItemFn, Lit, Pat, PathSegment,
     Stmt,
 };
+
+use crate::var::{LocalVariable, VarDetails};
 
 pub struct Syntest {
     pub file: syn::File,
@@ -360,93 +361,6 @@ impl Syntest {
 impl From<&str> for Syntest {
     fn from(path: &str) -> Self {
         Syntest::new(PathBuf::from(path)).unwrap()
-    }
-}
-
-#[derive(Debug, PartialEq)]
-pub struct VarDetails {
-    pub name: String,
-    pub used: bool,
-}
-
-#[derive(Debug, PartialEq)]
-pub enum LocalVariable {
-    Str {
-        name: String,
-        value: String,
-        used: bool,
-    },
-    Int {
-        name: String,
-        value: usize,
-        used: bool,
-    },
-    Float {
-        name: String,
-        value: f64,
-        used: bool,
-    },
-    Char {
-        name: String,
-        value: char,
-        used: bool,
-    },
-    Bool {
-        name: String,
-        value: bool,
-        used: bool,
-    },
-    Closure {
-        name: String,
-        used: bool,
-    },
-    Other {
-        name: String,
-        used: bool,
-    },
-}
-
-impl LocalVariable {
-    pub fn is_used(&self) -> bool {
-        match self {
-            LocalVariable::Str { used, .. } => *used,
-            LocalVariable::Int { used, .. } => *used,
-            LocalVariable::Float { used, .. } => *used,
-            LocalVariable::Char { used, .. } => *used,
-            LocalVariable::Bool { used, .. } => *used,
-            LocalVariable::Closure { used, .. } => *used,
-            LocalVariable::Other { used, .. } => *used,
-        }
-    }
-
-    pub fn name(&self) -> &str {
-        match self {
-            LocalVariable::Str { name, .. } => name,
-            LocalVariable::Int { name, .. } => name,
-            LocalVariable::Float { name, .. } => name,
-            LocalVariable::Char { name, .. } => name,
-            LocalVariable::Bool { name, .. } => name,
-            LocalVariable::Closure { name, .. } => name,
-            LocalVariable::Other { name, .. } => name,
-        }
-    }
-
-    pub fn value(&self) -> String {
-        match self {
-            LocalVariable::Str { value, .. } => value.clone(),
-            LocalVariable::Int { value, .. } => value.to_string(),
-            LocalVariable::Float { value, .. } => value.to_string(),
-            LocalVariable::Char { value, .. } => value.to_string(),
-            LocalVariable::Bool { value, .. } => value.to_string(),
-            LocalVariable::Closure { .. } => "closure".to_string(),
-            LocalVariable::Other { .. } => "other".to_string(),
-        }
-    }
-}
-
-impl Display for LocalVariable {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{}", self.name())
     }
 }
 
