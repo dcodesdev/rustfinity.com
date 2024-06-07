@@ -7,3 +7,4 @@ edition = "2021"
 
 [dev-dependencies]
 syntest = { path = "../../crates/syntest" }
+syn = "2.0.66"

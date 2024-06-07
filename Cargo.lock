@@ -251,6 +251,7 @@ version = "0.1.0"
 name = "declaring-variables"
 version = "0.1.0"
 dependencies = [
+ "syn",
  "syntest",
 ]
 
