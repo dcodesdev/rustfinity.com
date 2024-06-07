@@ -12,6 +12,8 @@ Your task is to write a function `solve_maze` that takes a **2D vector of charac
 - You can only move **up, down, left, or right**.
 - Implement the function using appropriate control flow constructs **(loops, conditionals, and/or recursion)**.
 - Ensure your solution **handles edge cases**, such as no available path or mazes with various sizes.
+- If the maze is a dead-end, return an empty vector.
+- If the maze has multiple solutions, return the shortest path.
 
 ## Example
 
