@@ -1,5 +1,5 @@
 use declaring_variables::*;
-use syntest::{LocalValue, Syntest};
+use syntest::Syntest;
 
 #[test]
 fn test_calculate_area() {
@@ -7,15 +7,22 @@ fn test_calculate_area() {
 }
 
 #[test]
-fn test_variable_width() {
+fn test_variables() {
     let syntest = Syntest::from("./src/lib.rs");
 
-    assert_eq!(
-        syntest.get_local_value("calculate_area", "width").unwrap(),
-        LocalValue::Int(10)
-    );
-    assert_eq!(
-        syntest.get_local_value("calculate_area", "height").unwrap(),
-        LocalValue::Int(5)
-    );
+    // expect all vars to be used
+    let vars = syntest.variables("calculate_area");
+    vars.iter().for_each(|var| {
+        assert_eq!(var.is_used(), true);
+    });
+
+    let variables_to_exist = ["height", "width"];
+    variables_to_exist.iter().for_each(|&v| {
+        let var = syntest
+            .var_details("calculate_area", v)
+            .expect(&format!("Variable {} does not exist", v));
+
+        assert_eq!(var.name, v);
+        assert_eq!(var.used, true);
+    });
 }
