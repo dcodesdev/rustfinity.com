@@ -1,3 +1,4 @@
+use proc_macro2::TokenTree;
 use std::fmt::Display;
 
 #[derive(Debug, PartialEq)]
@@ -44,8 +45,28 @@ pub enum Value {
     Float(f64),
     Char(char),
     Bool(bool),
+    Vec(Vec<Value>),
     Closure,
     Other,
+}
+
+impl From<TokenTree> for Value {
+    fn from(value: TokenTree) -> Self {
+        match value {
+            TokenTree::Group(group) => {
+                let mut tokens = Vec::new();
+
+                for token in group.stream() {
+                    tokens.push(Value::from(token));
+                }
+
+                Value::Vec(tokens)
+            }
+            TokenTree::Ident(ident) => Value::Str(ident.to_string()),
+            TokenTree::Literal(lit) => Value::Str(lit.to_string()),
+            TokenTree::Punct(punct) => Value::Char(punct.as_char()),
+        }
+    }
 }
 
 impl LocalVariable {

@@ -1180,6 +1180,7 @@ name = "syntest"
 version = "0.1.0"
 dependencies = [
  "anyhow",
+ "proc-macro2",
  "syn",
 ]
 
