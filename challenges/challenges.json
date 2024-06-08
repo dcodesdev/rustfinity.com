@@ -27,7 +27,7 @@
     "id": 23,
     "title": "Mutable Variables",
     "slug": "mutable-variables",
-    "short_description": "Declare and manipulate mutable variables in Rust.",
+    "short_description": "Define and modify mutable variables in Rust.",
     "language": "RUST",
     "difficulty": "EASY",
     "track": "RUST_BASICS",

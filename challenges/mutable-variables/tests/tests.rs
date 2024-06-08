@@ -17,35 +17,23 @@ mod tests {
             .variables("mutating_variables")
             .iter()
             .for_each(|var| match var {
-                LocalVariable::Int { .. } => match var.name() {
-                    "x" => {
+                LocalVariable::Str { value, .. } => match var.name() {
+                    "text" => {
                         assert_eq!(
-                            var.value(),
-                            Value::Int(15),
-                            "Expected x to be 15, got {}",
-                            var.value()
+                            value.as_str(),
+                            "bye",
+                            "Expected text to be 'bye', got {}",
+                            value.as_str()
                         );
-                        assert!(var.is_used(), "Expected x to be used");
-                        assert!(var.is_mutable(), "Expected x to be mutable");
+                        assert!(var.is_used(), "Expected 'text' to be used");
+                        assert!(var.is_mutable(), "Expected 'text' to be mutable");
                         assert_eq!(
                             var.mutations(),
-                            &vec![Mutation::new(Value::Int(5), Value::Int(15))],
-                            "Expected variable x to have a mutation from 5 to 15.",
-                        );
-                    }
-                    "y" => {
-                        assert_eq!(
-                            var.value(),
-                            Value::Int(20),
-                            "Expected y to be 20, got {}",
-                            var.value()
-                        );
-                        assert!(var.is_used(), "Expected y to be used");
-                        assert!(var.is_mutable(), "Expected y to be mutable");
-                        assert_eq!(
-                            var.mutations(),
-                            &vec![Mutation::new(Value::Int(10), Value::Int(20))],
-                            "Expected variable y to have a mutation from 10 to 20."
+                            &vec![Mutation::new(
+                                Value::Str("hello".to_string()),
+                                Value::Str("bye".to_string())
+                            )],
+                            "Expected variable 'text' to have mutated from 'hello' to 'bye'",
                         );
                     }
                     _ => {
@@ -55,6 +43,55 @@ mod tests {
                 _ => {
                     panic!("Unexpected type for variable {}.", var.name())
                 }
-            })
+            });
+
+        let macros = syntest.mac.macros("mutating_variables");
+
+        assert_eq!(
+            macros.len(),
+            2,
+            "Expected 2 println! macros to be used, got {}",
+            macros.len()
+        );
+
+        match &macros[..] {
+            [first, second] => {
+                // First macro should be println!("Text is: {}", "hello");
+                assert_eq!(first.tokens.len(), 3);
+                // will have 3 tokens: &str, , and "hello"
+                match &first.tokens[..] {
+                    [text_is, _comma, text] => {
+                        assert_eq!(text_is, "\"Text is: {}\"");
+                        assert_eq!(
+                            text, "text",
+                            "Expected text variable to be used in println!"
+                        );
+                    }
+                    _ => {
+                        panic!(
+                            "The println! macro should take exactly 2 arguments, got {} arguments",
+                            first.tokens.len()
+                        );
+                    }
+                }
+
+                // Second macro should be println!("Text is: {}", "bye");
+                assert_eq!(second.tokens.len(), 3);
+                // will have 3 tokens: &str, , and "bye"
+                match &second.tokens[..] {
+                    [text_is, _comma, bye] => {
+                        assert_eq!(text_is, "\"Text is: {}\"");
+                        assert_eq!(bye, "text", "Expected text variable to be used in println!");
+                    }
+                    _ => {
+                        panic!(
+                            "The println! macro should take exactly 2 arguments, got {} arguments",
+                            second.tokens.len()
+                        );
+                    }
+                }
+            }
+            _ => panic!("Expected 2 println! macros, got {}", macros.len()),
+        }
     }
 }

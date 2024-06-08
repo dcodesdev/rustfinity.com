@@ -1,12 +1,7 @@
-pub fn mutating_variables() -> i32 {
-    // Steps:
-    // 1. Declare x as a mutable variable and assign it the value 5
+pub fn mutating_variables() -> String {
+    // Declare a mutable variable `text` and assign it the value "hello"
 
-    // 2. Declare y as a mutable variable and assign it the value 10
+    // Reassign the value of `text` to "bye"
 
-    // 3. Increment x by 10
-
-    // 4. Multiply y by 2
-
-    // 5. Return the calculated sum
+    // Return the final value of `text`
 }

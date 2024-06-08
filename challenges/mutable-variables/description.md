@@ -6,37 +6,25 @@ In this challenge, you will declare and use **mutable variables in Rust**. You w
 
 ## Your task
 
-In this challenge, you need to declare two mutable variables inside the function using the `let mut` keyword:
+In this challenge, you need to declare one mutable variable inside the function using the `let mut` keyword:
 
-- `x` with an initial value of `5`
-- `y` with an initial value of `10`
+- `text` with an initial value of `"hello"`
+- Print it to the console using the `println!` macro.
+- Mutate the variable to `"bye"`.
+- Print the variable again to the console using the `println!` macro.
+- Return the final value of the variable.
 
-Then, perform the following operations:
+### Println! Macro
 
-1. Increment `x` by `10`
-2. Multiply `y` by `2`
-
-Finally, calculate the sum of `x` and `y` and return the result.
-
-## Requirements
-
-- Declare two mutable variables, `x` and `y`, and assign them initial values.
-- Increment `x` by `10`.
-- Multiply `y` by `2`.
-- Calculate the sum of `x` and `y`.
-- Return the calculated sum.
-
-## Example
+The `println!` macro is used to print text to the console. It is similar to the `println` function in other programming languages. The `println!` macro is used to print formatted text to the console.
 
 ```rust
-let result = manipulate_variables();
-assert_eq!(result, 35);
+println!("Hello, World!");
 ```
 
 ## Hints
 
-- Use the `let mut` keyword to declare **mutable variables**.
-- Use the `+=` operator to increment a variable.
-- Use the `\*=` operator to multiply a variable.
-- Calculate the sum of `x` and `y` using the `+` operator.
-- Either use a `return` statement or an **expression at the end without a semicolon** to return the result.
+- Use the `let mut` keyword to declare a mutable variable.
+- Reassign the variable directly by using the `=` operator.
+- Ensure to return the final value of the variable from the function.
+- Use `println!` statements to debug and check the values during reassignment.

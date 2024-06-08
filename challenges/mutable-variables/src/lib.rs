@@ -1,9 +1,11 @@
-pub fn mutating_variables() -> i32 {
-    let mut x = 5;
-    let mut y = 10;
+pub fn mutating_variables() -> &'static str {
+    let mut text = "hello";
 
-    x += 10;
-    y *= 2;
+    println!("Text is: {}", text);
 
-    x + y
+    text = "bye";
+
+    println!("Text is: {}", text);
+
+    text
 }
