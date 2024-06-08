@@ -45,37 +45,6 @@ pub enum LocalVariable {
     },
 }
 
-#[derive(Debug, PartialEq)]
-pub enum Value {
-    Str(String),
-    Int(usize),
-    Float(f64),
-    Char(char),
-    Bool(bool),
-    Vec(Vec<Value>),
-    Closure,
-    Other,
-}
-
-impl From<TokenTree> for Value {
-    fn from(value: TokenTree) -> Self {
-        match value {
-            TokenTree::Group(group) => {
-                let mut tokens = Vec::new();
-
-                for token in group.stream() {
-                    tokens.push(Value::from(token));
-                }
-
-                Value::Vec(tokens)
-            }
-            TokenTree::Ident(ident) => Value::Str(ident.to_string()),
-            TokenTree::Literal(lit) => Value::Str(lit.to_string()),
-            TokenTree::Punct(punct) => Value::Char(punct.as_char()),
-        }
-    }
-}
-
 impl LocalVariable {
     pub fn is_used(&self) -> bool {
         match self {
@@ -122,6 +91,49 @@ impl LocalVariable {
             LocalVariable::Bool { mutable, .. } => *mutable,
             LocalVariable::Closure { mutable, .. } => *mutable,
             LocalVariable::Other { mutable, .. } => *mutable,
+        }
+    }
+
+    pub fn set_to_used(&mut self) {
+        match self {
+            LocalVariable::Str { used, .. } => *used = true,
+            LocalVariable::Int { used, .. } => *used = true,
+            LocalVariable::Float { used, .. } => *used = true,
+            LocalVariable::Char { used, .. } => *used = true,
+            LocalVariable::Bool { used, .. } => *used = true,
+            LocalVariable::Closure { used, .. } => *used = true,
+            LocalVariable::Other { used, .. } => *used = true,
+        }
+    }
+}
+
+#[derive(Debug, PartialEq)]
+pub enum Value {
+    Str(String),
+    Int(usize),
+    Float(f64),
+    Char(char),
+    Bool(bool),
+    Vec(Vec<Value>),
+    Closure,
+    Other,
+}
+
+impl From<TokenTree> for Value {
+    fn from(value: TokenTree) -> Self {
+        match value {
+            TokenTree::Group(group) => {
+                let mut tokens = Vec::new();
+
+                for token in group.stream() {
+                    tokens.push(Value::from(token));
+                }
+
+                Value::Vec(tokens)
+            }
+            TokenTree::Ident(ident) => Value::Str(ident.to_string()),
+            TokenTree::Literal(lit) => Value::Str(lit.to_string()),
+            TokenTree::Punct(punct) => Value::Char(punct.as_char()),
         }
     }
 }
