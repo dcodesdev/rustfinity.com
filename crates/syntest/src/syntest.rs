@@ -24,27 +24,6 @@ impl Syntest {
         })
     }
 
-    pub fn expr<F>(&self, mut handler: F)
-    where
-        F: FnMut(&Expr),
-    {
-        self.file.items.iter().for_each(|item| {
-            let mut ran = false;
-            if let Item::Fn(f) = item {
-                f.block.stmts.iter().for_each(|stmt| {
-                    if let Stmt::Expr(expr, _) = stmt {
-                        handler(expr);
-                        ran = true;
-                    }
-                })
-            }
-
-            if !ran {
-                panic!("No expression found");
-            }
-        })
-    }
-
     pub fn func<F>(&self, fn_name: &str, mut handler: F)
     where
         F: FnMut(&ItemFn),
@@ -77,7 +56,7 @@ impl Syntest {
         });
 
         if !ran {
-            panic!("Function {} not found", fn_name);
+            panic!("No statements found for function {}", fn_name);
         }
     }
 
