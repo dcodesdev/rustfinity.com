@@ -1,4 +1,4 @@
-pub fn manipulate_variables() -> i32 {
+pub fn mutating_variables() -> i32 {
     let mut x = 5;
     let mut y = 10;
 

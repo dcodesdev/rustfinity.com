@@ -1,4 +1,4 @@
-pub fn manipulate_variables() -> i32 {
+pub fn mutating_variables() -> i32 {
     // Steps:
     // 1. Declare x as a mutable variable and assign it the value 5
 
@@ -8,7 +8,5 @@ pub fn manipulate_variables() -> i32 {
 
     // 4. Multiply y by 2
 
-    // 5. Calculate the sum of x and y
-
-    // 6. Return the calculated sum
+    // 5. Return the calculated sum
 }

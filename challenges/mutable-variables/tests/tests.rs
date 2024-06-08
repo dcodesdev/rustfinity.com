@@ -5,7 +5,7 @@ mod tests {
 
     #[test]
     fn test_compiles() {
-        manipulate_variables();
+        mutating_variables();
     }
 
     #[test]
@@ -53,7 +53,7 @@ mod tests {
                     }
                 },
                 _ => {
-                    panic!("Expected type to be an integer.")
+                    panic!("Unexpected type for variable {}.", var.name())
                 }
             })
     }
