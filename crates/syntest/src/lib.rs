@@ -1,3 +1,5 @@
+mod func;
+mod mac;
 mod syntest;
 mod var;
 

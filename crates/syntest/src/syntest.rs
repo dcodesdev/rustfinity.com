@@ -1,63 +1,32 @@
 use std::fs;
 use std::path::PathBuf;
-use syn::{
-    parse_file, punctuated::Punctuated, token::PathSep, Expr, Item, ItemFn, Lit, Pat, PathSegment,
-    Stmt,
-};
+use std::rc::Rc;
+use syn::{parse_file, punctuated::Punctuated, token::PathSep, Expr, Lit, Pat, PathSegment, Stmt};
 
-use crate::var::LocalVariable;
+use crate::{func::Func, mac::Mac, var::LocalVariable};
 
 pub struct Syntest {
-    pub file: syn::File,
+    pub file: Rc<syn::File>,
+    pub mac: Mac,
 }
 
 impl Syntest {
     pub fn new(path: PathBuf) -> anyhow::Result<Self> {
+        let file = Rc::new(parse_file(&fs::read_to_string(&path)?)?);
+
         Ok(Self {
-            file: parse_file(&fs::read_to_string(&path)?)?,
+            mac: Mac::new(Rc::clone(&file)),
+            file,
         })
     }
 
     pub fn from_code(code: &str) -> anyhow::Result<Self> {
+        let file = Rc::new(parse_file(code)?);
+
         Ok(Self {
-            file: parse_file(code)?,
+            mac: Mac::new(Rc::clone(&file)),
+            file: Rc::new(parse_file(code)?),
         })
-    }
-
-    pub fn func<F>(&self, fn_name: &str, mut handler: F)
-    where
-        F: FnMut(&ItemFn),
-    {
-        let mut ran = false;
-        self.file.items.iter().for_each(|item| {
-            if let Item::Fn(f) = item {
-                if f.sig.ident == fn_name {
-                    handler(f);
-                    ran = true;
-                }
-            }
-        });
-
-        if !ran {
-            panic!("Function {} not found", fn_name);
-        }
-    }
-
-    pub fn func_stmts<F>(&self, fn_name: &str, mut handler: F)
-    where
-        F: FnMut(&ItemFn, &Stmt),
-    {
-        let mut ran = false;
-        self.func(fn_name, |f| {
-            f.block.stmts.iter().for_each(|stmt| {
-                handler(f, stmt);
-                ran = true;
-            })
-        });
-
-        if !ran {
-            panic!("No statements found for function {}", fn_name);
-        }
     }
 
     /// Finds all variables defined in a function block
@@ -257,6 +226,12 @@ impl Syntest {
 impl From<&str> for Syntest {
     fn from(path: &str) -> Self {
         Syntest::new(PathBuf::from(path)).unwrap()
+    }
+}
+
+impl Func for Syntest {
+    fn file(&self) -> &Rc<syn::File> {
+        &self.file
     }
 }
 
