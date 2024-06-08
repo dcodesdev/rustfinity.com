@@ -56,12 +56,12 @@ mod tests {
 
         match &macros[..] {
             [first, second] => {
-                // First macro should be println!("Text is: {}", "hello");
+                // First macro should be println!("Text is {}", "hello");
                 assert_eq!(first.tokens.len(), 3);
                 // will have 3 tokens: &str, , and "hello"
                 match &first.tokens[..] {
                     [text_is, _comma, text] => {
-                        assert_eq!(text_is, "\"Text is: {}\"");
+                        assert_eq!(text_is, "\"Text is {}\"");
                         assert_eq!(
                             text, "text",
                             "Expected text variable to be used in println!"
@@ -75,12 +75,12 @@ mod tests {
                     }
                 }
 
-                // Second macro should be println!("Text is: {}", "bye");
+                // Second macro should be println!("Text is {}", "bye");
                 assert_eq!(second.tokens.len(), 3);
                 // will have 3 tokens: &str, , and "bye"
                 match &second.tokens[..] {
                     [text_is, _comma, bye] => {
-                        assert_eq!(text_is, "\"Text is: {}\"");
+                        assert_eq!(text_is, "\"Text is {}\"");
                         assert_eq!(bye, "text", "Expected text variable to be used in println!");
                     }
                     _ => {
