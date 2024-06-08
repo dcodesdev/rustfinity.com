@@ -1,5 +1,6 @@
 use proc_macro2::TokenTree;
 use std::fmt::Display;
+use syn::Lit;
 
 use crate::mutation::Mutation;
 
@@ -115,7 +116,7 @@ impl LocalVariable {
         }
     }
 
-    pub fn update_value(&mut self, new_value: Value) {
+    pub fn replace_value(&mut self, new_value: Value) {
         match self {
             LocalVariable::Str {
                 value, mutations, ..
@@ -168,6 +169,18 @@ impl LocalVariable {
             }
         }
     }
+
+    pub fn mutations(&self) -> &Vec<Mutation> {
+        match self {
+            LocalVariable::Str { mutations, .. } => mutations,
+            LocalVariable::Int { mutations, .. } => mutations,
+            LocalVariable::Float { mutations, .. } => mutations,
+            LocalVariable::Char { mutations, .. } => mutations,
+            LocalVariable::Bool { mutations, .. } => mutations,
+            LocalVariable::Closure { mutations, .. } => mutations,
+            LocalVariable::Other { mutations, .. } => mutations,
+        }
+    }
 }
 
 #[derive(Debug, PartialEq, Clone)]
@@ -197,6 +210,19 @@ impl From<TokenTree> for Value {
             TokenTree::Ident(ident) => Value::Str(ident.to_string()),
             TokenTree::Literal(lit) => Value::Str(lit.to_string()),
             TokenTree::Punct(punct) => Value::Char(punct.as_char()),
+        }
+    }
+}
+
+impl From<Lit> for Value {
+    fn from(lit: Lit) -> Self {
+        match lit {
+            Lit::Str(lit) => Value::Str(lit.value()),
+            Lit::Int(lit) => Value::Int(lit.base10_parse().unwrap()),
+            Lit::Float(lit) => Value::Float(lit.base10_parse().unwrap()),
+            Lit::Char(lit) => Value::Char(lit.value()),
+            Lit::Bool(lit) => Value::Bool(lit.value),
+            _ => Value::Other,
         }
     }
 }

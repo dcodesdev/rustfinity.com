@@ -1,7 +1,9 @@
 use std::fs;
 use std::path::PathBuf;
 use std::rc::Rc;
-use syn::{parse_file, punctuated::Punctuated, token::PathSep, Expr, Lit, Pat, PathSegment, Stmt};
+use syn::{
+    parse_file, punctuated::Punctuated, token::PathSep, BinOp, Expr, Lit, Pat, PathSegment, Stmt,
+};
 
 use crate::{func::Func, mac::Mac, var::LocalVariable, Value};
 
@@ -146,6 +148,20 @@ impl Syntest {
             Expr::Binary(binary_expr) => {
                 self.match_expr(&binary_expr.left, variables);
                 self.match_expr(&binary_expr.right, variables);
+
+                if let Expr::Lit(expr_lit) = &*binary_expr.right {
+                    if let Expr::Path(left_expr) = &*binary_expr.left {
+                        let segments = &left_expr.path.segments;
+                        let ident = segments.iter().last().unwrap().ident.to_string();
+
+                        self.update_value_by_op(
+                            variables,
+                            &ident,
+                            &binary_expr.op,
+                            self.lit_to_usize(&expr_lit.lit),
+                        );
+                    }
+                };
             }
             Expr::Path(path_expr) => {
                 self.set_used_by_segments(variables, &path_expr.path.segments);
@@ -161,7 +177,7 @@ impl Syntest {
                     let ident = segments.iter().last().unwrap().ident.to_string();
 
                     match &*assign_expr.right {
-                        Expr::Lit(lit) => self.update_value_by_lit(&lit.lit, variables, &ident),
+                        Expr::Lit(lit) => self.replace_value_by_lit(&lit.lit, variables, &ident),
                         Expr::Path(path_expr) => {
                             self.set_used_by_segments(variables, &path_expr.path.segments)
                         }
@@ -174,7 +190,7 @@ impl Syntest {
         }
     }
 
-    fn update_value_by_lit(&self, lit: &Lit, variables: &mut Vec<LocalVariable>, ident: &str) {
+    fn replace_value_by_lit(&self, lit: &Lit, variables: &mut Vec<LocalVariable>, ident: &str) {
         variables.iter_mut().for_each(|var| {
             if ident != var.name() {
                 return;
@@ -183,23 +199,61 @@ impl Syntest {
             match lit {
                 Lit::Int(lit_int) => {
                     let new_value = lit_int.base10_parse().unwrap();
-                    var.update_value(Value::Int(new_value))
+                    var.replace_value(Value::Int(new_value))
                 }
                 Lit::Str(lit_str) => {
                     let new_value = lit_str.value();
-                    var.update_value(Value::Str(new_value))
+                    var.replace_value(Value::Str(new_value))
                 }
                 Lit::Float(lit_float) => {
                     let new_value = lit_float.base10_parse().unwrap();
-                    var.update_value(Value::Float(new_value))
+                    var.replace_value(Value::Float(new_value))
                 }
                 Lit::Char(lit_char) => {
                     let new_value = lit_char.value();
-                    var.update_value(Value::Char(new_value))
+                    var.replace_value(Value::Char(new_value))
                 }
                 Lit::Bool(lit_bool) => {
                     let new_value = lit_bool.value();
-                    var.update_value(Value::Bool(new_value))
+                    var.replace_value(Value::Bool(new_value))
+                }
+                _ => {}
+            }
+        });
+    }
+
+    fn update_value_by_op(
+        &self,
+        variables: &mut Vec<LocalVariable>,
+        ident: &str,
+        op: &BinOp,
+        num: usize,
+    ) {
+        variables.iter_mut().for_each(|var| {
+            if ident != var.name() {
+                return;
+            };
+
+            match op {
+                BinOp::AddAssign(_) => {
+                    if let Value::Int(value) = var.value() {
+                        var.replace_value(Value::Int(value + num));
+                    }
+                }
+                BinOp::SubAssign(_) => {
+                    if let Value::Int(value) = var.value() {
+                        var.replace_value(Value::Int(value - num));
+                    }
+                }
+                BinOp::MulAssign(_) => {
+                    if let Value::Int(value) = var.value() {
+                        var.replace_value(Value::Int(value * num));
+                    }
+                }
+                BinOp::DivAssign(_) => {
+                    if let Value::Int(value) = var.value() {
+                        var.replace_value(Value::Int(value / num));
+                    }
                 }
                 _ => {}
             }
@@ -251,6 +305,13 @@ impl Syntest {
         vars.into_iter()
             .filter(|var| var.name() == var_name)
             .count()
+    }
+
+    fn lit_to_usize(&self, lit: &Lit) -> usize {
+        match lit {
+            Lit::Int(lit_int) => lit_int.base10_parse().unwrap(),
+            _ => 0,
+        }
     }
 }
 
@@ -663,6 +724,54 @@ mod tests {
                 assert_eq!(*mutable, false);
                 assert_eq!(mutations, &vec![]);
             }
+            _ => {
+                panic!("Invalid variable type")
+            }
+        });
+    }
+
+    #[test]
+    pub fn test_op_equals() {
+        let content = r#"
+        pub fn test_fn() {
+            let mut mutable_var = 10;
+            mutable_var += 10;
+            mutable_var -= 5;
+            mutable_var *= 2;
+            mutable_var /= 2;
+        }
+        "#;
+
+        let syntest = Syntest::from_code(content).unwrap();
+
+        let vars = syntest.variables("test_fn");
+
+        vars.iter().for_each(|var| match var {
+            LocalVariable::Int {
+                name,
+                value,
+                used,
+                mutable,
+                mutations,
+            } => match name.as_str() {
+                "mutable_var" => {
+                    assert_eq!(*value, 15);
+                    assert_eq!(*used, true);
+                    assert_eq!(*mutable, true);
+                    assert_eq!(
+                        mutations,
+                        &vec![
+                            Mutation::new(Value::Int(10), Value::Int(20)),
+                            Mutation::new(Value::Int(20), Value::Int(15)),
+                            Mutation::new(Value::Int(15), Value::Int(30)),
+                            Mutation::new(Value::Int(30), Value::Int(15))
+                        ]
+                    );
+                }
+                _ => {
+                    panic!("Invalid variable name")
+                }
+            },
             _ => {
                 panic!("Invalid variable type")
             }
