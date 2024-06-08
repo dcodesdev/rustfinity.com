@@ -7,34 +7,41 @@ pub enum LocalVariable {
         name: String,
         value: String,
         used: bool,
+        mutable: bool,
     },
     Int {
         name: String,
         value: usize,
         used: bool,
+        mutable: bool,
     },
     Float {
         name: String,
         value: f64,
         used: bool,
+        mutable: bool,
     },
     Char {
         name: String,
         value: char,
         used: bool,
+        mutable: bool,
     },
     Bool {
         name: String,
         value: bool,
         used: bool,
+        mutable: bool,
     },
     Closure {
         name: String,
         used: bool,
+        mutable: bool,
     },
     Other {
         name: String,
         used: bool,
+        mutable: bool,
     },
 }
 
@@ -103,6 +110,18 @@ impl LocalVariable {
             LocalVariable::Bool { value, .. } => Value::Bool(*value),
             LocalVariable::Closure { .. } => Value::Closure,
             LocalVariable::Other { .. } => Value::Other,
+        }
+    }
+
+    pub fn is_mutable(&self) -> bool {
+        match self {
+            LocalVariable::Str { mutable, .. } => *mutable,
+            LocalVariable::Int { mutable, .. } => *mutable,
+            LocalVariable::Float { mutable, .. } => *mutable,
+            LocalVariable::Char { mutable, .. } => *mutable,
+            LocalVariable::Bool { mutable, .. } => *mutable,
+            LocalVariable::Closure { mutable, .. } => *mutable,
+            LocalVariable::Other { mutable, .. } => *mutable,
         }
     }
 }
