@@ -14,7 +14,7 @@ mod tests {
 
         // Expect the 2 variables to exist
         syntest
-            .variables("manipulate_variables")
+            .variables("mutating_variables")
             .iter()
             .for_each(|var| match var {
                 LocalVariable::Int { .. } => match var.name() {
