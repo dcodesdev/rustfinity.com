@@ -1,6 +1,8 @@
 use proc_macro2::TokenTree;
 use std::fmt::Display;
 
+use crate::mutation::Mutation;
+
 #[derive(Debug, PartialEq)]
 pub enum LocalVariable {
     Str {
@@ -8,40 +10,47 @@ pub enum LocalVariable {
         value: String,
         used: bool,
         mutable: bool,
+        mutations: Vec<Mutation>,
     },
     Int {
         name: String,
         value: usize,
         used: bool,
         mutable: bool,
+        mutations: Vec<Mutation>,
     },
     Float {
         name: String,
         value: f64,
         used: bool,
         mutable: bool,
+        mutations: Vec<Mutation>,
     },
     Char {
         name: String,
         value: char,
         used: bool,
         mutable: bool,
+        mutations: Vec<Mutation>,
     },
     Bool {
         name: String,
         value: bool,
         used: bool,
         mutable: bool,
+        mutations: Vec<Mutation>,
     },
     Closure {
         name: String,
         used: bool,
         mutable: bool,
+        mutations: Vec<Mutation>,
     },
     Other {
         name: String,
         used: bool,
         mutable: bool,
+        mutations: Vec<Mutation>,
     },
 }
 
@@ -105,9 +114,63 @@ impl LocalVariable {
             LocalVariable::Other { used, .. } => *used = true,
         }
     }
+
+    pub fn update_value(&mut self, new_value: Value) {
+        match self {
+            LocalVariable::Str {
+                value, mutations, ..
+            } => {
+                if let Value::Str(new_value) = new_value {
+                    mutations.push(Mutation::new(
+                        Value::Str(value.clone()),
+                        Value::Str(new_value.clone()),
+                    ));
+                    *value = new_value;
+                }
+            }
+            LocalVariable::Int {
+                value, mutations, ..
+            } => {
+                if let Value::Int(new_value) = new_value {
+                    mutations.push(Mutation::new(Value::Int(*value), Value::Int(new_value)));
+                    *value = new_value;
+                }
+            }
+            LocalVariable::Float {
+                value, mutations, ..
+            } => {
+                if let Value::Float(new_value) = new_value {
+                    mutations.push(Mutation::new(Value::Float(*value), Value::Float(new_value)));
+                    *value = new_value;
+                }
+            }
+            LocalVariable::Char {
+                value, mutations, ..
+            } => {
+                if let Value::Char(new_value) = new_value {
+                    mutations.push(Mutation::new(Value::Char(*value), Value::Char(new_value)));
+                    *value = new_value;
+                }
+            }
+            LocalVariable::Bool {
+                value, mutations, ..
+            } => {
+                if let Value::Bool(new_value) = new_value {
+                    mutations.push(Mutation::new(Value::Bool(*value), Value::Bool(new_value)));
+                    *value = new_value;
+                }
+            }
+            LocalVariable::Closure { mutations, .. } => {
+                mutations.push(Mutation::new(Value::Closure, new_value));
+            }
+            LocalVariable::Other { mutations, .. } => {
+                mutations.push(Mutation::new(Value::Other, new_value));
+            }
+        }
+    }
 }
 
-#[derive(Debug, PartialEq)]
+#[derive(Debug, PartialEq, Clone)]
 pub enum Value {
     Str(String),
     Int(usize),

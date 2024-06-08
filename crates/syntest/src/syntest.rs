@@ -3,7 +3,7 @@ use std::path::PathBuf;
 use std::rc::Rc;
 use syn::{parse_file, punctuated::Punctuated, token::PathSep, Expr, Lit, Pat, PathSegment, Stmt};
 
-use crate::{func::Func, mac::Mac, var::LocalVariable};
+use crate::{func::Func, mac::Mac, var::LocalVariable, Value};
 
 pub struct Syntest {
     pub file: Rc<syn::File>,
@@ -37,7 +37,7 @@ impl Syntest {
         self.func_stmts(fn_name, |_, stmt| match stmt {
             Stmt::Local(local) => {
                 let used = false;
-                let mut local_value = None;
+                let mut new_value = None;
 
                 if let Pat::Ident(ident) = &local.pat {
                     let mutable = ident.mutability.is_some();
@@ -46,62 +46,69 @@ impl Syntest {
                         match *init.expr.clone() {
                             Expr::Lit(expr_lit) => match expr_lit.lit {
                                 Lit::Str(lit_str) => {
-                                    local_value = Some(LocalVariable::Str {
+                                    new_value = Some(LocalVariable::Str {
                                         name: ident.ident.to_string(),
                                         value: lit_str.value(),
                                         used,
                                         mutable,
+                                        mutations: Vec::new(),
                                     });
                                 }
                                 Lit::Int(lit_int) => {
-                                    local_value = Some(LocalVariable::Int {
+                                    new_value = Some(LocalVariable::Int {
                                         name: ident.ident.to_string(),
                                         value: lit_int.base10_parse().unwrap(),
                                         used,
                                         mutable,
+                                        mutations: Vec::new(),
                                     });
                                 }
                                 Lit::Float(lit_float) => {
-                                    local_value = Some(LocalVariable::Float {
+                                    new_value = Some(LocalVariable::Float {
                                         name: ident.ident.to_string(),
                                         value: lit_float.base10_parse().unwrap(),
                                         used,
                                         mutable,
+                                        mutations: Vec::new(),
                                     });
                                 }
                                 Lit::Char(lit_char) => {
-                                    local_value = Some(LocalVariable::Char {
+                                    new_value = Some(LocalVariable::Char {
                                         name: ident.ident.to_string(),
                                         value: lit_char.value(),
                                         used,
                                         mutable,
+                                        mutations: Vec::new(),
                                     });
                                 }
                                 Lit::Bool(lit_bool) => {
-                                    local_value = Some(LocalVariable::Bool {
+                                    new_value = Some(LocalVariable::Bool {
                                         name: ident.ident.to_string(),
                                         value: lit_bool.value(),
                                         used,
                                         mutable,
+                                        mutations: Vec::new(),
                                     });
                                 }
                                 _ => {}
                             },
                             Expr::Closure(_) => {
-                                local_value = Some(LocalVariable::Closure {
+                                new_value = Some(LocalVariable::Closure {
                                     name: ident.ident.to_string(),
                                     used,
                                     mutable,
+                                    mutations: Vec::new(),
                                 });
                             }
                             Expr::Binary(expr_binary) => {
                                 self.match_expr(&expr_binary.left, &mut variables);
                                 self.match_expr(&expr_binary.right, &mut variables);
 
-                                local_value = Some(LocalVariable::Other {
+                                new_value = Some(LocalVariable::Other {
                                     name: ident.ident.to_string(),
                                     used,
                                     mutable,
+                                    mutations: Vec::new(),
                                 })
                             }
                             Expr::Path(expr_path) => {
@@ -112,17 +119,18 @@ impl Syntest {
                                 );
                             }
                             _ => {
-                                local_value = Some(LocalVariable::Other {
+                                new_value = Some(LocalVariable::Other {
                                     name: ident.ident.to_string(),
                                     used,
                                     mutable,
+                                    mutations: Vec::new(),
                                 });
                             }
                         }
                     }
                 }
 
-                if let Some(local_value) = local_value {
+                if let Some(local_value) = new_value {
                     variables.push(local_value);
                 }
             }
@@ -140,15 +148,62 @@ impl Syntest {
                 self.match_expr(&binary_expr.right, variables);
             }
             Expr::Path(path_expr) => {
-                self.match_segments(variables, &path_expr.path.segments);
+                self.set_used_by_segments(variables, &path_expr.path.segments);
             }
             Expr::Return(return_expr) => {
                 if let Some(expr) = return_expr.expr.clone() {
                     self.match_expr(&expr, variables)
                 }
             }
+            Expr::Assign(assign_expr) => match &*assign_expr.left {
+                Expr::Path(path_expr) => {
+                    let segments = &path_expr.path.segments;
+                    let ident = segments.iter().last().unwrap().ident.to_string();
+
+                    match &*assign_expr.right {
+                        Expr::Lit(lit) => self.update_value_by_lit(&lit.lit, variables, &ident),
+                        Expr::Path(path_expr) => {
+                            self.set_used_by_segments(variables, &path_expr.path.segments)
+                        }
+                        _ => {}
+                    }
+                }
+                _ => {}
+            },
             _ => {}
         }
+    }
+
+    fn update_value_by_lit(&self, lit: &Lit, variables: &mut Vec<LocalVariable>, ident: &str) {
+        variables.iter_mut().for_each(|var| {
+            if ident != var.name() {
+                return;
+            };
+
+            match lit {
+                Lit::Int(lit_int) => {
+                    let new_value = lit_int.base10_parse().unwrap();
+                    var.update_value(Value::Int(new_value))
+                }
+                Lit::Str(lit_str) => {
+                    let new_value = lit_str.value();
+                    var.update_value(Value::Str(new_value))
+                }
+                Lit::Float(lit_float) => {
+                    let new_value = lit_float.base10_parse().unwrap();
+                    var.update_value(Value::Float(new_value))
+                }
+                Lit::Char(lit_char) => {
+                    let new_value = lit_char.value();
+                    var.update_value(Value::Char(new_value))
+                }
+                Lit::Bool(lit_bool) => {
+                    let new_value = lit_bool.value();
+                    var.update_value(Value::Bool(new_value))
+                }
+                _ => {}
+            }
+        });
     }
 
     fn create_var_from_segments(
@@ -162,51 +217,20 @@ impl Syntest {
                 name: segment.ident.to_string(),
                 used: false,
                 mutable,
+                mutations: Vec::new(),
             })
         });
     }
 
-    fn match_segments(
+    fn set_used_by_segments(
         &self,
         variables: &mut Vec<LocalVariable>,
         segments: &Punctuated<PathSegment, PathSep>,
     ) {
         let mut check_segment = |path_segment: &PathSegment| {
-            variables.iter_mut().for_each(|variable| match variable {
-                LocalVariable::Str { name, used, .. } => {
-                    if name == &path_segment.ident.to_string() {
-                        *used = true;
-                    }
-                }
-                LocalVariable::Int { name, used, .. } => {
-                    if name == &path_segment.ident.to_string() {
-                        *used = true;
-                    }
-                }
-                LocalVariable::Float { name, used, .. } => {
-                    if name == &path_segment.ident.to_string() {
-                        *used = true;
-                    }
-                }
-                LocalVariable::Char { name, used, .. } => {
-                    if name == &path_segment.ident.to_string() {
-                        *used = true;
-                    }
-                }
-                LocalVariable::Bool { name, used, .. } => {
-                    if name == &path_segment.ident.to_string() {
-                        *used = true;
-                    }
-                }
-                LocalVariable::Closure { name, used, .. } => {
-                    if name == &path_segment.ident.to_string() {
-                        *used = true;
-                    }
-                }
-                LocalVariable::Other { name, used, .. } => {
-                    if name == &path_segment.ident.to_string() {
-                        *used = true;
-                    }
+            variables.iter_mut().for_each(|variable| {
+                if variable.name() == &path_segment.ident.to_string() {
+                    variable.set_to_used()
                 }
             });
         };
@@ -244,6 +268,8 @@ impl Func for Syntest {
 
 #[cfg(test)]
 mod tests {
+    use crate::mutation::Mutation;
+
     use super::*;
 
     #[test]
@@ -261,11 +287,13 @@ mod tests {
                 value,
                 used,
                 mutable,
+                mutations,
             } => {
                 assert_eq!(name, "my_local_str");
                 assert_eq!(value, "local");
                 assert_eq!(*used, false);
                 assert_eq!(*mutable, false);
+                assert_eq!(mutations, &vec![]);
             }
             _ => {
                 panic!("Invalid variable type")
@@ -281,7 +309,11 @@ mod tests {
             let another_local_int = 10;
             let mut local_str = "string";
 
+            let mut mutating_variable = "something";
+
             let re_assigned = my_local_int + another_local_int;
+
+            mutating_variable = "something else";
         }
         "#;
 
@@ -293,16 +325,19 @@ mod tests {
                 value,
                 used,
                 mutable,
+                mutations,
             } => match name.as_str() {
                 "my_local_int" => {
                     assert_eq!(*value, 42);
                     assert_eq!(*used, true);
                     assert_eq!(*mutable, false);
+                    assert_eq!(mutations, &vec![]);
                 }
                 "another_local_int" => {
                     assert_eq!(*value, 10);
                     assert_eq!(*used, true);
                     assert_eq!(*mutable, false);
+                    assert_eq!(mutations, &vec![]);
                 }
                 _ => {
                     panic!("Invalid variable name")
@@ -313,20 +348,41 @@ mod tests {
                 value,
                 used,
                 mutable,
-            } => {
-                assert_eq!(name, "local_str");
-                assert_eq!(value, "string");
-                assert_eq!(*used, false);
-                assert_eq!(*mutable, true);
-            }
+                mutations,
+            } => match name.as_str() {
+                "local_str" => {
+                    assert_eq!(name, "local_str");
+                    assert_eq!(value, "string");
+                    assert_eq!(*used, false);
+                    assert_eq!(*mutable, true);
+                }
+                "mutating_variable" => {
+                    assert_eq!(name, "mutating_variable");
+                    assert_eq!(value, "something else");
+                    assert_eq!(*used, false);
+                    assert_eq!(*mutable, true);
+                    assert_eq!(
+                        mutations,
+                        &vec![Mutation::new(
+                            Value::Str("something".to_string()),
+                            Value::Str("something else".to_string())
+                        )]
+                    );
+                }
+                _ => {
+                    panic!("Invalid variable name")
+                }
+            },
             LocalVariable::Other {
                 name,
                 used,
                 mutable,
+                mutations,
             } => {
                 assert_eq!(name, "re_assigned");
                 assert_eq!(*used, false);
                 assert_eq!(*mutable, false);
+                assert_eq!(mutations, &vec![])
             }
             _ => {
                 panic!("Invalid variable type")
@@ -357,10 +413,12 @@ mod tests {
                 name,
                 used,
                 mutable,
+                mutations,
             } => {
                 assert_eq!(name, "re_assigned");
                 assert!(*used);
                 assert!(mutable);
+                assert_eq!(mutations, &vec![]);
                 asserted = true;
             }
             _ => {}
@@ -394,10 +452,12 @@ mod tests {
                 name,
                 used,
                 mutable,
+                mutations,
             } => {
                 assert_eq!(name, "re_assigned");
                 assert_eq!(*used, true);
                 assert_eq!(*mutable, false);
+                assert_eq!(mutations, &vec![]);
                 asserted = true;
             }
             _ => {}
@@ -550,5 +610,62 @@ mod tests {
         assert_eq!(syntest.count_var("test_fn", "re_assigned"), 1);
         assert_eq!(syntest.count_var("test_fn", "width"), 2);
         assert_eq!(syntest.count_var("test_fn", "height"), 3);
+    }
+
+    #[test]
+    fn mutating_variables() {
+        let content = r#"
+        pub fn test_fn() {
+            let mut mutable_var = 10;
+            mutable_var = 20;
+            mutable_var = 30;
+
+            let result = mutable_var + 10;
+        }
+        "#;
+
+        let syntest = Syntest::from_code(content).unwrap();
+
+        let vars = syntest.variables("test_fn");
+
+        vars.iter().for_each(|var| match var {
+            LocalVariable::Int {
+                name,
+                value,
+                used,
+                mutable,
+                mutations,
+            } => match name.as_str() {
+                "mutable_var" => {
+                    assert_eq!(*value, 30);
+                    assert_eq!(*used, true);
+                    assert_eq!(*mutable, true);
+                    assert_eq!(
+                        mutations,
+                        &vec![
+                            Mutation::new(Value::Int(10), Value::Int(20)),
+                            Mutation::new(Value::Int(20), Value::Int(30))
+                        ]
+                    );
+                }
+                _ => {
+                    panic!("Invalid variable name")
+                }
+            },
+            LocalVariable::Other {
+                name,
+                used,
+                mutable,
+                mutations,
+            } => {
+                assert_eq!(name, "result");
+                assert_eq!(*used, false);
+                assert_eq!(*mutable, false);
+                assert_eq!(mutations, &vec![]);
+            }
+            _ => {
+                panic!("Invalid variable type")
+            }
+        });
     }
 }
