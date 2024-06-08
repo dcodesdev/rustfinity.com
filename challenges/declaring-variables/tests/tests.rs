@@ -27,15 +27,14 @@ mod tests {
             } else if v == "height" {
                 assert_eq!(var.value(), Value::Int(5), "Height should be 5");
             }
-        });
 
-        // width and height should be defined once
-        variables_to_exist.iter().for_each(|v| {
             assert_eq!(
                 syntest.count_var("calculate_area", v),
                 1,
                 "Variable {v} should be defined once"
             );
-        })
+
+            assert_eq!(var.is_mutable(), false, "Variable {v} should be immutable");
+        });
     }
 }

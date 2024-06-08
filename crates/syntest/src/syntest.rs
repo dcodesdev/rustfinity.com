@@ -39,7 +39,6 @@ impl Syntest {
                 let used = false;
                 let mut local_value = None;
 
-                println!("{:#?}", local);
                 if let Pat::Ident(ident) = &local.pat {
                     let mutable = ident.mutability.is_some();
 
