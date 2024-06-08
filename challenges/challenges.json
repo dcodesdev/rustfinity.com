@@ -24,6 +24,18 @@
     "updated_at": "2024-06-07T00:00:00Z"
   },
   {
+    "id": 23,
+    "title": "Mutable Variables",
+    "slug": "mutable-variables",
+    "short_description": "Declare and manipulate mutable variables in Rust.",
+    "language": "RUST",
+    "difficulty": "EASY",
+    "track": "RUST_BASICS",
+    "tags": [],
+    "created_at": "2024-06-08T00:00:00Z",
+    "updated_at": "2024-06-08T00:00:00Z"
+  },
+  {
     "id": 2,
     "title": "Character counting string",
     "slug": "character-counting-string",

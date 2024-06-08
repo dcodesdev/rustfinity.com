@@ -183,6 +183,12 @@ impl LocalVariable {
     }
 }
 
+impl Display for LocalVariable {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{}", self.name())
+    }
+}
+
 #[derive(Debug, PartialEq, Clone)]
 pub enum Value {
     Str(String),
@@ -227,8 +233,23 @@ impl From<Lit> for Value {
     }
 }
 
-impl Display for LocalVariable {
+impl Display for Value {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{}", self.name())
+        match self {
+            Value::Str(value) => write!(f, "{}", value),
+            Value::Int(value) => write!(f, "{}", value),
+            Value::Float(value) => write!(f, "{}", value),
+            Value::Char(value) => write!(f, "{}", value),
+            Value::Bool(value) => write!(f, "{}", value),
+            Value::Vec(values) => {
+                write!(f, "[")?;
+                for value in values {
+                    write!(f, "{}, ", value)?;
+                }
+                write!(f, "]")
+            }
+            Value::Closure => write!(f, "closure"),
+            Value::Other => write!(f, "other"),
+        }
     }
 }

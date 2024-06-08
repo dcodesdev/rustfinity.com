@@ -737,6 +737,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "mutable-variables"
+version = "0.1.0"
+dependencies = [
+ "syntest",
+]
+
+[[package]]
 name = "native-tls"
 version = "0.2.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
