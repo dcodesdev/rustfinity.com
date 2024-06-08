@@ -221,6 +221,15 @@ impl Syntest {
 
         vars.into_iter().find(|var| var.name() == var_name)
     }
+
+    /// Counts how many times a variable was declared
+    pub fn count_var(&self, fn_name: &str, var_name: &str) -> usize {
+        let vars = self.variables(fn_name);
+
+        vars.into_iter()
+            .filter(|var| var.name() == var_name)
+            .count()
+    }
 }
 
 impl From<&str> for Syntest {
@@ -480,5 +489,34 @@ mod tests {
             assert!(details.is_used(), "Variable {} not used", var);
             assert_eq!(details.name(), var, "Variable name mismatch");
         })
+    }
+
+    #[test]
+    fn test_var_count() {
+        let content = r#"
+        pub fn test_fn() {
+            let my_local_int = 42;
+            let another_local_int = 10;
+
+            let re_assigned = my_local_int + another_local_int;
+
+            let width = 10;
+            let width = 20;
+
+            let height = 5;
+            let height = 10;
+            let height = 15;
+
+            return re_assigned;
+        }
+        "#;
+
+        let syntest = Syntest::from_code(content).unwrap();
+
+        assert_eq!(syntest.count_var("test_fn", "my_local_int"), 1);
+        assert_eq!(syntest.count_var("test_fn", "another_local_int"), 1);
+        assert_eq!(syntest.count_var("test_fn", "re_assigned"), 1);
+        assert_eq!(syntest.count_var("test_fn", "width"), 2);
+        assert_eq!(syntest.count_var("test_fn", "height"), 3);
     }
 }
