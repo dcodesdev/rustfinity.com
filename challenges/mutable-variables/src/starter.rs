@@ -1,4 +1,4 @@
-pub fn mutating_variables() -> String {
+pub fn mutating_variables() -> &'static str {
     // 1. Declare a mutable variable `text` with value "hello"
 
     // 2. Reassign the value of `text` to a new value
