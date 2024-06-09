@@ -1,7 +1,7 @@
 pub fn mutating_variables() -> String {
-    // Declare a mutable variable `text` and assign it the value "hello"
+    // 1. Declare a mutable variable `text` with any value
 
-    // Reassign the value of `text` to "bye"
+    // 2. Reassign the value of `text` to a new value
 
-    // Return the final value of `text`
+    // 3. Return the value of `text`
 }
