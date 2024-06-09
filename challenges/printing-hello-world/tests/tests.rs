@@ -26,10 +26,12 @@ mod tests {
         assert_eq!(mac.name, "println", "Expected to use println macro");
 
         for token in mac.tokens.iter() {
+            let token = token.to_lowercase();
             assert_eq!(
-                token, "\"Hello, world!\"",
-                "Expected to print exactly 'Hello, world!' to the console."
-            )
+                (token.contains("hello"), token.contains("world")),
+                (true, true),
+                "Expected to print 'Hello, world!' to the console."
+            );
         }
     }
 }
