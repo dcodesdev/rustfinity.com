@@ -48,6 +48,18 @@
     "updated_at": "2024-06-09T00:00:00Z"
   },
   {
+    "id": 25,
+    "title": "Primitive Data Types",
+    "slug": "primitive-data-types",
+    "short_description": "Get familiar with primitive data types in Rust by defining and annotating variables.",
+    "language": "RUST",
+    "difficulty": "BEGINNER",
+    "track": "RUST_BASICS",
+    "tags": ["data types", "basics"],
+    "created_at": "2024-06-09T00:00:00Z",
+    "updated_at": "2024-06-09T00:00:00Z"
+  },
+  {
     "id": 2,
     "title": "Character counting string",
     "slug": "character-counting-string",

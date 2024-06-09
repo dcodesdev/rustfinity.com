@@ -316,6 +316,26 @@ impl Syntest {
             _ => 0,
         }
     }
+
+    pub fn get_stmts(&self, fn_name: &str) -> Vec<Stmt> {
+        let mut locals = Vec::new();
+
+        self.func_stmts(fn_name, |_, stmt| locals.push(stmt.clone()));
+
+        locals
+    }
+
+    pub fn get_pats(&self, fn_name: &str) -> Vec<Pat> {
+        let mut locals = Vec::new();
+
+        self.func_stmts(fn_name, |_, stmt| {
+            if let Stmt::Local(local) = stmt {
+                locals.push(local.pat.clone());
+            }
+        });
+
+        locals
+    }
 }
 
 impl From<&str> for Syntest {
