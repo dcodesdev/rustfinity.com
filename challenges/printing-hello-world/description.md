@@ -4,11 +4,11 @@ In Rust, we can do this using the `println!` macro. The `!` indicates that this 
 
 ## What is a macro?
 
-**A macro is a way to write code that writes other code.** **Macros** are a powerful feature of Rust that allow you to write code that writes code. This is useful for metaprogramming, which is the process of writing code that writes code.
+**A macro is a way to write code that writes other code.** **Macros** are a powerful feature of Rust that allow you to write code that writes code. This is useful for **metaprogramming**, which is the process of writing code that writes code.
 
 ## println!
 
-The `println!` macro is used to print text to the console. It is similar to the `println` function in other programming languages, but it is a macro in Rust.
+The `println!` macro is used to print text to the console. It is similar to the `println` function in other programming languages, but it is a **macro** in Rust.
 
 Here's how to print `Hello` to the console using the `println!` macro:
 
