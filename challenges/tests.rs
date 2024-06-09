@@ -1,75 +1,6 @@
+use challenges::{challenges_dir_list, challenges_json, get_max_id, CargoToml, Challenge};
 use chrono::NaiveDateTime;
-use serde::Deserialize;
-use std::{fs, path::PathBuf};
-
-#[derive(Deserialize)]
-enum Difficulty {
-    BEGINNER,
-    EASY,
-    MEDIUM,
-    HARD,
-    ADVANCED,
-}
-
-#[derive(Deserialize)]
-#[allow(non_camel_case_types)]
-enum Track {
-    RUST_BASICS,
-    CONTROL_FLOW,
-}
-
-#[derive(Deserialize)]
-struct Package {
-    pub name: String,
-}
-
-#[derive(Deserialize)]
-struct CargoToml {
-    pub package: Package,
-}
-
-#[derive(Deserialize)]
-#[allow(unused)]
-struct Challenge {
-    pub id: u32,
-    pub title: String,
-    pub slug: String,
-    pub short_description: String,
-    pub language: String,
-    pub difficulty: Difficulty,
-    pub track: Track,
-    pub tags: Vec<String>,
-    pub created_at: String,
-    pub updated_at: String,
-}
-
-fn challenges_json() -> Result<Vec<Challenge>, std::io::Error> {
-    let challenges_str = fs::read_to_string("challenges.json")?;
-    let challenges = serde_json::from_str::<Vec<Challenge>>(&challenges_str)?;
-    Ok(challenges)
-}
-
-fn challenges_dir_list() -> Result<Vec<PathBuf>, std::io::Error> {
-    let mut entries = fs::read_dir("../challenges")?;
-    let mut dirs = vec![];
-    let ignored_dirs = ["src/", "target/"];
-
-    while let Some(entry) = entries.next() {
-        let entry = entry?;
-        let path = entry.path();
-        if path.is_dir() {
-            let abs_path = path.canonicalize().unwrap();
-
-            if ignored_dirs.iter().any(|&dir| abs_path.ends_with(dir)) {
-                continue;
-            }
-
-            dirs.push(abs_path);
-        }
-    }
-
-    Ok(dirs)
-}
+use std::fs;
 
 #[test]
 fn test_read_challenges() {
@@ -174,4 +105,16 @@ fn test_date_validity() {
             "created_at date should be before updated_at date"
         );
     }
+}
+
+#[test]
+fn test_no_gap_id() {
+    let challenges = challenges_json().expect("Failed to read challenges");
+    let max_id = get_max_id();
+
+    assert_eq!(
+        max_id,
+        challenges.len() as u32,
+        "There is a gap in the id sequence"
+    );
 }

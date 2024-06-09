@@ -921,6 +921,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "printing-hello-world"
+version = "0.1.0"
+dependencies = [
+ "syntest",
+]
+
+[[package]]
 name = "proc-macro2"
 version = "1.0.85"
 source = "registry+https://github.com/rust-lang/crates.io-index"

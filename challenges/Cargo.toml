@@ -12,3 +12,10 @@ toml = "0.8.12"
 [[test]]
 name = "tests"
 path = "tests.rs"
+
+[[bin]]
+name = "cli"
+path = "cli.rs"
+
+[lib]
+path = "lib.rs"

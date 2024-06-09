@@ -12,6 +12,18 @@
     "updated_at": "2024-04-20T00:00:00Z"
   },
   {
+    "id": 26,
+    "title": "Printing Hello World",
+    "slug": "printing-hello-world",
+    "short_description": "Create a function that prints 'Hello, world!' to the console using Rust.",
+    "language": "RUST",
+    "difficulty": "EASY",
+    "track": "RUST_BASICS",
+    "tags": ["print", "macro"],
+    "created_at": "2024-06-09T00:00:00Z",
+    "updated_at": "2024-06-09T00:00:00Z"
+  },
+  {
     "id": 22,
     "title": "Declaring Variables",
     "slug": "declaring-variables",
