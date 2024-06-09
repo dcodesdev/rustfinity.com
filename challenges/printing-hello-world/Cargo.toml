@@ -1,0 +1,7 @@
+[package]
+name = "printing-hello-world"
+version = "0.1.0"
+edition = "2021"
+
+[dev-dependencies]
+syntest = { path = "../../crates/syntest" }
