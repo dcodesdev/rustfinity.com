@@ -6,12 +6,8 @@ In this challenge, you will declare and use **mutable variables in Rust**. You w
 
 ## Your task
 
-In this challenge, you need to declare one mutable variable inside the function using the `let mut` keyword:
-
-- `text` with an initial value of `"hello"`
-- Print exactly `"Text is hello"` to the console using the `println!` macro.
-- Mutate the variable to `"bye"`.
-- Print exactly `"Text is bye"` to the console using the `println!` macro.
+- Declare variable `text` with an initial value of anything you like. Use `let mut` to make it mutable.
+- Re assign the variable `text` to something else of your choice.
 - Return the final value of the variable.
 
 ### Println! Macro
