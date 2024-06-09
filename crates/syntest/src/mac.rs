@@ -1,5 +1,5 @@
 use std::rc::Rc;
-use syn::Stmt;
+use syn::{Expr, Macro, Stmt};
 
 use crate::func::Func;
 
@@ -23,25 +23,33 @@ impl Mac {
     pub fn macros(&self, fn_name: &str) -> Vec<MacroDetails> {
         let mut macros = Vec::new();
 
-        self.func_stmts(fn_name, |_, stmt| {
-            if let Stmt::Macro(macro_stmt) = stmt {
-                let mac = &macro_stmt.mac;
+        let mut handle_macro_expr = |mac: &Macro| {
+            mac.path.segments.iter().for_each(|seg| {
+                let macro_name = seg.ident.to_string();
+                let tokens = mac
+                    .tokens
+                    .clone()
+                    .into_iter()
+                    .map(|token| token.to_string())
+                    .collect();
 
-                mac.path.segments.iter().for_each(|seg| {
-                    let macro_name = seg.ident.to_string();
-                    let tokens = mac
-                        .tokens
-                        .clone()
-                        .into_iter()
-                        .map(|token| token.to_string())
-                        .collect();
-
-                    macros.push(MacroDetails {
-                        name: macro_name,
-                        tokens,
-                    });
+                macros.push(MacroDetails {
+                    name: macro_name,
+                    tokens,
                 });
+            });
+        };
+
+        self.func_stmts(fn_name, |_, stmt| match stmt {
+            Stmt::Macro(macro_stmt) => {
+                handle_macro_expr(&macro_stmt.mac);
             }
+            Stmt::Expr(expr, _) => {
+                if let Expr::Macro(macro_expr) = expr {
+                    handle_macro_expr(&macro_expr.mac);
+                }
+            }
+            _ => {}
         });
 
         macros
