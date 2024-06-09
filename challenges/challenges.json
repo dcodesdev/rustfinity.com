@@ -7,7 +7,7 @@
     "language": "RUST",
     "difficulty": "BEGINNER",
     "track": "RUST_BASICS",
-    "tags": [],
+    "tags": ["function", "string", "output"],
     "created_at": "2024-04-20T00:00:00Z",
     "updated_at": "2024-04-20T00:00:00Z"
   },
@@ -29,11 +29,23 @@
     "slug": "mutable-variables",
     "short_description": "Define and modify mutable variables in Rust.",
     "language": "RUST",
-    "difficulty": "EASY",
+    "difficulty": "BEGINNER",
     "track": "RUST_BASICS",
-    "tags": [],
+    "tags": ["variables", "mutability"],
     "created_at": "2024-06-08T00:00:00Z",
     "updated_at": "2024-06-08T00:00:00Z"
+  },
+  {
+    "id": 24,
+    "title": "Constants",
+    "slug": "constants",
+    "short_description": "Learn how to define and use constants in Rust.",
+    "language": "RUST",
+    "difficulty": "BEGINNER",
+    "track": "RUST_BASICS",
+    "tags": ["constants", "definition"],
+    "created_at": "2024-06-09T00:00:00Z",
+    "updated_at": "2024-06-09T00:00:00Z"
   },
   {
     "id": 2,
