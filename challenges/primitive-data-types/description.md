@@ -4,18 +4,16 @@ Understanding how to declare and use these basic data types is fundamental to wr
 
 ## Your task
 
-Implement a function `data_types` where you will define and initialize variables with the following types:
+1. Define variable `x` with type `u8`
+2. Define variable `y` with type `f64`
+3. Define variable `z` with type `bool`
+4. Define variable `a` with type `char`
 
-1. An integer (`u8`)
-2. A floating-point number (`f64`)
-3. A boolean (`bool`)
-4. A character (`char`)
-
-Each of these variables should be annotated with their respective types and initialized with specific values of your choice.
+Each of these variables **should be annotated** with their respective types and initialized with specific **values of your choice**.
 
 ## Requirements
 
-- Every variable must be annotated with its type.
+- Every variable **must be annotated** with its type.
 - Initialize each variable with any value of your choice of the correct type.
 
 ## Explanation of Data Types
