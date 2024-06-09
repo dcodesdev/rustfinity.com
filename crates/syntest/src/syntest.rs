@@ -5,11 +5,12 @@ use syn::{
     parse_file, punctuated::Punctuated, token::PathSep, BinOp, Expr, Lit, Pat, PathSegment, Stmt,
 };
 
-use crate::{func::Func, mac::Mac, var::LocalVariable, Value};
+use crate::{constants::Const, func::Func, mac::Mac, var::LocalVariable, Value};
 
 pub struct Syntest {
-    pub file: Rc<syn::File>,
     pub mac: Mac,
+    pub constant: Const,
+    pub file: Rc<syn::File>,
 }
 
 impl Syntest {
@@ -18,6 +19,7 @@ impl Syntest {
 
         Ok(Self {
             mac: Mac::new(Rc::clone(&file)),
+            constant: Const::new(Rc::clone(&file)),
             file,
         })
     }
@@ -27,6 +29,7 @@ impl Syntest {
 
         Ok(Self {
             mac: Mac::new(Rc::clone(&file)),
+            constant: Const::new(Rc::clone(&file)),
             file: Rc::new(parse_file(code)?),
         })
     }
