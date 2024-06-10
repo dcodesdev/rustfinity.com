@@ -12,7 +12,7 @@ mod tests {
     }
 
     #[test]
-    fn test_uses_as_1() {
+    fn test_uses_as() {
         {
             let syntest = Syntest::new("numerical_type_conversion", "src/lib.rs");
 
