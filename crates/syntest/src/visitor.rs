@@ -17,13 +17,11 @@ impl AsVisitor {
             .find_map(|item| {
                 if let syn::Item::Fn(item_fn) = item {
                     if item_fn.sig.ident.to_string() == fn_name {
-                        Some(item_fn)
-                    } else {
-                        None
+                        return Some(item_fn);
                     }
-                } else {
-                    None
                 }
+
+                None
             })
             .expect(&format!("Function {fn_name} not found"));
 
@@ -56,10 +54,18 @@ pub struct FnVisitor {
 }
 
 impl FnVisitor {
-    pub fn new() -> Self {
-        Self {
+    pub fn new(file: &syn::File) -> Self {
+        let mut visitor = Self {
             functions: Vec::new(),
-        }
+        };
+
+        visitor.visit_file(file);
+
+        visitor
+    }
+
+    pub fn functions(&self) -> &Vec<String> {
+        &self.functions
     }
 }
 
