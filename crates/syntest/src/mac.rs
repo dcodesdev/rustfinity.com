@@ -7,6 +7,7 @@ use crate::func::Func;
 #[derive(Debug)]
 pub struct Mac {
     file: Rc<syn::File>,
+    fn_name: String,
 }
 
 #[derive(Debug)]
@@ -16,11 +17,14 @@ pub struct MacroDetails {
 }
 
 impl Mac {
-    pub fn new(file: Rc<syn::File>) -> Self {
-        Self { file }
+    pub fn new(fn_name: &str, file: Rc<syn::File>) -> Self {
+        Self {
+            file,
+            fn_name: fn_name.to_string(),
+        }
     }
 
-    pub fn macros(&self, fn_name: &str) -> Vec<MacroDetails> {
+    pub fn macros(&self) -> Vec<MacroDetails> {
         let mut macros = Vec::new();
 
         let mut handle_macro_expr = |mac: &Macro| {
@@ -40,7 +44,7 @@ impl Mac {
             });
         };
 
-        self.func_stmts(fn_name, |_, stmt| match stmt {
+        self.func_stmts(|_, stmt| match stmt {
             Stmt::Macro(macro_stmt) => {
                 handle_macro_expr(&macro_stmt.mac);
             }
@@ -59,6 +63,10 @@ impl Mac {
 impl Func for Mac {
     fn file(&self) -> &Rc<syn::File> {
         &self.file
+    }
+
+    fn fn_name(&self) -> &str {
+        &self.fn_name
     }
 }
 
@@ -82,9 +90,8 @@ mod tests {
         }
         "#;
 
-        let mac = Syntest::from_code(content).unwrap().mac;
-
-        let macros = mac.macros("test_fn");
+        let mac = Syntest::from_code("test_fn", content).mac;
+        let macros = mac.macros();
 
         assert_eq!(macros.len(), 2);
 

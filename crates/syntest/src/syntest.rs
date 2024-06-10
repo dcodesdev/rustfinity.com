@@ -1,45 +1,53 @@
 use std::fs;
-use std::path::PathBuf;
 use std::rc::Rc;
 use syn::{
     parse_file, punctuated::Punctuated, token::PathSep, BinOp, Expr, Lit, Pat, PathSegment, Stmt,
 };
 
-use crate::{constants::Const, func::Func, mac::Mac, var::LocalVariable, Value};
+use crate::{constants::Const, func::Func, mac::Mac, var::LocalVariable, AsVisitor, Value};
 
 pub struct Syntest {
     pub mac: Mac,
     pub constant: Const,
     pub file: Rc<syn::File>,
+    pub as_visitor: AsVisitor,
+    pub fn_name: String,
 }
 
 impl Syntest {
-    pub fn new(path: PathBuf) -> anyhow::Result<Self> {
-        let file = Rc::new(parse_file(&fs::read_to_string(&path)?)?);
+    pub fn new(fn_name: &str, path: &str) -> Self {
+        let file = Rc::new(
+            parse_file(&fs::read_to_string(&path).expect("Failed to read file"))
+                .expect("Failed to parse file"),
+        );
 
-        Ok(Self {
-            mac: Mac::new(Rc::clone(&file)),
+        Self {
+            mac: Mac::new(fn_name, Rc::clone(&file)),
             constant: Const::new(Rc::clone(&file)),
+            as_visitor: AsVisitor::new(fn_name, &file),
             file,
-        })
+            fn_name: fn_name.to_string(),
+        }
     }
 
-    pub fn from_code(code: &str) -> anyhow::Result<Self> {
-        let file = Rc::new(parse_file(code)?);
+    pub fn from_code(fn_name: &str, code: &str) -> Self {
+        let file = Rc::new(parse_file(code).expect("Failed to parse file"));
 
-        Ok(Self {
-            mac: Mac::new(Rc::clone(&file)),
+        Self {
+            mac: Mac::new(fn_name, Rc::clone(&file)),
             constant: Const::new(Rc::clone(&file)),
-            file: Rc::new(parse_file(code)?),
-        })
+            as_visitor: AsVisitor::new(fn_name, &file),
+            file,
+            fn_name: fn_name.to_string(),
+        }
     }
 
     /// Finds all variables defined in a function block
     /// and checks if they are used or not
-    pub fn variables(&self, fn_name: &str) -> Vec<LocalVariable> {
+    pub fn variables(&self) -> Vec<LocalVariable> {
         let mut variables = Vec::new();
 
-        self.func_stmts(fn_name, |_, stmt| match stmt {
+        self.func_stmts(|_, stmt| match stmt {
             Stmt::Local(local) => {
                 let used = false;
                 let mut new_value = None;
@@ -295,15 +303,15 @@ impl Syntest {
         segments.iter().for_each(&mut check_segment);
     }
 
-    pub fn var_details(&self, fn_name: &str, var_name: &str) -> Option<LocalVariable> {
-        let vars = self.variables(fn_name);
+    pub fn var_details(&self, var_name: &str) -> Option<LocalVariable> {
+        let vars = self.variables();
 
         vars.into_iter().find(|var| var.name() == var_name)
     }
 
     /// Counts how many times a variable was declared
-    pub fn count_var(&self, fn_name: &str, var_name: &str) -> usize {
-        let vars = self.variables(fn_name);
+    pub fn count_var(&self, var_name: &str) -> usize {
+        let vars = self.variables();
 
         vars.into_iter()
             .filter(|var| var.name() == var_name)
@@ -317,18 +325,18 @@ impl Syntest {
         }
     }
 
-    pub fn get_stmts(&self, fn_name: &str) -> Vec<Stmt> {
+    pub fn get_stmts(&self) -> Vec<Stmt> {
         let mut locals = Vec::new();
 
-        self.func_stmts(fn_name, |_, stmt| locals.push(stmt.clone()));
+        self.func_stmts(|_, stmt| locals.push(stmt.clone()));
 
         locals
     }
 
-    pub fn get_pats(&self, fn_name: &str) -> Vec<Pat> {
+    pub fn get_pats(&self) -> Vec<Pat> {
         let mut locals = Vec::new();
 
-        self.func_stmts(fn_name, |_, stmt| {
+        self.func_stmts(|_, stmt| {
             if let Stmt::Local(local) = stmt {
                 locals.push(local.pat.clone());
             }
@@ -338,15 +346,13 @@ impl Syntest {
     }
 }
 
-impl From<&str> for Syntest {
-    fn from(path: &str) -> Self {
-        Syntest::new(PathBuf::from(path)).unwrap()
-    }
-}
-
 impl Func for Syntest {
     fn file(&self) -> &Rc<syn::File> {
         &self.file
+    }
+
+    fn fn_name(&self) -> &str {
+        &self.fn_name
     }
 }
 
@@ -363,7 +369,7 @@ mod tests {
             let my_local_str = "local";
         }
         "#;
-        let vars = Syntest::from_code(content).unwrap().variables("test_fn");
+        let vars = Syntest::from_code("test_fn", content).variables();
 
         vars.iter().for_each(|var| match var {
             LocalVariable::Str {
@@ -401,7 +407,7 @@ mod tests {
         }
         "#;
 
-        let vars = Syntest::from_code(content).unwrap().variables("test_fn");
+        let vars = Syntest::from_code("test_fn", content).variables();
 
         vars.iter().for_each(|var| match var {
             LocalVariable::Int {
@@ -488,7 +494,7 @@ mod tests {
         }
         "#;
 
-        let vars = Syntest::from_code(content).unwrap().variables("test_fn");
+        let vars = Syntest::from_code("test_fn", content).variables();
 
         let mut asserted = false;
 
@@ -527,7 +533,7 @@ mod tests {
         }
         "#;
 
-        let vars = Syntest::from_code(content).unwrap().variables("test_fn");
+        let vars = Syntest::from_code("test_fn", content).variables();
 
         let mut asserted = false;
 
@@ -561,9 +567,7 @@ mod tests {
         }
         "#;
 
-        Syntest::from_code(content)
-            .unwrap()
-            .variables("non_existent_fn");
+        Syntest::from_code("non_existent_fn", content).variables();
     }
 
     #[test]
@@ -580,7 +584,7 @@ mod tests {
         }
         "#;
 
-        let syntest = Syntest::from_code(content).unwrap();
+        let syntest = Syntest::from_code("test_fn", content);
 
         let vars = [
             "my_local_int",
@@ -590,7 +594,7 @@ mod tests {
         ];
 
         vars.iter().for_each(|&var| {
-            let details = syntest.var_details("test_fn", var).unwrap();
+            let details = syntest.var_details(var).unwrap();
 
             if var == "local_str" {
                 assert_eq!(details.is_used(), false);
@@ -619,7 +623,7 @@ mod tests {
         }
         "#;
 
-        let syntest = Syntest::from_code(content).unwrap();
+        let syntest = Syntest::from_code("test_fn", content);
 
         let vars = [
             "my_local_int",
@@ -632,7 +636,7 @@ mod tests {
         ];
 
         vars.iter().for_each(|&var| {
-            let details = syntest.var_details("test_fn", var).unwrap();
+            let details = syntest.var_details(var).unwrap();
 
             if var == "local_str" {
                 assert_eq!(details.is_used(), false);
@@ -656,11 +660,11 @@ mod tests {
             return re_assigned;
         }
         "#;
-        let syntest = Syntest::from_code(content).unwrap();
+        let syntest = Syntest::from_code("test_fn", content);
         let vars = ["my_local_int", "another_local_int", "re_assigned"];
 
         vars.iter().for_each(|&var| {
-            let details = syntest.var_details("test_fn", var).unwrap();
+            let details = syntest.var_details(var).unwrap();
 
             assert!(details.is_used(), "Variable {} not used", var);
             assert_eq!(details.name(), var, "Variable name mismatch");
@@ -687,13 +691,13 @@ mod tests {
         }
         "#;
 
-        let syntest = Syntest::from_code(content).unwrap();
+        let syntest = Syntest::from_code("test_fn", content);
 
-        assert_eq!(syntest.count_var("test_fn", "my_local_int"), 1);
-        assert_eq!(syntest.count_var("test_fn", "another_local_int"), 1);
-        assert_eq!(syntest.count_var("test_fn", "re_assigned"), 1);
-        assert_eq!(syntest.count_var("test_fn", "width"), 2);
-        assert_eq!(syntest.count_var("test_fn", "height"), 3);
+        assert_eq!(syntest.count_var("my_local_int"), 1);
+        assert_eq!(syntest.count_var("another_local_int"), 1);
+        assert_eq!(syntest.count_var("re_assigned"), 1);
+        assert_eq!(syntest.count_var("width"), 2);
+        assert_eq!(syntest.count_var("height"), 3);
     }
 
     #[test]
@@ -708,9 +712,9 @@ mod tests {
         }
         "#;
 
-        let syntest = Syntest::from_code(content).unwrap();
+        let syntest = Syntest::from_code("test_fn", content);
 
-        let vars = syntest.variables("test_fn");
+        let vars = syntest.variables();
 
         vars.iter().for_each(|var| match var {
             LocalVariable::Int {
@@ -765,9 +769,9 @@ mod tests {
         }
         "#;
 
-        let syntest = Syntest::from_code(content).unwrap();
+        let syntest = Syntest::from_code("test_fn", content);
 
-        let vars = syntest.variables("test_fn");
+        let vars = syntest.variables();
 
         vars.iter().for_each(|var| match var {
             LocalVariable::Int {

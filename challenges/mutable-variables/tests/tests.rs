@@ -10,28 +10,25 @@ mod tests {
 
     #[test]
     fn test_variables() {
-        let syntest = Syntest::from("./src/lib.rs");
+        let syntest = Syntest::new("mutating_variables", "./src/lib.rs");
 
         let mut success = false;
         // Expect the 2 variables to exist
-        syntest
-            .variables("mutating_variables")
-            .iter()
-            .for_each(|var| match var {
-                LocalVariable::Str { .. } => match var.name() {
-                    "text" => {
-                        assert!(var.is_used(), "Expected 'text' to be used");
-                        assert!(var.is_mutable(), "Expected 'text' to be mutable");
-                        assert!(
-                            var.mutations().len() >= 1,
-                            "Expected 'text' to be mutated at least once"
-                        );
-                        success = true;
-                    }
-                    _ => {}
-                },
+        syntest.variables().iter().for_each(|var| match var {
+            LocalVariable::Str { .. } => match var.name() {
+                "text" => {
+                    assert!(var.is_used(), "Expected 'text' to be used");
+                    assert!(var.is_mutable(), "Expected 'text' to be mutable");
+                    assert!(
+                        var.mutations().len() >= 1,
+                        "Expected 'text' to be mutated at least once"
+                    );
+                    success = true;
+                }
                 _ => {}
-            });
+            },
+            _ => {}
+        });
 
         assert!(success, "Expected 'text' to be defined");
     }

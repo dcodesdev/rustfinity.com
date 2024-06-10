@@ -10,13 +10,13 @@ mod tests {
 
     #[test]
     fn test_variables() {
-        let syntest = Syntest::from("./src/lib.rs");
+        let syntest = Syntest::new("calculate_area", "src/lib.rs");
 
         // Expect the 2 variables to exist
         let variables_to_exist = ["height", "width"];
         variables_to_exist.iter().for_each(|&v| {
             let var = syntest
-                .var_details("calculate_area", v)
+                .var_details(v)
                 .expect(&format!("Variable {} was not declared", v));
 
             assert!(var.is_used(), "Variable {v} was not used");
@@ -29,7 +29,7 @@ mod tests {
             }
 
             assert_eq!(
-                syntest.count_var("calculate_area", v),
+                syntest.count_var(v),
                 1,
                 "Variable {v} should be defined once"
             );
