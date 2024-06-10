@@ -17,7 +17,7 @@
     "slug": "printing-hello-world",
     "short_description": "Create a function that prints 'Hello, world!' to the console using Rust.",
     "language": "RUST",
-    "difficulty": "EASY",
+    "difficulty": "BEGINNER",
     "track": "RUST_BASICS",
     "tags": ["print", "macro"],
     "created_at": "2024-06-09T00:00:00Z",
@@ -70,6 +70,18 @@
     "tags": ["data types", "basics"],
     "created_at": "2024-06-09T00:00:00Z",
     "updated_at": "2024-06-09T00:00:00Z"
+  },
+  {
+    "id": 27,
+    "title": "Converting Numerical Types",
+    "slug": "converting-numerical-types",
+    "short_description": "Implement a function to convert numerical types using the `as` keyword in Rust.",
+    "language": "RUST",
+    "difficulty": "BEGINNER",
+    "track": "RUST_BASICS",
+    "tags": ["conversion", "numerical types"],
+    "created_at": "2024-06-10T00:00:00Z",
+    "updated_at": "2024-06-10T00:00:00Z"
   },
   {
     "id": 2,
