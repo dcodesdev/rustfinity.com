@@ -1266,6 +1266,13 @@ name = "the-from-trait"
 version = "0.1.0"
 
 [[package]]
+name = "the-unit-type"
+version = "0.1.0"
+dependencies = [
+ "syntest",
+]
+
+[[package]]
 name = "tinyvec"
 version = "1.6.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
