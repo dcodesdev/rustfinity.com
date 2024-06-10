@@ -11,9 +11,9 @@ mod tests {
 
     #[test]
     fn test_annotations() {
-        let syntest = Syntest::from("./src/lib.rs");
+        let syntest = Syntest::new("data_types", "./src/lib.rs");
 
-        let pats_actual = syntest.get_pats("data_types");
+        let pats_actual = syntest.get_pats();
         let stmts_expected: [Stmt; 4] = [
             parse_quote! {
               let x: u8 = 42;

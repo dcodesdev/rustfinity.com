@@ -76,6 +76,7 @@ async fn download_file(url: &str, challenge: &str) -> anyhow::Result<Downloader>
 #[cfg(test)]
 mod tests {
     use super::*;
+    use tempfile::tempdir;
 
     mod download {
         const CHALLENGES: [&'static str; 7] = [
@@ -94,9 +95,9 @@ mod tests {
         #[tokio::test]
         async fn test_downloads_challenge() {
             // rm temp dir if exists
-            fs::remove_dir_all("temp/test_downloads_challenge").ok();
-            fs::create_dir_all("temp/test_downloads_challenge").ok();
-            env::set_current_dir("temp/test_downloads_challenge").ok();
+            let temp_dir = tempdir().expect("Failed to create temp dir");
+            let temp_path = temp_dir.path();
+            env::set_current_dir(&temp_path).ok();
 
             let test_challenge = |challenge: String| async move {
                 get_challenge(&challenge)
@@ -130,15 +131,14 @@ mod tests {
     }
 
     mod download_file {
-        use std::{env, fs, path::Path};
-
         use super::*;
+        use std::{env, fs, path::Path};
 
         #[tokio::test]
         async fn test_downloads_file() {
-            fs::remove_dir_all("temp/test_downloads_file").ok();
-            fs::create_dir_all("temp/test_downloads_file").ok();
-            env::set_current_dir("temp/test_downloads_file").ok();
+            let temp_dir = tempdir().expect("Failed to create temp dir");
+            let temp_path = temp_dir.path();
+            env::set_current_dir(&temp_path).ok();
 
             let url = "https://raw.githubusercontent.com/dcodesdev/rustfinity.com/main/challenges/hello-world/description.md";
             let challenge = "hello-world";
@@ -159,9 +159,9 @@ mod tests {
 
         #[tokio::test]
         async fn test_download_file_sub_dir() {
-            fs::remove_dir_all("temp/test_download_file_sub_dir").ok();
-            fs::create_dir_all("temp/test_download_file_sub_dir").ok();
-            env::set_current_dir("temp/test_download_file_sub_dir").ok();
+            let temp_dir = tempdir().expect("Failed to create temp dir");
+            let temp_path = temp_dir.path();
+            env::set_current_dir(&temp_path).ok();
 
             let url = "https://raw.githubusercontent.com/dcodesdev/rustfinity.com/main/challenges/hello-world/src/starter.rs";
             let challenge = "hello-world";

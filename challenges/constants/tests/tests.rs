@@ -10,7 +10,7 @@ mod tests {
 
     #[test]
     fn test_constants() {
-        let syntest = Syntest::from("./src/lib.rs");
+        let syntest = Syntest::new("main", "src/lib.rs");
 
         let const_to_exist = ["MAX_SIZE"];
         let constants = syntest.constant.constants();

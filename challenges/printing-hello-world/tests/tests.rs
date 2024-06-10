@@ -11,8 +11,8 @@ mod tests {
 
     #[test]
     fn test_hello_world() {
-        let syntest = Syntest::from("./src/lib.rs");
-        let macros = syntest.mac.macros("hello_world");
+        let syntest = Syntest::new("hello_world", "src/lib.rs");
+        let macros = syntest.mac.macros();
 
         assert_eq!(
             macros.len(),
