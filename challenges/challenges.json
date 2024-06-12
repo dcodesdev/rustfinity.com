@@ -156,6 +156,18 @@
     "updated_at": "2024-06-12T00:00:00Z"
   },
   {
+    "id": 33,
+    "title": "Control Flow",
+    "slug": "control-flow",
+    "short_description": "Implement basic control flow in Rust using if-else statements.",
+    "language": "RUST",
+    "difficulty": "BEGINNER",
+    "track": "RUST_BASICS",
+    "tags": ["control flow", "if-else"],
+    "created_at": "2024-06-12T00:00:00Z",
+    "updated_at": "2024-06-12T00:00:00Z"
+  },
+  {
     "id": 2,
     "title": "Character counting string",
     "slug": "character-counting-string",
