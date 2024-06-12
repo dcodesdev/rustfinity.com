@@ -132,6 +132,18 @@
     "updated_at": "2024-06-12T00:00:00Z"
   },
   {
+    "id": 31,
+    "title": "Functions",
+    "slug": "functions",
+    "short_description": "Implement and work with functions in Rust.",
+    "language": "RUST",
+    "difficulty": "BEGINNER",
+    "track": "RUST_BASICS",
+    "tags": ["functions", "basics"],
+    "created_at": "2024-06-12T00:00:00Z",
+    "updated_at": "2024-06-12T00:00:00Z"
+  },
+  {
     "id": 2,
     "title": "Character counting string",
     "slug": "character-counting-string",
