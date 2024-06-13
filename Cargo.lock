@@ -763,6 +763,10 @@ dependencies = [
 ]
 
 [[package]]
+name = "mutable-references"
+version = "0.1.0"
+
+[[package]]
 name = "mutable-variables"
 version = "0.1.0"
 dependencies = [

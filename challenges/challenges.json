@@ -228,6 +228,18 @@
     "updated_at": "2024-06-13T00:00:00Z"
   },
   {
+    "id": 35,
+    "title": "Mutable References",
+    "slug": "mutable-references",
+    "short_description": "Implement Rust's ownership model with mutable references.",
+    "language": "RUST",
+    "difficulty": "BEGINNER",
+    "track": "RUST_BASICS",
+    "tags": ["ownership", "borrowing", "mutable references"],
+    "created_at": "2024-06-13T00:00:00Z",
+    "updated_at": "2024-06-13T00:00:00Z"
+  },
+  {
     "id": 2,
     "title": "Character counting string",
     "slug": "character-counting-string",
