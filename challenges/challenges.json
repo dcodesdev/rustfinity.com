@@ -168,6 +168,66 @@
     "updated_at": "2024-06-12T00:00:00Z"
   },
   {
+    "id": 10,
+    "title": "Basic If-Else Statements",
+    "slug": "if-else",
+    "short_description": "Learn how to use if-else statements in Rust to control the flow of your program.",
+    "language": "RUST",
+    "difficulty": "EASY",
+    "track": "CONTROL_FLOW",
+    "tags": ["control flow", "if-else"],
+    "created_at": "2024-06-01T00:00:00Z",
+    "updated_at": "2024-06-01T00:00:00Z"
+  },
+  {
+    "id": 11,
+    "title": "Sum of Even Numbers",
+    "slug": "sum-of-even-numbers",
+    "short_description": "Implement a function to sum even numbers in a given range using a for loop.",
+    "language": "RUST",
+    "difficulty": "EASY",
+    "track": "CONTROL_FLOW",
+    "tags": ["for-loop", "iteration", "range"],
+    "created_at": "2024-06-02T00:00:00Z",
+    "updated_at": "2024-06-02T00:00:00Z"
+  },
+  {
+    "id": 12,
+    "title": "Countdown",
+    "slug": "countdown",
+    "short_description": "Implement a countdown timer using a while loop in Rust.",
+    "language": "RUST",
+    "difficulty": "EASY",
+    "track": "CONTROL_FLOW",
+    "tags": ["while", "loop", "control flow"],
+    "created_at": "2024-06-02T00:00:00Z",
+    "updated_at": "2024-06-02T00:00:00Z"
+  },
+  {
+    "id": 13,
+    "title": "Weekday from Number",
+    "slug": "weekday-from-number",
+    "short_description": "Use Rust's pattern matching to determine the weekday given its number.",
+    "language": "RUST",
+    "difficulty": "EASY",
+    "track": "CONTROL_FLOW",
+    "tags": ["pattern matching", "match", "control flow"],
+    "created_at": "2024-06-02T00:00:00Z",
+    "updated_at": "2024-06-02T00:00:00Z"
+  },
+  {
+    "id": 34,
+    "title": "Ownership",
+    "slug": "ownership",
+    "short_description": "Understand and implement Rust's ownership model.",
+    "language": "RUST",
+    "difficulty": "EASY",
+    "track": "RUST_BASICS",
+    "tags": ["ownership", "borrowing", "lifetimes"],
+    "created_at": "2024-06-13T00:00:00Z",
+    "updated_at": "2024-06-13T00:00:00Z"
+  },
+  {
     "id": 2,
     "title": "Character counting string",
     "slug": "character-counting-string",
@@ -250,54 +310,6 @@
     "tags": [],
     "created_at": "2024-05-06T00:00:00Z",
     "updated_at": "2024-05-06T00:00:00Z"
-  },
-  {
-    "id": 10,
-    "title": "Basic If-Else Statements",
-    "slug": "if-else",
-    "short_description": "Learn how to use if-else statements in Rust to control the flow of your program.",
-    "language": "RUST",
-    "difficulty": "EASY",
-    "track": "CONTROL_FLOW",
-    "tags": ["control flow", "if-else"],
-    "created_at": "2024-06-01T00:00:00Z",
-    "updated_at": "2024-06-01T00:00:00Z"
-  },
-  {
-    "id": 11,
-    "title": "Sum of Even Numbers",
-    "slug": "sum-of-even-numbers",
-    "short_description": "Implement a function to sum even numbers in a given range using a for loop.",
-    "language": "RUST",
-    "difficulty": "EASY",
-    "track": "CONTROL_FLOW",
-    "tags": ["for-loop", "iteration", "range"],
-    "created_at": "2024-06-02T00:00:00Z",
-    "updated_at": "2024-06-02T00:00:00Z"
-  },
-  {
-    "id": 12,
-    "title": "Countdown",
-    "slug": "countdown",
-    "short_description": "Implement a countdown timer using a while loop in Rust.",
-    "language": "RUST",
-    "difficulty": "EASY",
-    "track": "CONTROL_FLOW",
-    "tags": ["while", "loop", "control flow"],
-    "created_at": "2024-06-02T00:00:00Z",
-    "updated_at": "2024-06-02T00:00:00Z"
-  },
-  {
-    "id": 13,
-    "title": "Weekday from Number",
-    "slug": "weekday-from-number",
-    "short_description": "Use Rust's pattern matching to determine the weekday given its number.",
-    "language": "RUST",
-    "difficulty": "EASY",
-    "track": "CONTROL_FLOW",
-    "tags": [],
-    "created_at": "2024-06-02T00:00:00Z",
-    "updated_at": "2024-06-02T00:00:00Z"
   },
   {
     "id": 14,
