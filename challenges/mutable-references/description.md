@@ -4,6 +4,8 @@ Rust's ownership model ensures memory safety without needing a garbage collector
 
 **Mutable references** allow you to **modify** the value you are **borrowing**. **You can only have one mutable reference to a particular piece of data in a particular scope.** This prevents data races at compile time.
 
+In Rust, `&mut` is used to create a **mutable reference**. This means that you can borrow a value and make changes to it without taking ownership. However, Rust enforces that there can only be one mutable reference to a particular piece of data in a particular scope. This ensures that no data races occur, as only one part of the code can modify the data at a time.
+
 ### Example
 
 ```rust
