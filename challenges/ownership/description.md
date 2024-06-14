@@ -24,7 +24,7 @@ Rust allows you to create **references** to a value, which lets you access it wi
 
 You can create multiple **immutable references** to a value, but you cannot have a mutable reference while immutable references exist. This allows you to read from the value without changing it.
 
-## Example
+### Example
 
 ```rust
 fn main() {
@@ -36,8 +36,14 @@ fn main() {
 
 fn calculate_length(s: &String) -> usize { // s is an immutable reference to a String
     s.len()
-} // s goes out of scope here, but since it does not have ownership of the String, nothing happens
+}
 ```
+
+## Using `&` to Create References
+
+In the example above, `&s1` creates an immutable reference to `s1`. This means that `calculate_length` borrows `s1` but does not take ownership of it. The `&` symbol is used to denote a reference in Rust. This allows the function to access the value without taking ownership, which means `s1` can still be used after the function call.
+
+Similarly, in the function signature `fn calculate_length(s: &String) -> usize`, `&String` indicates that the parameter `s` is an immutable reference to a `String`. This allows the function to read from the `String` without modifying it or taking ownership.
 
 ## Challenge
 
