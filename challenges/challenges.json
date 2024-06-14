@@ -240,6 +240,18 @@
     "updated_at": "2024-06-13T00:00:00Z"
   },
   {
+    "id": 36,
+    "title": "Ownership Rules",
+    "slug": "ownership-rules",
+    "short_description": "Identify and fix ownership rule violations in Rust code.",
+    "language": "RUST",
+    "difficulty": "EASY",
+    "track": "RUST_BASICS",
+    "tags": ["ownership", "borrowing", "fixing errors"],
+    "created_at": "2024-06-14T00:00:00Z",
+    "updated_at": "2024-06-14T00:00:00Z"
+  },
+  {
     "id": 2,
     "title": "Character counting string",
     "slug": "character-counting-string",

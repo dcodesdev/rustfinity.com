@@ -874,6 +874,13 @@ name = "ownership"
 version = "0.1.0"
 
 [[package]]
+name = "ownership-rules"
+version = "0.1.0"
+dependencies = [
+ "syntest",
+]
+
+[[package]]
 name = "parking_lot"
 version = "0.12.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
