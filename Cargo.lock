@@ -222,6 +222,10 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "98cc8fbded0c607b7ba9dd60cd98df59af97e84d24e49c8557331cfc26d301ce"
 
 [[package]]
+name = "closures"
+version = "0.1.0"
+
+[[package]]
 name = "colorchoice"
 version = "1.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -233,6 +237,10 @@ version = "0.1.0"
 dependencies = [
  "syntest",
 ]
+
+[[package]]
+name = "control-flow"
+version = "0.1.0"
 
 [[package]]
 name = "converting-numerical-types"
@@ -363,6 +371,10 @@ checksum = "e13624c2627564efccf4934284bdd98cbaa14e79b0b5a141218e507b3a823456"
 dependencies = [
  "percent-encoding",
 ]
+
+[[package]]
+name = "functions"
+version = "0.1.0"
 
 [[package]]
 name = "futures"
@@ -751,6 +763,10 @@ dependencies = [
 ]
 
 [[package]]
+name = "mutable-references"
+version = "0.1.0"
+
+[[package]]
 name = "mutable-variables"
 version = "0.1.0"
 dependencies = [
@@ -851,6 +867,17 @@ dependencies = [
  "libc",
  "pkg-config",
  "vcpkg",
+]
+
+[[package]]
+name = "ownership"
+version = "0.1.0"
+
+[[package]]
+name = "ownership-rules"
+version = "0.1.0"
+dependencies = [
+ "syntest",
 ]
 
 [[package]]

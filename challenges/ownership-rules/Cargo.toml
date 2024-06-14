@@ -1,0 +1,9 @@
+[package]
+name = "ownership-rules"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+
+[dev-dependencies]
+syntest = { path = "../../crates/syntest" }
