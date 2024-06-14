@@ -13,14 +13,15 @@ Here are some important ownership rules to remember:
 
 Before starting to solve the challenge, try to run the code and see what error you'll get. This will help you understand the problem better.
 
-The error is, you can not use an immutable reference after another mutable reference. This is because Rust's ownership rules to make sure that the data is not changed while it is being accessed.
+The compile error tells us that we can't borrow `s` as mutable because it is also borrowed as immutable. If we borrow it as mutable, the value will change the the compiler can not guarantee that the immutable reference hasn't changed.
 
 You are given a function `calculate_and_modify` that violates Rust's ownership rules. Your task is to identify and fix the ownership rule violations in this function.
 
-## Requirements
+- Fix the code to adhere to Rust's ownership rules.
+- The code should print the reference `s2` after without any ownership rule violations.
+- The code should run the `push_str` method to mutate the string.
+- The code should return the modified string and its length.
 
-1. Identify the ownership rule violations in the provided code.
-2. Fix the code to adhere to Rust's ownership rules.
-3. The code should print the reference `s2` after without any ownership rule violations.
-4. The code should run the `push_str` method to mutate the string.
-5. The code should return the modified string and its length.
+## Hints
+
+- You only need to change the order of the function calls, just make sure you don't have invalid references.
