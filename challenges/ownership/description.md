@@ -55,7 +55,7 @@ The task is designed to help you understand the concepts of ownership and immuta
 
 - The `calculate_length` function should take **an immutable reference** to the input `String` and return its length.
 
-## Example
+### Example
 
 ```rust
 let s1 = String::from("hello");
