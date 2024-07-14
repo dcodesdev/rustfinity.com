@@ -1,17 +1,5 @@
 [
   {
-    "id": 1,
-    "title": "Hello, World",
-    "slug": "hello-world",
-    "short_description": "Write a simple function that returns the string 'Hello, World!' in Rust.",
-    "language": "RUST",
-    "difficulty": "BEGINNER",
-    "track": "RUST_BASICS",
-    "tags": ["function", "string", "output"],
-    "created_at": "2024-04-20T00:00:00Z",
-    "updated_at": "2024-04-20T00:00:00Z"
-  },
-  {
     "id": 26,
     "title": "Printing Hello World",
     "slug": "printing-hello-world",

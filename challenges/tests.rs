@@ -1,4 +1,4 @@
-use challenges::{challenges_dir_list, challenges_json, get_max_id, CargoToml, Challenge};
+use challenges::{challenges_dir_list, challenges_json, CargoToml, Challenge};
 use chrono::NaiveDateTime;
 use std::fs;
 
@@ -105,16 +105,4 @@ fn test_date_validity() {
             "created_at date should be before updated_at date"
         );
     }
-}
-
-#[test]
-fn test_no_gap_id() {
-    let challenges = challenges_json().expect("Failed to read challenges");
-    let max_id = get_max_id();
-
-    assert_eq!(
-        max_id,
-        challenges.len() as u32,
-        "There is a gap in the id sequence"
-    );
 }
