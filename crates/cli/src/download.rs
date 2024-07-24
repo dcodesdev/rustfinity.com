@@ -38,17 +38,18 @@ pub async fn get_challenge(challenge: &str) -> anyhow::Result<()> {
     update_dependency_if_exists(&mut cargo_toml)?;
     fs::write(&file_path, &cargo_toml)?;
 
-    // open it in the users editor
-    if let Some(editor) = Editor::find() {
-        editor.open(challenge);
-    }
-
     // Check all results are successful
     if results.iter().all(Result::is_ok) {
-        println!(
-            "Challenge downloaded 🥳\n\nRun the following command to get started:\n\ncd {}",
-            challenge
-        );
+        // open it in the users editor
+        if let Some(editor) = Editor::find() {
+            editor.open(challenge);
+        } else {
+            println!(
+                "Challenge downloaded 🥳\n\nRun the following command to get started:\n\ncd {}",
+                challenge
+            );
+        }
+
         Ok(())
     } else {
         Err(anyhow::anyhow!("One or more files failed to download"))
