@@ -22,7 +22,7 @@ pub async fn get_challenge(challenge: &str) -> anyhow::Result<()> {
     let futures: Vec<_> = FILES
         .iter()
         .map(|file| {
-            let url = format!("{}/{}/{}", GITHUB_RAW_BASE_URL, challenge, file);
+            let url = format!("{}/{}/{}", GITHUB_CHALLENGES_BASE_URL, challenge, file);
             let challenge = challenge.to_string();
             async move { download_file(&url, &challenge).await }
         })
@@ -94,7 +94,7 @@ mod tests {
 
     mod download {
         const CHALLENGES: [&'static str; 7] = [
-            "hello-world",
+            "printing-hello-world",
             "character-counting-string",
             "mathematical-operations",
             "fizz-buzz",
@@ -154,10 +154,13 @@ mod tests {
             let temp_path = temp_dir.path();
             env::set_current_dir(&temp_path).ok();
 
-            let url = "https://raw.githubusercontent.com/dcodesdev/rustfinity.com/main/challenges/hello-world/description.md";
-            let challenge = "hello-world";
+            let challenge = "printing-hello-world";
+            let url = format!(
+                "{}/{}/description.md",
+                GITHUB_CHALLENGES_BASE_URL, challenge
+            );
 
-            let result = download_file(url, challenge).await;
+            let result = download_file(&url, challenge).await;
 
             assert!(result.is_ok());
 
@@ -177,10 +180,10 @@ mod tests {
             let temp_path = temp_dir.path();
             env::set_current_dir(&temp_path).ok();
 
-            let url = "https://raw.githubusercontent.com/dcodesdev/rustfinity.com/main/challenges/hello-world/src/starter.rs";
-            let challenge = "hello-world";
+            let challenge = "printing-hello-world";
+            let url = format!("{}/{}", GITHUB_CHALLENGES_BASE_URL, challenge);
 
-            let result = download_file(url, challenge).await;
+            let result = download_file(&url, challenge).await;
 
             assert!(result.is_ok());
 
