@@ -1,4 +1,7 @@
-use crate::{cargo_toml::update_dependency_if_exists, challenge::challenge_exists, constants::*};
+use crate::{
+    cargo_toml::update_dependency_if_exists, challenge::challenge_exists, constants::*,
+    editor::Editor,
+};
 use dload::Downloader;
 use futures::future::join_all;
 use std::fs;
@@ -34,6 +37,11 @@ pub async fn get_challenge(challenge: &str) -> anyhow::Result<()> {
     let mut cargo_toml = fs::read_to_string(&file_path)?;
     update_dependency_if_exists(&mut cargo_toml)?;
     fs::write(&file_path, &cargo_toml)?;
+
+    // open it in the users editor
+    if let Some(editor) = Editor::find() {
+        editor.open(challenge);
+    }
 
     // Check all results are successful
     if results.iter().all(Result::is_ok) {
