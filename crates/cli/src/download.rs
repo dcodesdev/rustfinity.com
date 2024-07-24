@@ -1,4 +1,4 @@
-use crate::challenge::challenge_exists;
+use crate::{cargo_toml::update_dependency_if_exists, challenge::challenge_exists, constants::*};
 use dload::Downloader;
 use futures::future::join_all;
 
@@ -9,9 +9,6 @@ const FILES: [&'static str; 4] = [
     "tests/tests.rs",
 ];
 
-const GITHUB_BASE_URL: &'static str =
-    "https://raw.githubusercontent.com/dcodesdev/rustfinity.com/main/challenges";
-
 pub async fn get_challenge(challenge: &str) -> anyhow::Result<()> {
     if !challenge_exists(challenge).await? {
         println!("Challenge does not exist 🥺\n\nPlease make sure you've written the challenge name correctly.");
@@ -21,13 +18,21 @@ pub async fn get_challenge(challenge: &str) -> anyhow::Result<()> {
     let futures: Vec<_> = FILES
         .iter()
         .map(|file| {
-            let url = format!("{}/{}/{}", GITHUB_BASE_URL, challenge, file);
+            let url = format!("{}/{}/{}", GITHUB_RAW_BASE_URL, challenge, file);
             let challenge = challenge.to_string();
             async move { download_file(&url, &challenge).await }
         })
         .collect();
 
     let results = join_all(futures).await;
+
+    // After the download, update the Cargo.toml file
+    // if syntest was a dependency, update it's value to
+    // https://github.com/dcodesdev/rustfinity.com
+    let cargo_toml = include_str!("../Cargo.toml");
+    let mut cargo_toml = toml::from_str::<toml::Value>(cargo_toml)?;
+
+    update_dependency_if_exists(&mut cargo_toml, ("syntest", GITHUB_REPO_URL))?;
 
     // Check all results are successful
     if results.iter().all(Result::is_ok) {
