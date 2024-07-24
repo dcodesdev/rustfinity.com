@@ -1,3 +1,4 @@
+mod cargo_toml;
 mod challenge;
 mod cli;
 mod crates_io;
