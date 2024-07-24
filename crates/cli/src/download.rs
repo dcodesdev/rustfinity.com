@@ -31,11 +31,9 @@ pub async fn get_challenge(challenge: &str) -> anyhow::Result<()> {
     // if syntest was a dependency, update it's value to
     // https://github.com/dcodesdev/rustfinity.com
     let file_path = format!("{}/Cargo.toml", challenge);
-    let cargo_toml = fs::read_to_string(&file_path)?;
-    let updated_cargo_toml = update_dependency_if_exists(&cargo_toml)?;
-
-    // write to it
-    fs::write(&file_path, &updated_cargo_toml)?;
+    let mut cargo_toml = fs::read_to_string(&file_path)?;
+    update_dependency_if_exists(&mut cargo_toml)?;
+    fs::write(&file_path, &cargo_toml)?;
 
     // Check all results are successful
     if results.iter().all(Result::is_ok) {

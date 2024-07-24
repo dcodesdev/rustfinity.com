@@ -1,6 +1,6 @@
 use crate::constants::GITHUB_REPO_URL;
 
-pub fn update_dependency_if_exists(cargo_toml: &str) -> anyhow::Result<String> {
+pub fn update_dependency_if_exists(cargo_toml: &mut String) -> anyhow::Result<()> {
     let mut updated_content = cargo_toml
         .lines()
         .map(|line| {
@@ -15,7 +15,9 @@ pub fn update_dependency_if_exists(cargo_toml: &str) -> anyhow::Result<String> {
 
     updated_content.push_str("\n");
 
-    Ok(updated_content)
+    *cargo_toml = updated_content;
+
+    Ok(())
 }
 
 #[cfg(test)]
@@ -24,17 +26,18 @@ mod tests {
 
     #[test]
     fn test_update_dependency_if_exists() {
-        let cargo_toml = r#"
+        let mut cargo_toml = r#"
 [package]
 name = "rustfinity"
 version = "0.1.0"
 
 [dependencies]
 syntest = "1.0"
-"#;
+"#
+        .to_string();
 
         // update existing dependency
-        let actual = update_dependency_if_exists(&cargo_toml).unwrap();
+        update_dependency_if_exists(&mut cargo_toml).unwrap();
 
         let expected = r#"
 [package]
@@ -45,6 +48,6 @@ version = "0.1.0"
 syntest = { git = "https://www.github.com/dcodesdev/rustfinity.com" }
 "#;
 
-        assert_eq!(actual, expected);
+        assert_eq!(cargo_toml, expected);
     }
 }
