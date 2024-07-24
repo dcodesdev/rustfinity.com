@@ -43,6 +43,23 @@ pub fn update_dependency(
     Ok(())
 }
 
+pub fn update_dependency_if_exists(
+    cargo_toml: &mut toml::Value,
+    (dependency, version): (&str, &str),
+) -> anyhow::Result<()> {
+    let dependencies = cargo_toml
+        .get_mut("dependencies")
+        .ok_or(anyhow::anyhow!("Failed to get dependencies"))?;
+
+    let dependencies = dependencies.as_table_mut().unwrap();
+
+    if let Some(value) = dependencies.get_mut(dependency) {
+        *value = toml::Value::String(version.to_string());
+    }
+
+    Ok(())
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -111,6 +128,47 @@ mod tests {
                 ("anyhow".to_string(), "1.0".to_string()),
                 ("clap".to_string(), "2.5".to_string()),
                 ("tokio".to_string(), "1.0".to_string()),
+            ]
+        );
+    }
+
+    #[test]
+    fn test_update_dependency_if_exists() {
+        let cargo_toml = r#"
+            [package]
+            name = "rustfinity"
+            version = "0.1.0"
+
+            [dependencies]
+            anyhow = "1.0"
+            clap = "2.33"
+        "#;
+
+        let mut cargo_toml = toml::from_str(cargo_toml).unwrap();
+
+        // update existing dependency
+        update_dependency_if_exists(&mut cargo_toml, ("clap", "2.5")).unwrap();
+
+        let dependencies = read_dependencies(&cargo_toml).unwrap();
+
+        assert_eq!(
+            dependencies,
+            vec![
+                ("anyhow".to_string(), "1.0".to_string()),
+                ("clap".to_string(), "2.5".to_string()),
+            ]
+        );
+
+        // insert new dependency
+        update_dependency_if_exists(&mut cargo_toml, ("tokio", "1.0")).unwrap();
+
+        let dependencies = read_dependencies(&cargo_toml).unwrap();
+
+        assert_eq!(
+            dependencies,
+            vec![
+                ("anyhow".to_string(), "1.0".to_string()),
+                ("clap".to_string(), "2.5".to_string()),
             ]
         );
     }
