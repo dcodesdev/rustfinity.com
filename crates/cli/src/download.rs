@@ -175,13 +175,16 @@ mod tests {
         }
 
         #[tokio::test]
-        async fn test_download_file_sub_dir() {
+        async fn test_renames_starter() {
             let temp_dir = tempdir().expect("Failed to create temp dir");
             let temp_path = temp_dir.path();
             env::set_current_dir(&temp_path).ok();
 
             let challenge = "printing-hello-world";
-            let url = format!("{}/{}", GITHUB_CHALLENGES_BASE_URL, challenge);
+            let url = format!(
+                "{}/{}/src/starter.rs",
+                GITHUB_CHALLENGES_BASE_URL, challenge
+            );
 
             let result = download_file(&url, challenge).await;
 
