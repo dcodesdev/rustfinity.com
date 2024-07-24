@@ -1,6 +1,7 @@
 use crate::{cargo_toml::update_dependency_if_exists, challenge::challenge_exists, constants::*};
 use dload::Downloader;
 use futures::future::join_all;
+use std::fs;
 
 const FILES: [&'static str; 4] = [
     "description.md",
@@ -29,10 +30,12 @@ pub async fn get_challenge(challenge: &str) -> anyhow::Result<()> {
     // After the download, update the Cargo.toml file
     // if syntest was a dependency, update it's value to
     // https://github.com/dcodesdev/rustfinity.com
-    let cargo_toml = include_str!("../Cargo.toml");
-    let mut cargo_toml = toml::from_str::<toml::Value>(cargo_toml)?;
+    let file_path = format!("{}/Cargo.toml", challenge);
+    let cargo_toml = fs::read_to_string(&file_path)?;
+    let updated_cargo_toml = update_dependency_if_exists(&cargo_toml)?;
 
-    update_dependency_if_exists(&mut cargo_toml, ("syntest", GITHUB_REPO_URL))?;
+    // write to it
+    fs::write(&file_path, &updated_cargo_toml)?;
 
     // Check all results are successful
     if results.iter().all(Result::is_ok) {
