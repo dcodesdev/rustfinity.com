@@ -1,7 +1,10 @@
+mod cargo_toml;
 mod challenge;
 mod cli;
+mod constants;
 mod crates_io;
 mod download;
+mod editor;
 
 use clap::Parser;
 use cli::{run, Cli};

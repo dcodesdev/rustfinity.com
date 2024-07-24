@@ -1,6 +1,10 @@
-use crate::challenge::challenge_exists;
+use crate::{
+    cargo_toml::update_dependency_if_exists, challenge::challenge_exists, constants::*,
+    editor::Editor,
+};
 use dload::Downloader;
 use futures::future::join_all;
+use std::fs;
 
 const FILES: [&'static str; 4] = [
     "description.md",
@@ -8,9 +12,6 @@ const FILES: [&'static str; 4] = [
     "src/starter.rs",
     "tests/tests.rs",
 ];
-
-const GITHUB_BASE_URL: &'static str =
-    "https://raw.githubusercontent.com/dcodesdev/rustfinity.com/main/challenges";
 
 pub async fn get_challenge(challenge: &str) -> anyhow::Result<()> {
     if !challenge_exists(challenge).await? {
@@ -21,7 +22,7 @@ pub async fn get_challenge(challenge: &str) -> anyhow::Result<()> {
     let futures: Vec<_> = FILES
         .iter()
         .map(|file| {
-            let url = format!("{}/{}/{}", GITHUB_BASE_URL, challenge, file);
+            let url = format!("{}/{}/{}", GITHUB_CHALLENGES_BASE_URL, challenge, file);
             let challenge = challenge.to_string();
             async move { download_file(&url, &challenge).await }
         })
@@ -29,12 +30,26 @@ pub async fn get_challenge(challenge: &str) -> anyhow::Result<()> {
 
     let results = join_all(futures).await;
 
+    // After the download, update the Cargo.toml file
+    // if syntest was a dependency, update it's value to
+    // https://github.com/dcodesdev/rustfinity.com
+    let file_path = format!("{}/Cargo.toml", challenge);
+    let mut cargo_toml = fs::read_to_string(&file_path)?;
+    update_dependency_if_exists(&mut cargo_toml)?;
+    fs::write(&file_path, &cargo_toml)?;
+
     // Check all results are successful
     if results.iter().all(Result::is_ok) {
-        println!(
-            "Challenge downloaded 🥳\n\nRun the following command to get started:\n\ncd {}",
-            challenge
-        );
+        // open it in the users editor
+        if let Some(editor) = Editor::find() {
+            editor.open(challenge);
+        } else {
+            println!(
+                "Challenge downloaded 🥳\n\nRun the following command to get started:\n\ncd {}",
+                challenge
+            );
+        }
+
         Ok(())
     } else {
         Err(anyhow::anyhow!("One or more files failed to download"))
@@ -80,7 +95,7 @@ mod tests {
 
     mod download {
         const CHALLENGES: [&'static str; 7] = [
-            "hello-world",
+            "printing-hello-world",
             "character-counting-string",
             "mathematical-operations",
             "fizz-buzz",
@@ -140,10 +155,13 @@ mod tests {
             let temp_path = temp_dir.path();
             env::set_current_dir(&temp_path).ok();
 
-            let url = "https://raw.githubusercontent.com/dcodesdev/rustfinity.com/main/challenges/hello-world/description.md";
-            let challenge = "hello-world";
+            let challenge = "printing-hello-world";
+            let url = format!(
+                "{}/{}/description.md",
+                GITHUB_CHALLENGES_BASE_URL, challenge
+            );
 
-            let result = download_file(url, challenge).await;
+            let result = download_file(&url, challenge).await;
 
             assert!(result.is_ok());
 
@@ -158,15 +176,18 @@ mod tests {
         }
 
         #[tokio::test]
-        async fn test_download_file_sub_dir() {
+        async fn test_renames_starter() {
             let temp_dir = tempdir().expect("Failed to create temp dir");
             let temp_path = temp_dir.path();
             env::set_current_dir(&temp_path).ok();
 
-            let url = "https://raw.githubusercontent.com/dcodesdev/rustfinity.com/main/challenges/hello-world/src/starter.rs";
-            let challenge = "hello-world";
+            let challenge = "printing-hello-world";
+            let url = format!(
+                "{}/{}/src/starter.rs",
+                GITHUB_CHALLENGES_BASE_URL, challenge
+            );
 
-            let result = download_file(url, challenge).await;
+            let result = download_file(&url, challenge).await;
 
             assert!(result.is_ok());
 

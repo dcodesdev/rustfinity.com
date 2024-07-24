@@ -17,7 +17,7 @@ mod tests {
         let slug = "two-sum";
         assert_eq!(challenge_exists(slug).await.unwrap(), false);
 
-        let slug = "hello-world";
+        let slug = "printing-hello-world";
         assert_eq!(challenge_exists(slug).await.unwrap(), true);
     }
 }
