@@ -1,5 +1,3 @@
-## Declaring variables challenge
-
 Declaring variables in programming is a fundamental concept that allows you to **store and manipulate data**. Variables are used to store values that can be accessed and modified throughout the program.
 
 In Rust, variables are declared using the `let` keyword followed by the variable name and an optional type annotation.
