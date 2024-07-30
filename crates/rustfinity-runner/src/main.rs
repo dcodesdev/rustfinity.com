@@ -18,15 +18,10 @@ async fn main() {
             code: code_base64,
             challenge,
         } => {
-            dbg!(code_base64, challenge);
+            match run_code(&code_base64, &challenge).await {
+                Ok(output) => println!("{}", output),
+                Err(e) => eprintln!("{}", e),
+            };
         }
     }
-
-    let code_base64 = "cHViIGZuIGhlbGxvX3dvcmxkKCkgewogICAgcHJpbnRsbiEoImhlbGxvLCB3b3JsZCIpCn0K";
-    let challenge = "printing-hello-world";
-
-    match run_code(code_base64, challenge).await {
-        Ok(output) => println!("{}", output),
-        Err(e) => eprintln!("{}", e),
-    };
 }

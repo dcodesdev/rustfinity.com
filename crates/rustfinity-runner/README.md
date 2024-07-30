@@ -9,7 +9,7 @@ It's best to run this in a docker container to be completely isolated from the o
 1. Build the image locally
 
    ```sh
-   docker build -t rustfinity-runner .
+   make build TAG=latest
    ```
 
 2. Convert your code to **base64** format.
