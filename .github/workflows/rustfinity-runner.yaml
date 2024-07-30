@@ -27,19 +27,21 @@ jobs:
       - name: Login to GitHub Container Registry
         run: echo "${{ github.token }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
-      - name: Determine tag
-        id: tag
+      - name: Determine tag and Dockerfile
+        id: vars
         run: |
           if [[ "${GITHUB_REF#refs/heads/}" == "main" ]]; then
-            echo "::set-output name=tag::latest"
+            echo "TAG_NAME=latest" >> $GITHUB_ENV
+            echo "DOCKERFILE_PATH=crates/rustfinity-runner/Dockerfile" >> $GITHUB_ENV
           elif [[ "${GITHUB_REF#refs/heads/}" == "staging" ]]; then
-            echo "::set-output name=tag::staging"
+            echo "TAG_NAME=staging" >> $GITHUB_ENV
+            echo "DOCKERFILE_PATH=crates/rustfinity-runner/Dockerfile.staging" >> $GITHUB_ENV
           fi
 
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
-          file: crates/rustfinity-runner/Dockerfile
+          file: ${{ env.DOCKERFILE_PATH }}
           push: true
           tags: |
-            ghcr.io/${{ github.repository_owner }}/rustfinity-runner:${{ steps.tag.outputs.tag }}
+            ghcr.io/${{ github.repository_owner }}/rustfinity-runner:${{ env.TAG_NAME }}
