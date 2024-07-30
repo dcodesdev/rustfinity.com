@@ -33,5 +33,5 @@ docker run -i \
     --cpus=1 \
     -m=500m \
     rustfinity-runner \
-    /bin/bash -c "/app/rustfinity-runner run --code 'cHViIGZuIGhlbGxvX3dvcmxkKCkgewogICAgcHJpbnRsbiEoIkdvb2Qgam9iLCB5b3UgZGVjb2RlZCBpdCA6RCIpCn0K'"
+    /bin/bash -c "/app/rustfinity-runner run --code 'cHViIGZuIGhlbGxvX3dvcmxkKCkgewogICAgcHJpbnRsbiEoIkdvb2Qgam9iLCB5b3UgZGVjb2RlZCBpdCA6RCIpCn0K' --challenge 'printing-hello-world'"
 ```
