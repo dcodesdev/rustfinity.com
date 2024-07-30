@@ -5,10 +5,9 @@ on:
     branches:
       - main
       - staging
-
-paths:
-  - "crates/rustfinity-runner/**"
-  - "challenges/**"
+    paths:
+      - "crates/rustfinity-runner/**"
+      - "challenges/**"
 
 jobs:
   publish:
