@@ -6,8 +6,10 @@ on:
       - main
       - staging
     paths:
+      - ".github/workflows/rustfinity-runner.yaml"
       - "crates/rustfinity-runner/**"
       - "challenges/**"
+  workflow_dispatch:
 
 jobs:
   publish:
