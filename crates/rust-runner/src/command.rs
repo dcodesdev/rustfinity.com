@@ -3,7 +3,7 @@ use duct::cmd;
 use std::fs;
 use std::path::Path;
 
-const CHALLENGES_PATH: &str = "../rustfinity.com/challenges";
+const CHALLENGES_PATH: &str = "../../challenges";
 
 pub async fn run_code(code_base64: &str, challenge: &str) -> anyhow::Result<String> {
     let code_utf8 = BASE64_STANDARD.decode(code_base64)?;

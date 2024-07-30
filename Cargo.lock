@@ -1092,17 +1092,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "rust-runner"
-version = "0.1.0"
-dependencies = [
- "anyhow",
- "base64",
- "clap",
- "duct",
- "tokio",
-]
-
-[[package]]
 name = "rustc-demangle"
 version = "0.1.24"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1119,6 +1108,17 @@ dependencies = [
  "reqwest",
  "serde_json",
  "tempfile",
+ "tokio",
+]
+
+[[package]]
+name = "rustfinity-runner"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "base64",
+ "clap",
+ "duct",
  "tokio",
 ]
 

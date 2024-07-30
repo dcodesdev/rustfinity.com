@@ -9,9 +9,14 @@ pub struct Cli {
 
 #[derive(Debug, Subcommand)]
 pub enum Commands {
+    #[clap(about = "Run and test the code based on the challenge and code provided")]
     Run {
         #[clap(short, long)]
         /// Code base64 encoded
         code: String,
+
+        #[clap(short, long)]
+        /// Challenge slug
+        challenge: String,
     },
 }
