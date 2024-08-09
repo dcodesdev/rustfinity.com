@@ -82,7 +82,7 @@ async fn download_file(url: &str, challenge: &str) -> anyhow::Result<Downloader>
     };
 
     dl.set_output_dir(&output_dir)
-        .file_name(&file_name)
+        .file_name(file_name)
         .download(url)
         .await
         .map_err(|e| anyhow::anyhow!("Failed to download file: {}", e))
