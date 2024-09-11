@@ -26,6 +26,11 @@ WORKDIR /app/rustfinity.com
 COPY --from=git /app/rustfinity.com .
 RUN cargo build
 
+# Create a new project for (rustfinity.com/playground)
+WORKDIR /app
+RUN cargo new playground
+
 # The final structure:
 # /app/rustfinity-runner (executable)
 # /app/rustfinity.com/ (project directory)
+# /app/playground/ (project directory)
