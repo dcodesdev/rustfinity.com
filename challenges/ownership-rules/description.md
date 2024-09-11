@@ -13,7 +13,7 @@ Here are some important ownership rules to remember:
 
 Before starting to solve the challenge, try to run the code and see what error you'll get. This will help you understand the problem better.
 
-The compile error tells us that we can't borrow `s` as mutable because it is also borrowed as immutable. If we borrow it as mutable, the value will change the the compiler can not guarantee that the immutable reference hasn't changed.
+The compile error tells us that we can't borrow `s` as mutable because it is also borrowed as immutable. If we borrow it as mutable, the value will change and the compiler can not guarantee that the immutable reference hasn't changed.
 
 You are given a function `calculate_and_modify` that violates Rust's ownership rules. Your task is to identify and fix the ownership rule violations in this function.
 
