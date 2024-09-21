@@ -15,14 +15,16 @@ pub async fn run_code(code_base64: &str, challenge: &str) -> anyhow::Result<Stri
     output.push_str(&tests_output);
     output.push_str("\n---\n");
 
-    let test_binary_path = extract_unittest_path(&output).unwrap();
+    let test_binary_path = extract_unittest_path(&output);
 
-    let time_output = benchmark_time(&challenge, &test_binary_path).await?;
-    output.push_str(time_output.to_string().as_str());
-    output.push_str("\n---\n");
+    if let Some(test_binary_path) = test_binary_path {
+        let time_output = benchmark_time(&challenge, &test_binary_path).await?;
+        output.push_str(time_output.to_string().as_str());
+        output.push_str("\n---\n");
 
-    let memory_output = memory_benchmark(&challenge, &test_binary_path).await?;
-    output.push_str(memory_output.as_str());
+        let memory_output = memory_benchmark(&challenge, &test_binary_path).await?;
+        output.push_str(memory_output.as_str());
+    }
 
     Ok(output)
 }
