@@ -15,21 +15,22 @@ pub async fn run_code(code_base64: &str, challenge: &str) -> anyhow::Result<Stri
     output.push_str(&tests_output);
     output.push_str("\n---\n");
 
-    let time_output = benchmark_time(&challenge, &tests_output).await?;
+    let test_binary_path = extract_unittest_path(&output).unwrap();
+
+    let time_output = benchmark_time(&challenge, &test_binary_path).await?;
     output.push_str(time_output.to_string().as_str());
     output.push_str("\n---\n");
 
     Ok(output)
 }
 
-async fn benchmark_time(challenge: &str, output: &str) -> anyhow::Result<String> {
+async fn benchmark_time(challenge: &str, test_binary_path: &str) -> anyhow::Result<String> {
     let challenges_path = get_challenges_path();
     let current_challenge_path = format!("{challenges_path}/{challenge}");
-    let test_running_command = extract_unittest_path(&output).unwrap();
 
     let start = Instant::now();
 
-    Command::new(&test_running_command)
+    Command::new(&test_binary_path)
         .current_dir(&current_challenge_path)
         .output()?;
 
@@ -43,6 +44,8 @@ async fn benchmark_time(challenge: &str, output: &str) -> anyhow::Result<String>
 
     Ok(as_ms_str)
 }
+
+//async fn memory_benchmark
 
 async fn run_tests(code_base64: &str, challenge: &str) -> anyhow::Result<String> {
     let code_utf8 = BASE64_STANDARD.decode(code_base64)?;
