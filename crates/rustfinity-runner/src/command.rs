@@ -3,6 +3,8 @@ use duct::cmd;
 use std::env;
 use std::fs;
 use std::path::Path;
+use std::process::Command;
+use std::time::Instant;
 
 use crate::regex::extract_unittest_path;
 
@@ -11,25 +13,35 @@ pub async fn run_code(code_base64: &str, challenge: &str) -> anyhow::Result<Stri
 
     let tests_output = run_tests(&code_base64, &challenge).await?;
     output.push_str(&tests_output);
+    output.push_str("\n---\n");
 
-    output.push_str("---");
-
-    let challenges_path = get_challenges_path();
-    let current_challenge_path = format!("{challenges_path}/{challenge}");
-
-    // Check time
-    let test_running_command = extract_unittest_path(&output).unwrap();
-
-    let time_tracking_output = run_command_and_merge_output(
-        "time",
-        &[&test_running_command],
-        Some(&current_challenge_path),
-    )
-    .await?;
-
-    output.push_str(&time_tracking_output);
+    let time_output = benchmark_time(&challenge, &tests_output).await?;
+    output.push_str(time_output.to_string().as_str());
+    output.push_str("\n---\n");
 
     Ok(output)
+}
+
+async fn benchmark_time(challenge: &str, output: &str) -> anyhow::Result<String> {
+    let challenges_path = get_challenges_path();
+    let current_challenge_path = format!("{challenges_path}/{challenge}");
+    let test_running_command = extract_unittest_path(&output).unwrap();
+
+    let start = Instant::now();
+
+    Command::new(&test_running_command)
+        .current_dir(&current_challenge_path)
+        .output()?;
+
+    let elapsed = start.elapsed();
+    let as_nanos = elapsed.as_nanos();
+
+    let as_ms = as_nanos as f64 / 1_000_000.0;
+
+    let mut as_ms_str = as_ms.to_string();
+    as_ms_str.push_str("ms");
+
+    Ok(as_ms_str)
 }
 
 async fn run_tests(code_base64: &str, challenge: &str) -> anyhow::Result<String> {
