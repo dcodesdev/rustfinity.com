@@ -1,5 +1,5 @@
 #!/bin/sh
 
-cargo run run \
+cargo -q run run \
   --code cHViIGZuIGhlbGxvX3dvcmxkKCkgewogICAgcHJpbnRsbiEoImhlbGxvIHdvcmxkIikKfQo= \
   --challenge printing-hello-world
