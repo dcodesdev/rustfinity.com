@@ -71,16 +71,15 @@ async fn memory_benchmark(challenge: &str, test_binary_path: &str) -> anyhow::Re
     let last_index = details.len() - 1;
     let details = details[last_index];
 
-    let mut memory = "";
+    let mut memory = String::new();
 
-    //let memory: Vec<_> = details.split("peak heap memory consumption:").collect();
     details.lines().for_each(|line| {
         if line.contains("peak heap memory consumption:") {
-            memory = line;
+            memory = line.replace("peak", "Peak");
         }
     });
 
-    Ok(memory.to_string())
+    Ok(memory)
 }
 
 async fn run_tests(code_base64: &str, challenge: &str) -> anyhow::Result<String> {

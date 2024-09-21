@@ -11,6 +11,7 @@ LABEL rustfinity-runner="true"
 RUN apt-get update && apt-get install -y \
     pkg-config \
     libssl-dev \
+    heaptrack \
     && rm -rf /var/lib/apt/lists/*
 
 # Build the Runner CLI
