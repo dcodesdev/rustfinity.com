@@ -40,12 +40,9 @@ async fn benchmark_time(challenge: &str, test_binary_path: &str) -> anyhow::Resu
     let elapsed = start.elapsed();
     let as_nanos = elapsed.as_nanos();
 
-    let as_ms = as_nanos as f64 / 1_000_000.0;
+    let as_ms = (as_nanos as f64 / 1_000_000.0).to_string() + "ms";
 
-    let mut as_ms_str = as_ms.to_string();
-    as_ms_str.push_str("ms");
-
-    let output = String::from("Time: ") + &as_ms_str;
+    let output = String::from("Time: ") + &as_ms;
     Ok(output)
 }
 
