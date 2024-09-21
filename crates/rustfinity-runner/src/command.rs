@@ -21,6 +21,9 @@ pub async fn run_code(code_base64: &str, challenge: &str) -> anyhow::Result<Stri
     output.push_str(time_output.to_string().as_str());
     output.push_str("\n---\n");
 
+    let memory_output = memory_benchmark(&challenge, &test_binary_path).await?;
+    output.push_str(memory_output.as_str());
+
     Ok(output)
 }
 
@@ -42,10 +45,46 @@ async fn benchmark_time(challenge: &str, test_binary_path: &str) -> anyhow::Resu
     let mut as_ms_str = as_ms.to_string();
     as_ms_str.push_str("ms");
 
-    Ok(as_ms_str)
+    let output = String::from("Time: ") + &as_ms_str;
+    Ok(output)
 }
 
-//async fn memory_benchmark
+async fn memory_benchmark(challenge: &str, test_binary_path: &str) -> anyhow::Result<String> {
+    let challenges_path = get_challenges_path();
+    let current_challenge_path = format!("{challenges_path}/{challenge}");
+
+    let output = Command::new("heaptrack")
+        .arg(&test_binary_path)
+        .current_dir(&current_challenge_path)
+        .output()?;
+
+    let stdout = String::from_utf8(output.stdout)?;
+
+    let output_path = stdout.split("\"").collect::<Vec<&str>>()[1];
+
+    // run heaptrack --analyze {output_path}
+    let output = Command::new("heaptrack")
+        .arg("--analyze")
+        .arg(output_path)
+        .output()?;
+
+    let stdout = String::from_utf8(output.stdout)?;
+
+    let details = stdout.split("\n\n").collect::<Vec<&str>>();
+    let last_index = details.len() - 1;
+    let details = details[last_index];
+
+    let mut memory = "";
+
+    //let memory: Vec<_> = details.split("peak heap memory consumption:").collect();
+    details.lines().for_each(|line| {
+        if line.contains("peak heap memory consumption:") {
+            memory = line;
+        }
+    });
+
+    Ok(memory.to_string())
+}
 
 async fn run_tests(code_base64: &str, challenge: &str) -> anyhow::Result<String> {
     let code_utf8 = BASE64_STANDARD.decode(code_base64)?;
