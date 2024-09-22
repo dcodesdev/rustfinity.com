@@ -30,7 +30,7 @@ pub async fn run_code(code_base64: &str, challenge: &str) -> anyhow::Result<Stri
     Ok(output)
 }
 
-async fn benchmark_time(challenge: &str, test_binary_path: &str) -> anyhow::Result<String> {
+async fn benchmark_time(challenge: &str, test_binary_path: &str) -> anyhow::Result<f64> {
     let challenges_path = get_challenges_path();
     let current_challenge_path = format!("{challenges_path}/{challenge}");
 
@@ -43,39 +43,23 @@ async fn benchmark_time(challenge: &str, test_binary_path: &str) -> anyhow::Resu
     let elapsed = start.elapsed();
     let as_nanos = elapsed.as_nanos();
 
-    let as_ms = (as_nanos as f64 / 1_000_000.0).to_string() + "ms";
+    let as_ms = as_nanos as f64 / 1_000_000.0;
 
-    let output = String::from("Time: ") + &as_ms;
-    Ok(output)
+    Ok(as_ms)
 }
 
 /// Runs the tests 10 times and gets the average time
 async fn benchmark_time_avg(challenge: &str, test_binary_path: &str) -> anyhow::Result<String> {
-    let mut output = String::new();
+    let mut nums = Vec::with_capacity(10);
+
     for _ in 0..10 {
-        let time_output = benchmark_time(&challenge, &test_binary_path).await?;
-        output.push_str("\n");
-        output.push_str(time_output.as_str());
-    }
-
-    let mut nums = Vec::new();
-    output.lines().for_each(|item| {
-        let times = item.split(":").collect::<Vec<&str>>();
-
-        if times.len() < 2 {
-            return;
-        }
-
-        let time = times[1];
-        let time = time.replace("ms", "");
-        let time = time.trim().parse::<f64>().unwrap();
+        let time = benchmark_time(&challenge, &test_binary_path).await?;
         nums.push(time);
-    });
+    }
 
     // Take Average
     let min = nums
         .iter()
-        .cloned()
         .min_by(|a, b| a.partial_cmp(b).unwrap())
         .unwrap();
 
