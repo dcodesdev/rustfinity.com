@@ -17,7 +17,7 @@ pub async fn run_code(code_base64: &str, challenge: &str) -> anyhow::Result<Stri
     let test_binary_path = extract_unittest_path(&output);
 
     if let Some(test_binary_path) = test_binary_path {
-        let time_output = benchmark_time_avg(&challenge, &test_binary_path).await?;
+        let time_output = benchmark_time_min(&challenge, &test_binary_path).await?;
 
         let memory_output = memory_benchmark(&challenge, &test_binary_path).await?;
 
@@ -48,8 +48,8 @@ async fn benchmark_time(challenge: &str, test_binary_path: &str) -> anyhow::Resu
     Ok(as_ms)
 }
 
-/// Runs the tests 10 times and gets the average time
-async fn benchmark_time_avg(challenge: &str, test_binary_path: &str) -> anyhow::Result<String> {
+/// Runs the tests 10 times and gets the minimum time
+async fn benchmark_time_min(challenge: &str, test_binary_path: &str) -> anyhow::Result<String> {
     let mut nums = Vec::with_capacity(10);
 
     for _ in 0..10 {
