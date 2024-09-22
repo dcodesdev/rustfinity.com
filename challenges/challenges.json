@@ -423,17 +423,5 @@
     "tags": ["control flow", "algorithms", "path-finding"],
     "created_at": "2024-06-07T00:00:00Z",
     "updated_at": "2024-06-07T00:00:00Z"
-  },
-  {
-    "id": 37,
-    "title": "Reverse Array",
-    "slug": "reverse-array",
-    "short_description": "Implement a function to reverse an array in Rust.",
-    "language": "RUST",
-    "difficulty": "BEGINNER",
-    "track": "DSA",
-    "tags": ["arrays", "basic algorithms"],
-    "created_at": "2024-09-20T00:00:00Z",
-    "updated_at": "2024-09-20T00:00:00Z"
   }
 ]
