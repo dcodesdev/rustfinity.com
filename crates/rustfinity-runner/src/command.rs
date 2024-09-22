@@ -73,9 +73,13 @@ async fn benchmark_time_avg(challenge: &str, test_binary_path: &str) -> anyhow::
     });
 
     // Take Average
-    let avg = nums.iter().sum::<f64>() / nums.len() as f64;
+    let min = nums
+        .iter()
+        .cloned()
+        .min_by(|a, b| a.partial_cmp(b).unwrap())
+        .unwrap();
 
-    let final_output = format!("Time: {:.8}ms", avg);
+    let final_output = format!("Time: {:.8}ms", min);
 
     Ok(final_output)
 }
