@@ -17,7 +17,8 @@ pub async fn run_code(code_base64: &str, challenge: &str) -> anyhow::Result<Stri
     let test_binary_path = extract_unittest_path(&output);
 
     if let Some(test_binary_path) = test_binary_path {
-        let time_output = benchmark_time(&challenge, &test_binary_path).await?;
+        let time_output = benchmark_time_avg(&challenge, &test_binary_path).await?;
+
         let memory_output = memory_benchmark(&challenge, &test_binary_path).await?;
 
         output.push_str("\n---\n");
@@ -46,6 +47,37 @@ async fn benchmark_time(challenge: &str, test_binary_path: &str) -> anyhow::Resu
 
     let output = String::from("Time: ") + &as_ms;
     Ok(output)
+}
+
+/// Runs the tests 10 times and gets the average time
+async fn benchmark_time_avg(challenge: &str, test_binary_path: &str) -> anyhow::Result<String> {
+    let mut output = String::new();
+    for _ in 0..10 {
+        let time_output = benchmark_time(&challenge, &test_binary_path).await?;
+        output.push_str("\n");
+        output.push_str(time_output.as_str());
+    }
+
+    let mut nums = Vec::new();
+    output.lines().for_each(|item| {
+        let times = item.split(":").collect::<Vec<&str>>();
+
+        if times.len() < 2 {
+            return;
+        }
+
+        let time = times[1];
+        let time = time.replace("ms", "");
+        let time = time.trim().parse::<f64>().unwrap();
+        nums.push(time);
+    });
+
+    // Take Average
+    let avg = nums.iter().sum::<f64>() / nums.len() as f64;
+
+    let final_output = format!("Final: {:.8}ms", avg);
+
+    Ok(final_output)
 }
 
 async fn memory_benchmark(challenge: &str, test_binary_path: &str) -> anyhow::Result<String> {
