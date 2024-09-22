@@ -11,11 +11,11 @@ pub struct Cli {
 pub enum Commands {
     #[clap(about = "Run and test the code based on the challenge and code provided")]
     Run {
-        #[clap(short, long)]
+        #[clap(long)]
         /// Code base64 encoded
         code: String,
 
-        #[clap(short, long)]
+        #[clap(long)]
         /// Challenge slug
         challenge: String,
     },

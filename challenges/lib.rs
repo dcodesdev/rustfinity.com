@@ -15,6 +15,7 @@ pub enum Difficulty {
 pub enum Track {
     RUST_BASICS,
     CONTROL_FLOW,
+    DSA,
 }
 
 #[derive(Deserialize)]

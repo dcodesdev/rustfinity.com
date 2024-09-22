@@ -4,6 +4,7 @@ use dotenvy::dotenv;
 
 mod cli;
 mod command;
+mod regex;
 
 use cli::{Cli, Commands};
 
