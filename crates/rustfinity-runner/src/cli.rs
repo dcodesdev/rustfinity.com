@@ -19,7 +19,7 @@ pub enum Commands {
         /// Challenge slug
         challenge: Option<String>,
 
-        #[clap(long, short)]
+        #[clap(long = "n-tests", short)]
         /// number of tests to take the minimum time of
         n_tests: Option<usize>,
     },
