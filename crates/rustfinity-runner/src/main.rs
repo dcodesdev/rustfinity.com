@@ -1,5 +1,5 @@
 use clap::Parser;
-use command::run_code;
+use command::{run_code, RunCodeParams};
 use dotenvy::dotenv;
 
 mod cli;
@@ -18,8 +18,11 @@ async fn main() {
         Commands::Run {
             code: code_base64,
             challenge,
+            n_tests,
         } => {
-            match run_code(&code_base64, &challenge).await {
+            let params = RunCodeParams::new(code_base64, challenge, n_tests);
+
+            match run_code(&params).await {
                 Ok(output) => println!("{}", output),
                 Err(e) => eprintln!("{}", e),
             };

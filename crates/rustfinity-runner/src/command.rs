@@ -8,7 +8,29 @@ use std::time::Instant;
 
 use crate::regex::extract_unittest_path;
 
-pub async fn run_code(code_base64: &str, challenge: &str) -> anyhow::Result<String> {
+pub struct RunCodeParams {
+    code_base64: String,
+    challenge: String,
+    n_tests: usize,
+}
+
+impl RunCodeParams {
+    pub fn new(code_base64: String, challenge: Option<String>, n_tests: Option<usize>) -> Self {
+        Self {
+            code_base64,
+            challenge: challenge.unwrap_or("playground".to_string()),
+            n_tests: n_tests.unwrap_or(1),
+        }
+    }
+}
+
+pub async fn run_code(params: &RunCodeParams) -> anyhow::Result<String> {
+    let RunCodeParams {
+        code_base64,
+        challenge,
+        n_tests,
+    } = params;
+
     let mut output = String::new();
 
     let tests_output = run_tests(&code_base64, &challenge).await?;
@@ -16,8 +38,12 @@ pub async fn run_code(code_base64: &str, challenge: &str) -> anyhow::Result<Stri
 
     let test_binary_path = extract_unittest_path(&output);
 
+    if challenge.as_str() == "playground" {
+        return Ok(output);
+    }
+
     if let Some(test_binary_path) = test_binary_path {
-        let time_output = benchmark_time_min(&challenge, &test_binary_path).await?;
+        let time_output = benchmark_time_min(&challenge, &test_binary_path, n_tests).await?;
         let memory_output = memory_benchmark(&challenge, &test_binary_path).await?;
 
         output.push_str("\n");
@@ -50,10 +76,14 @@ async fn benchmark_time(challenge: &str, test_binary_path: &str) -> anyhow::Resu
 }
 
 /// Runs the tests 10 times and gets the minimum time
-async fn benchmark_time_min(challenge: &str, test_binary_path: &str) -> anyhow::Result<String> {
+async fn benchmark_time_min(
+    challenge: &str,
+    test_binary_path: &str,
+    n_tests: &usize,
+) -> anyhow::Result<String> {
     let mut nums = Vec::with_capacity(10);
 
-    for _ in 0..10 {
+    for _ in 0..*n_tests {
         let time = benchmark_time(&challenge, &test_binary_path).await?;
         nums.push(time);
     }

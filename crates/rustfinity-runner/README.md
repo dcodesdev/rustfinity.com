@@ -35,3 +35,9 @@ docker run -i \
     rustfinity-runner \
     /bin/bash -c "/app/rustfinity-runner run --code 'cHViIGZuIGhlbGxvX3dvcmxkKCkgewogICAgcHJpbnRsbiEoIkdvb2Qgam9iLCB5b3UgZGVjb2RlZCBpdCA6RCIpCn0K' --challenge 'printing-hello-world'"
 ```
+
+### Arguments
+
+- `--code`: The base64 encoded code to run.
+- `--challenge`: The challenge name. This is used to identify the challenge in the logs.
+- `--n-tests` or `n`: The number of tests to run (takes the minimum amount of time in `ms` and prints it).
