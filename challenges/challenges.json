@@ -288,18 +288,6 @@
     "updated_at": "2024-04-30T00:00:00Z"
   },
   {
-    "id": 7,
-    "title": "Animal sanctuary registry",
-    "slug": "animal-sanctuary-registry",
-    "short_description": "Create a program that manages a registry of animals in a sanctuary.",
-    "language": "RUST",
-    "difficulty": "MEDIUM",
-    "track": "RUST_BASICS",
-    "tags": [],
-    "created_at": "2024-04-30T00:00:00Z",
-    "updated_at": "2024-04-30T00:00:00Z"
-  },
-  {
     "id": 8,
     "title": "Median and mode",
     "slug": "median-and-mode",
@@ -387,6 +375,18 @@
     "tags": [],
     "created_at": "2024-06-03T00:00:00Z",
     "updated_at": "2024-06-03T00:00:00Z"
+  },
+  {
+    "id": 7,
+    "title": "Animal sanctuary registry",
+    "slug": "animal-sanctuary-registry",
+    "short_description": "Create a program that manages a registry of animals in a sanctuary.",
+    "language": "RUST",
+    "difficulty": "MEDIUM",
+    "track": "RUST_BASICS",
+    "tags": [],
+    "created_at": "2024-04-30T00:00:00Z",
+    "updated_at": "2024-04-30T00:00:00Z"
   },
   {
     "id": 19,
