@@ -1,6 +1,6 @@
 [package]
 name = "rustfinity"
-version = "0.2.11"
+version = "0.2.12"
 edition = "2021"
 license = "MIT"
 description = "Rustfinity.com CLI"
@@ -13,6 +13,7 @@ clap = { version = "4.5.4", features = ["derive"] }
 dload = "0.1"
 futures = "0.3.30"
 reqwest = { version = "0.12.4", features = ["json"] }
+semver = "1.0.23"
 serde_json = "1.0.117"
 tokio = { version = "1.37.0", features = ["full"] }
 urlencoding = "2.1.3"
