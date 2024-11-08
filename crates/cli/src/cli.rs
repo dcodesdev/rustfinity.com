@@ -1,4 +1,4 @@
-use crate::download::get_challenge;
+use crate::{commands::submit::submit_challenge, download::get_challenge};
 use clap::{Parser, Subcommand};
 
 pub async fn run(cli: Cli) -> anyhow::Result<()> {
@@ -6,11 +6,12 @@ pub async fn run(cli: Cli) -> anyhow::Result<()> {
         Commands::Get { command: get } => match get {
             Get::Challenge { challenge } => get_challenge(&challenge).await,
         },
+        Commands::Submit => submit_challenge().await,
     }
 }
 
 #[derive(Parser)]
-#[command(version, about, long_about = None)]
+#[clap(version, about, long_about = None)]
 pub struct Cli {
     /// Optional name to operate on
     // name: Option<String>,
@@ -30,9 +31,11 @@ pub struct Cli {
 #[derive(Subcommand)]
 enum Commands {
     Get {
-        #[command(subcommand)]
+        #[clap(subcommand)]
         command: Get,
     },
+
+    Submit,
 }
 
 #[derive(Subcommand)]
