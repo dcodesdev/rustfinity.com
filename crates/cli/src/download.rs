@@ -43,12 +43,16 @@ pub async fn get_challenge(challenge: &str) -> anyhow::Result<()> {
         // open it in the users editor
         if let Some(editor) = Editor::find() {
             editor.open(challenge);
-        } else {
-            println!(
-                "Challenge downloaded 🥳\n\nRun the following command to get started:\n\ncd {}",
-                challenge
-            );
         }
+
+        println!("Challenge downloaded 🥳");
+        println!();
+        println!();
+        println!("Run the following command to get started:");
+        println!("cd {}", challenge);
+        println!();
+        println!("To submit your challenge, run:");
+        println!("rustfinity submit");
 
         Ok(())
     } else {
