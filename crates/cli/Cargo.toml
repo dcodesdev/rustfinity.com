@@ -8,12 +8,14 @@ repository = "https://github.com/dcodesdev/rustfinity.com/tree/main/crates/cli"
 
 [dependencies]
 anyhow = "1.0.82"
+base64 = "0.22.1"
 clap = { version = "4.5.4", features = ["derive"] }
 dload = "0.1"
 futures = "0.3.30"
 reqwest = { version = "0.12.4", features = ["json"] }
 serde_json = "1.0.117"
 tokio = { version = "1.37.0", features = ["full"] }
+webbrowser = "1.0.2"
 
 [dev-dependencies]
 tempfile = "3.10.1"
