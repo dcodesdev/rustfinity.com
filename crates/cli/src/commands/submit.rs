@@ -13,7 +13,8 @@ pub async fn submit_challenge() -> Result<()> {
     let lib_path = Path::new("./src/lib.rs");
     let code = fs::read_to_string(lib_path)?;
 
-    let encoded_code = BASE64_STANDARD.encode(&code);
+    let base64_code = BASE64_STANDARD.encode(code);
+    let encoded_code = urlencoding::encode(&base64_code);
 
     let url = format!(
         "https://www.rustfinity.com/practice/rust/challenges/{}/description?code={}",
