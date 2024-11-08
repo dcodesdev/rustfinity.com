@@ -4,6 +4,7 @@ mod cli;
 mod commands;
 mod constants;
 mod crates_io;
+mod dir;
 mod download;
 mod editor;
 
