@@ -1,6 +1,7 @@
 mod cargo_toml;
 mod challenge;
 mod cli;
+mod commands;
 mod constants;
 mod crates_io;
 mod download;
