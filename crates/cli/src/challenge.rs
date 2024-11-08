@@ -3,9 +3,9 @@ pub async fn challenge_exists(challenge: &str) -> anyhow::Result<bool> {
     let url = format!("{}/challenges/{}/description.md", url, challenge);
 
     let client = reqwest::Client::new();
-    let text = client.get(url).send().await?.text().await?;
+    let response = client.get(&url).send().await?;
 
-    Ok(!text.starts_with("404: Not Found"))
+    Ok(response.status().is_success())
 }
 
 #[cfg(test)]
