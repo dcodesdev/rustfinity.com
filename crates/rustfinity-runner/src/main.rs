@@ -1,15 +1,15 @@
 use clap::Parser;
+use cli::{Cli, Commands};
+use commands::{
+    playground::{run_code_in_playground, PlaygroundParams},
+    run_tests::{run_tests, RunTestsParams},
+};
 use dotenvy::dotenv;
 
 mod cli;
-mod playground;
+mod commands;
 mod regex;
-mod run_tests;
 mod utils;
-
-use cli::{Cli, Commands};
-use playground::{run_code_in_playground, PlaygroundParams};
-use run_tests::{run_tests, RunTestsParams};
 
 #[tokio::main]
 async fn main() {
