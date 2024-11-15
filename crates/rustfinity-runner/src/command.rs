@@ -1,6 +1,5 @@
 use base64::prelude::*;
 use duct::cmd;
-use std::env;
 use std::fs;
 use std::path::Path;
 use std::process::Command;
@@ -10,16 +9,26 @@ use crate::regex::extract_unittest_path;
 
 pub struct RunCodeParams {
     code_base64: String,
-    challenge: String,
+    tests_base64: String,
+    cargo_toml_base64: String,
     n_tests: usize,
+    is_playground: bool,
 }
 
 impl RunCodeParams {
-    pub fn new(code_base64: String, challenge: Option<String>, n_tests: Option<usize>) -> Self {
+    pub fn new(
+        code_base64: String,
+        tests_base64: String,
+        cargo_toml_base64: String,
+        is_playground: Option<bool>,
+        n_tests: Option<usize>,
+    ) -> Self {
         Self {
             code_base64,
-            challenge: challenge.unwrap_or("playground".to_string()),
             n_tests: n_tests.unwrap_or(1),
+            tests_base64,
+            cargo_toml_base64,
+            is_playground: is_playground.unwrap_or(true),
         }
     }
 }
@@ -27,24 +36,32 @@ impl RunCodeParams {
 pub async fn run_code(params: &RunCodeParams) -> anyhow::Result<String> {
     let RunCodeParams {
         code_base64,
-        challenge,
         n_tests,
+        tests_base64,
+        cargo_toml_base64,
+        is_playground,
     } = params;
 
     let mut output = String::new();
 
-    let tests_output = run_tests(&code_base64, &challenge).await?;
+    let tests_output = execute_code(
+        &code_base64,
+        &tests_base64,
+        &cargo_toml_base64,
+        *is_playground,
+    )
+    .await?;
     output.push_str(&tests_output);
 
     let test_binary_path = extract_unittest_path(&output);
 
-    if challenge.as_str() == "playground" {
+    if *is_playground {
         return Ok(output);
     }
 
     if let Some(test_binary_path) = test_binary_path {
-        let time_output = benchmark_time_min(&challenge, &test_binary_path, n_tests).await?;
-        let memory_output = memory_benchmark(&challenge, &test_binary_path).await?;
+        let time_output = benchmark_time_min(&test_binary_path, n_tests).await?;
+        let memory_output = memory_benchmark(&test_binary_path).await?;
 
         output.push_str("\n");
         output.push_str("---");
@@ -57,9 +74,8 @@ pub async fn run_code(params: &RunCodeParams) -> anyhow::Result<String> {
     Ok(output)
 }
 
-async fn benchmark_time(challenge: &str, test_binary_path: &str) -> anyhow::Result<f64> {
-    let challenges_path = get_challenges_path();
-    let current_challenge_path = format!("{challenges_path}/{challenge}");
+async fn benchmark_time(test_binary_path: &str) -> anyhow::Result<f64> {
+    let current_challenge_path = format!("/app/playground");
 
     let start = Instant::now();
 
@@ -76,15 +92,11 @@ async fn benchmark_time(challenge: &str, test_binary_path: &str) -> anyhow::Resu
 }
 
 /// Runs the tests 10 times and gets the minimum time
-async fn benchmark_time_min(
-    challenge: &str,
-    test_binary_path: &str,
-    n_tests: &usize,
-) -> anyhow::Result<String> {
+async fn benchmark_time_min(test_binary_path: &str, n_tests: &usize) -> anyhow::Result<String> {
     let mut nums = Vec::with_capacity(10);
 
     for _ in 0..*n_tests {
-        let time = benchmark_time(&challenge, &test_binary_path).await?;
+        let time = benchmark_time(&test_binary_path).await?;
         nums.push(time);
     }
 
@@ -99,9 +111,8 @@ async fn benchmark_time_min(
     Ok(final_output)
 }
 
-async fn memory_benchmark(challenge: &str, test_binary_path: &str) -> anyhow::Result<String> {
-    let challenges_path = get_challenges_path();
-    let current_challenge_path = format!("{challenges_path}/{challenge}");
+async fn memory_benchmark(test_binary_path: &str) -> anyhow::Result<String> {
+    let current_challenge_path = format!("/app/playground");
 
     let output = Command::new("heaptrack")
         .arg(&test_binary_path)
@@ -135,47 +146,47 @@ async fn memory_benchmark(challenge: &str, test_binary_path: &str) -> anyhow::Re
     Ok(memory)
 }
 
-async fn run_tests(code_base64: &str, challenge: &str) -> anyhow::Result<String> {
-    let code_utf8 = BASE64_STANDARD.decode(code_base64)?;
-    let code = String::from_utf8(code_utf8)?;
-
-    if challenge == "playground" {
-        let cwd = "/app/playground";
-        let main_path = Path::new(cwd).join("src/main.rs");
-
-        // Write src/main.rs
-        fs::write(&main_path, &code)?;
-
-        // Run the code
-        let output = run_command_and_merge_output("cargo", &["run"], Some(cwd)).await?;
-
-        return Ok(output);
-    }
-
-    let challenges_path = get_challenges_path();
-
-    let repo_path = format!("{challenges_path}/{challenge}");
-    let repository_path = Path::new(&repo_path).canonicalize()?;
-
-    // write src/lib.rs
-    let lib_path = repository_path.join("src/lib.rs");
-
-    fs::write(&lib_path, &code)?;
-
-    let cwd = repository_path
-        .to_str()
-        .ok_or(anyhow::anyhow!("Invalid path"))?;
-
-    let output = run_command_and_merge_output("cargo", &["test"], Some(cwd)).await?;
-
-    Ok(output)
+fn to_utf8(base64: &str) -> anyhow::Result<String> {
+    let utf8 = BASE64_STANDARD.decode(base64)?;
+    Ok(String::from_utf8(utf8)?)
 }
 
-fn get_challenges_path() -> String {
-    // If you run this code outside a container, use the env var
-    env::var("CHALLENGES_PATH")
-        // default value in container
-        .unwrap_or("/app/rustfinity.com/challenges".to_string())
+async fn execute_code(
+    code_base64: &str,
+    tests_base64: &str,
+    config_toml_base64: &str,
+    is_playground: bool,
+) -> anyhow::Result<String> {
+    let code = to_utf8(code_base64)?;
+    let tests = to_utf8(tests_base64)?;
+    let config_toml = to_utf8(config_toml_base64)?;
+
+    let cwd = "/app/playground";
+    let main_path = Path::new(cwd).join("src/main.rs");
+    let tests_path = Path::new(cwd).join("tests/tests.rs");
+    let config_toml_path = Path::new(cwd).join("Cargo.toml");
+    let lib_path = Path::new(cwd).join("src/lib.rs");
+
+    // Write tests/tests.rs
+    fs::write(&tests_path, &tests)?;
+    // Write Cargo.toml
+    fs::write(&config_toml_path, &config_toml)?;
+
+    let output = if is_playground {
+        // Write src/main.rs
+        fs::write(&main_path, &code)?;
+        let output = run_command_and_merge_output("cargo", &["test"], Some(cwd)).await?;
+
+        output
+    } else {
+        // Write src/lib.rs
+        fs::write(&lib_path, &code)?;
+        let output = run_command_and_merge_output("cargo", &["test"], Some(cwd)).await?;
+
+        output
+    };
+
+    Ok(output)
 }
 
 pub async fn run_command_and_merge_output(

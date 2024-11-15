@@ -17,10 +17,18 @@ async fn main() {
     match cli.command {
         Commands::Run {
             code: code_base64,
-            challenge,
+            tests: tests_base64,
+            cargo_toml: cargo_toml_base64,
+            playground,
             n_tests,
         } => {
-            let params = RunCodeParams::new(code_base64, challenge, n_tests);
+            let params = RunCodeParams::new(
+                code_base64,
+                tests_base64,
+                cargo_toml_base64,
+                Some(playground),
+                n_tests,
+            );
 
             match run_code(&params).await {
                 Ok(output) => println!("{}", output),
