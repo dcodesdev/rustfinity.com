@@ -27,12 +27,12 @@ pub async fn run_code_in_playground(params: &PlaygroundParams) -> anyhow::Result
 async fn execute_code(code_base64: &str) -> anyhow::Result<String> {
     let code = to_utf8(code_base64)?;
 
-    let cwd = "/app/playground";
-    let main_path = Path::new(cwd).join("src/main.rs");
+    let cwd = std::env::var("PROJECT_PATH").unwrap_or("/app/playground".to_string());
+    let main_path = Path::new(&cwd).join("src/main.rs");
 
     // Write src/main.rs
     fs::write(&main_path, &code)?;
-    let output = run_command_and_merge_output("cargo", &["run"], Some(cwd)).await?;
+    let output = run_command_and_merge_output("cargo", &["run"], Some(&cwd)).await?;
 
     Ok(output)
 }

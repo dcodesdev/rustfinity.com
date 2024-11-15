@@ -75,13 +75,11 @@ pub async fn run_tests(params: &RunTestsParams) -> anyhow::Result<String> {
 }
 
 async fn benchmark_time(test_binary_path: &str) -> anyhow::Result<f64> {
-    let current_challenge_path = format!("/app/playground");
+    let cwd = std::env::var("PROJECT_PATH").unwrap_or("/app/playground".to_string());
 
     let start = Instant::now();
 
-    Command::new(&test_binary_path)
-        .current_dir(&current_challenge_path)
-        .output()?;
+    Command::new(&test_binary_path).current_dir(&cwd).output()?;
 
     let elapsed = start.elapsed();
     let as_nanos = elapsed.as_nanos();
@@ -112,11 +110,11 @@ async fn benchmark_time_min(test_binary_path: &str, n_tests: &usize) -> anyhow::
 }
 
 async fn memory_benchmark(test_binary_path: &str) -> anyhow::Result<String> {
-    let current_challenge_path = format!("/app/playground");
+    let cwd = std::env::var("PROJECT_PATH").unwrap_or("/app/playground".to_string());
 
     let output = Command::new("heaptrack")
         .arg(&test_binary_path)
-        .current_dir(&current_challenge_path)
+        .current_dir(&cwd)
         .output()?;
 
     let stdout = String::from_utf8(output.stdout)?;
