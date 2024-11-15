@@ -24,8 +24,7 @@ async fn main() {
             cargo_toml: cargo_toml_base64,
             n_tests,
         } => {
-            let params =
-                RunTestsParams::new(code_base64, tests_base64, cargo_toml_base64, false, n_tests);
+            let params = RunTestsParams::new(code_base64, tests_base64, cargo_toml_base64, n_tests);
 
             run_tests(&params).await
         }

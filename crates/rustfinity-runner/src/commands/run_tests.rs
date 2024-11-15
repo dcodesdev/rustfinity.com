@@ -12,7 +12,6 @@ pub struct RunTestsParams {
     tests_base64: String,
     cargo_toml_base64: String,
     n_tests: usize,
-    is_playground: bool,
 }
 
 impl RunTestsParams {
@@ -20,7 +19,6 @@ impl RunTestsParams {
         code_base64: String,
         tests_base64: String,
         cargo_toml_base64: String,
-        is_playground: bool,
         n_tests: Option<usize>,
     ) -> Self {
         Self {
@@ -28,7 +26,6 @@ impl RunTestsParams {
             n_tests: n_tests.unwrap_or(1),
             tests_base64,
             cargo_toml_base64,
-            is_playground,
         }
     }
 }
@@ -39,25 +36,14 @@ pub async fn run_tests(params: &RunTestsParams) -> anyhow::Result<String> {
         n_tests,
         tests_base64,
         cargo_toml_base64,
-        is_playground,
     } = params;
 
     let mut output = String::new();
 
-    let tests_output = execute_code(
-        &code_base64,
-        &tests_base64,
-        &cargo_toml_base64,
-        *is_playground,
-    )
-    .await?;
+    let tests_output = execute_code(&code_base64, &tests_base64, &cargo_toml_base64).await?;
     output.push_str(&tests_output);
 
     let test_binary_path = extract_unittest_path(&output);
-
-    if *is_playground {
-        return Ok(output);
-    }
 
     if let Some(test_binary_path) = test_binary_path {
         let time_output = benchmark_time_min(&test_binary_path, n_tests).await?;
@@ -153,36 +139,24 @@ async fn execute_code(
     code_base64: &str,
     tests_base64: &str,
     config_toml_base64: &str,
-    is_playground: bool,
 ) -> anyhow::Result<String> {
     let code = to_utf8(code_base64)?;
     let tests = to_utf8(tests_base64)?;
     let config_toml = to_utf8(config_toml_base64)?;
 
     let cwd = std::env::var("PROJECT_PATH").unwrap_or("/app/playground".to_string());
-    let main_path = Path::new(&cwd).join("src/main.rs");
     let tests_path = Path::new(&cwd).join("tests/tests.rs");
     let config_toml_path = Path::new(&cwd).join("Cargo.toml");
     let lib_path = Path::new(&cwd).join("src/lib.rs");
 
+    // Write src/lib.rs
+    fs::write(&lib_path, &code)?;
     // Write tests/tests.rs
     fs::write(&tests_path, &tests)?;
     // Write Cargo.toml
     fs::write(&config_toml_path, &config_toml)?;
 
-    let output = if is_playground {
-        // Write src/main.rs
-        fs::write(&main_path, &code)?;
-        let output = run_command_and_merge_output("cargo", &["run"], Some(&cwd)).await?;
-
-        output
-    } else {
-        // Write src/lib.rs
-        fs::write(&lib_path, &code)?;
-        let output = run_command_and_merge_output("cargo", &["test"], Some(&cwd)).await?;
-
-        output
-    };
+    let output = run_command_and_merge_output("cargo", &["run"], Some(&cwd)).await?;
 
     Ok(output)
 }
