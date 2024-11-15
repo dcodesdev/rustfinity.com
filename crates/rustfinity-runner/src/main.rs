@@ -1,15 +1,15 @@
 use clap::Parser;
-use command::{run_code, RunCodeParams};
 use dotenvy::dotenv;
 
 mod cli;
-mod command;
 mod playground;
 mod regex;
+mod run_tests;
 mod utils;
 
 use cli::{Cli, Commands};
 use playground::{run_code_in_playground, PlaygroundParams};
+use run_tests::{run_tests, RunTestsParams};
 
 #[tokio::main]
 async fn main() {
@@ -25,9 +25,9 @@ async fn main() {
             n_tests,
         } => {
             let params =
-                RunCodeParams::new(code_base64, tests_base64, cargo_toml_base64, false, n_tests);
+                RunTestsParams::new(code_base64, tests_base64, cargo_toml_base64, false, n_tests);
 
-            run_code(&params).await
+            run_tests(&params).await
         }
 
         Commands::Playground { code: code_base64 } => {

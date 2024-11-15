@@ -7,7 +7,7 @@ use std::time::Instant;
 use crate::regex::extract_unittest_path;
 use crate::utils::run_command_and_merge_output;
 
-pub struct RunCodeParams {
+pub struct RunTestsParams {
     code_base64: String,
     tests_base64: String,
     cargo_toml_base64: String,
@@ -15,7 +15,7 @@ pub struct RunCodeParams {
     is_playground: bool,
 }
 
-impl RunCodeParams {
+impl RunTestsParams {
     pub fn new(
         code_base64: String,
         tests_base64: String,
@@ -33,8 +33,8 @@ impl RunCodeParams {
     }
 }
 
-pub async fn run_code(params: &RunCodeParams) -> anyhow::Result<String> {
-    let RunCodeParams {
+pub async fn run_tests(params: &RunTestsParams) -> anyhow::Result<String> {
+    let RunTestsParams {
         code_base64,
         n_tests,
         tests_base64,
