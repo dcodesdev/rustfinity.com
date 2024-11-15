@@ -4,9 +4,9 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-anyhow = "1.0.86"
+anyhow = "1.0.93"
 base64 = "0.22.1"
-clap = { version = "4.5.11", features = ["derive"] }
+clap = { version = "4.5.21", features = ["derive"] }
 dotenvy = "0.15.7"
 duct = "0.13.7"
 regex = "1.10.6"
