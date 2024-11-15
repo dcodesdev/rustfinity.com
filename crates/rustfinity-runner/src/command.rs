@@ -1,11 +1,11 @@
 use base64::prelude::*;
-use duct::cmd;
 use std::fs;
 use std::path::Path;
 use std::process::Command;
 use std::time::Instant;
 
 use crate::regex::extract_unittest_path;
+use crate::utils::run_command_and_merge_output;
 
 pub struct RunCodeParams {
     code_base64: String,
@@ -20,7 +20,7 @@ impl RunCodeParams {
         code_base64: String,
         tests_base64: String,
         cargo_toml_base64: String,
-        is_playground: Option<bool>,
+        is_playground: bool,
         n_tests: Option<usize>,
     ) -> Self {
         Self {
@@ -28,7 +28,7 @@ impl RunCodeParams {
             n_tests: n_tests.unwrap_or(1),
             tests_base64,
             cargo_toml_base64,
-            is_playground: is_playground.unwrap_or(true),
+            is_playground,
         }
     }
 }
@@ -175,7 +175,7 @@ async fn execute_code(
     let output = if is_playground {
         // Write src/main.rs
         fs::write(&main_path, &code)?;
-        let output = run_command_and_merge_output("cargo", &["test"], Some(cwd)).await?;
+        let output = run_command_and_merge_output("cargo", &["run"], Some(cwd)).await?;
 
         output
     } else {
@@ -187,22 +187,4 @@ async fn execute_code(
     };
 
     Ok(output)
-}
-
-pub async fn run_command_and_merge_output(
-    command: &str,
-    args: &[&str],
-    cwd: Option<&str>,
-) -> anyhow::Result<String> {
-    let cwd = cwd.unwrap_or(".");
-
-    let output = cmd!(command, args.join(" "))
-        .stderr_to_stdout()
-        .stdout_capture()
-        .dir(cwd)
-        // don't care about exit code
-        .unchecked()
-        .run()?;
-
-    Ok(String::from_utf8(output.stdout)?)
 }

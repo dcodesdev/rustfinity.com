@@ -4,7 +4,9 @@ use dotenvy::dotenv;
 
 mod cli;
 mod command;
+mod playground;
 mod regex;
+mod utils;
 
 use cli::{Cli, Commands};
 
@@ -15,20 +17,23 @@ async fn main() {
     let cli = Cli::parse();
 
     match cli.command {
-        Commands::Run {
+        Commands::Test {
             code: code_base64,
             tests: tests_base64,
             cargo_toml: cargo_toml_base64,
-            playground,
             n_tests,
         } => {
-            let params = RunCodeParams::new(
-                code_base64,
-                tests_base64,
-                cargo_toml_base64,
-                Some(playground),
-                n_tests,
-            );
+            let params =
+                RunCodeParams::new(code_base64, tests_base64, cargo_toml_base64, false, n_tests);
+
+            match run_code(&params).await {
+                Ok(output) => println!("{}", output),
+                Err(e) => eprintln!("{}", e),
+            };
+        }
+        Commands::Playground { code: code_base64 } => {
+            let params =
+                RunCodeParams::new(code_base64, "".to_string(), "".to_string(), true, None);
 
             match run_code(&params).await {
                 Ok(output) => println!("{}", output),
