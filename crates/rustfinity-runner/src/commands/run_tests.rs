@@ -161,11 +161,11 @@ async fn execute_code(
     let tests = to_utf8(tests_base64)?;
     let config_toml = to_utf8(config_toml_base64)?;
 
-    let cwd = "/app/playground";
-    let main_path = Path::new(cwd).join("src/main.rs");
-    let tests_path = Path::new(cwd).join("tests/tests.rs");
-    let config_toml_path = Path::new(cwd).join("Cargo.toml");
-    let lib_path = Path::new(cwd).join("src/lib.rs");
+    let cwd = std::env::var("PROJECT_PATH").unwrap_or("/app/playground".to_string());
+    let main_path = Path::new(&cwd).join("src/main.rs");
+    let tests_path = Path::new(&cwd).join("tests/tests.rs");
+    let config_toml_path = Path::new(&cwd).join("Cargo.toml");
+    let lib_path = Path::new(&cwd).join("src/lib.rs");
 
     // Write tests/tests.rs
     fs::write(&tests_path, &tests)?;
@@ -175,13 +175,13 @@ async fn execute_code(
     let output = if is_playground {
         // Write src/main.rs
         fs::write(&main_path, &code)?;
-        let output = run_command_and_merge_output("cargo", &["run"], Some(cwd)).await?;
+        let output = run_command_and_merge_output("cargo", &["run"], Some(&cwd)).await?;
 
         output
     } else {
         // Write src/lib.rs
         fs::write(&lib_path, &code)?;
-        let output = run_command_and_merge_output("cargo", &["test"], Some(cwd)).await?;
+        let output = run_command_and_merge_output("cargo", &["test"], Some(&cwd)).await?;
 
         output
     };
