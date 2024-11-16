@@ -1,7 +1,10 @@
 use std::fs;
 use std::path::Path;
 
-use crate::utils::{run_command_and_merge_output, to_utf8};
+use crate::{
+    constants::PLAYGROUND_DIR,
+    utils::{run_command_and_merge_output, to_utf8},
+};
 
 pub struct PlaygroundParams {
     code_base64: String,
@@ -27,7 +30,7 @@ pub async fn run_code_in_playground(params: &PlaygroundParams) -> anyhow::Result
 async fn execute_code(code_base64: &str) -> anyhow::Result<String> {
     let code = to_utf8(code_base64)?;
 
-    let cwd = std::env::var("PROJECT_PATH").unwrap_or("/app/playground".to_string());
+    let cwd = std::env::var("PROJECT_PATH").unwrap_or(PLAYGROUND_DIR.to_string());
     let main_path = Path::new(&cwd).join("src/main.rs");
 
     // Write src/main.rs

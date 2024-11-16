@@ -4,6 +4,7 @@ use std::path::Path;
 use std::process::Command;
 use std::time::Instant;
 
+use crate::constants::PLAYGROUND_DIR;
 use crate::regex::extract_unittest_path;
 use crate::utils::run_command_and_merge_output;
 
@@ -61,7 +62,7 @@ pub async fn run_tests(params: &RunTestsParams) -> anyhow::Result<String> {
 }
 
 async fn benchmark_time(test_binary_path: &str) -> anyhow::Result<f64> {
-    let cwd = std::env::var("PROJECT_PATH").unwrap_or("/app/playground".to_string());
+    let cwd = std::env::var("PROJECT_PATH").unwrap_or(PLAYGROUND_DIR.to_string());
 
     let start = Instant::now();
 
@@ -96,7 +97,7 @@ async fn benchmark_time_min(test_binary_path: &str, n_tests: &usize) -> anyhow::
 }
 
 async fn memory_benchmark(test_binary_path: &str) -> anyhow::Result<String> {
-    let cwd = std::env::var("PROJECT_PATH").unwrap_or("/app/playground".to_string());
+    let cwd = std::env::var("PROJECT_PATH").unwrap_or(PLAYGROUND_DIR.to_string());
 
     let output = Command::new("heaptrack")
         .arg(&test_binary_path)
@@ -144,7 +145,7 @@ async fn execute_code(
     let tests = to_utf8(tests_base64)?;
     let config_toml = to_utf8(config_toml_base64)?;
 
-    let cwd = std::env::var("PROJECT_PATH").unwrap_or("/app/playground".to_string());
+    let cwd = std::env::var("PROJECT_PATH").unwrap_or(PLAYGROUND_DIR.to_string());
     let tests_path = Path::new(&cwd).join("tests/tests.rs");
     let config_toml_path = Path::new(&cwd).join("Cargo.toml");
     let lib_path = Path::new(&cwd).join("src/lib.rs");

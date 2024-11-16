@@ -8,6 +8,7 @@ use dotenvy::dotenv;
 
 mod cli;
 mod commands;
+mod constants;
 mod regex;
 mod utils;
 
