@@ -156,7 +156,7 @@ async fn execute_code(
     // Write Cargo.toml
     write_file(&config_toml_path, &config_toml)?;
 
-    let output = run_command_and_merge_output("cargo", &["run"], Some(&cwd)).await?;
+    let output = run_command_and_merge_output("cargo", &["test"], Some(&cwd)).await?;
 
     Ok(output)
 }
