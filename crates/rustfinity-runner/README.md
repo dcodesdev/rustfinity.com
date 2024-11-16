@@ -33,11 +33,22 @@ docker run -i \
     --cpus=1 \
     -m=500m \
     rustfinity-runner \
-    /bin/bash -c "/app/rustfinity-runner run --code 'cHViIGZuIGhlbGxvX3dvcmxkKCkgewogICAgcHJpbnRsbiEoIkdvb2Qgam9iLCB5b3UgZGVjb2RlZCBpdCA6RCIpCn0K' --challenge 'printing-hello-world'"
+    /bin/bash -c "/app/rustfinity-runner playground --code 'cHViIGZuIGhlbGxvX3dvcmxkKCkgewogICAgcHJpbnRsbiEoIkdvb2Qgam9iLCB5b3UgZGVjb2RlZCBpdCA6RCIpCn0K'"
 ```
 
-### Arguments
+### Commands
 
-- `--code`: The base64 encoded code to run.
-- `--challenge`: The challenge name. This is used to identify the challenge in the logs.
-- `--n-tests` or `n`: The number of tests to run (takes the minimum amount of time in `ms` and prints it).
+- `test`: Runs a [rustfinity challenge](../../challenges/), requires a few arguments:
+
+  - `--code`: Base64 encoded code (user submitted)
+  - `--tests`: Base64 encoded tests file
+  - `--cargo-toml`: Base64 encoded Cargo.toml file for that challenge
+  - `--n-tests` (optional): How many times the benchmarks should run (default = 1)
+
+- `playground`: Runs a provided snippet of code, used in [rustfinity.com/playground](https://www.rustfinity.com/playground), requires one argument:
+
+  - `--code`: Base64 encoded code (user submitted)
+
+## Test commands
+
+Try the [example-playground.sh](./example-playground.sh) and [example-hello-world.sh](./example-hello-world.sh) for testing.
