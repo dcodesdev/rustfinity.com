@@ -12,24 +12,18 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /app
 
 COPY crates/ crates/
+COPY crates/rustfinity-runner/docker/Cargo.toml Cargo.toml
 
-RUN mkdir challenges
+RUN cargo new challenges/playground && rm -rf challenges/playground/.git
 
 WORKDIR /app/crates/rustfinity-runner
 RUN cargo build --release
 
 # Move the Runner CLI executable
-RUN mv /app/crates/rustfinity-runner/target/release/rustfinity-runner /app/
-
-# Create a new project for (rustfinity.com/playground)
-WORKDIR /app/challenges
-RUN cargo new playground && rm -rf playground/.git
+RUN mv /app/target/release/rustfinity-runner /app/
 
 WORKDIR /app
-
-# Build the rustfinity.com project
-RUN cd challenges/playground && cargo build
-RUN cd crates/syntest && cargo build
+RUN cargo build
 
 # The final structure:
 # /app/rustfinity-runner (executable)
