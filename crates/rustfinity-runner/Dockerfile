@@ -1,9 +1,3 @@
-# Stage 1: Clone the repository
-FROM alpine/git AS git
-WORKDIR /app
-RUN git clone https://github.com/dcodesdev/rustfinity.com
-
-# Stage 2: Build the Runner CLI and the rustfinity.com project
 FROM rust:slim-buster
 LABEL rustfinity-runner="true"
 
@@ -15,23 +9,29 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Build the Runner CLI
-WORKDIR /app/runner
-COPY . .
+WORKDIR /app
+
+COPY crates/ crates/
+
+RUN mkdir challenges
+
+WORKDIR /app/crates/rustfinity-runner
 RUN cargo build --release
 
 # Move the Runner CLI executable
-RUN mv target/release/rustfinity-runner /app/
-
-# Build the rustfinity.com project
-WORKDIR /app/rustfinity.com
-COPY --from=git /app/rustfinity.com .
-RUN cargo build
+RUN mv /app/crates/rustfinity-runner/target/release/rustfinity-runner /app/
 
 # Create a new project for (rustfinity.com/playground)
-WORKDIR /app/rustfinity.com/challenges
-RUN cargo new playground
+WORKDIR /app/challenges
+RUN cargo new playground && rm -rf playground/.git
+
+WORKDIR /app
+
+# Build the rustfinity.com project
+RUN cd challenges/playground && cargo build
+RUN cd crates/syntest && cargo build
 
 # The final structure:
 # /app/rustfinity-runner (executable)
-# /app/rustfinity.com/ (project directory)
-# /app/rustfinity.com/challenges/playground (playground project)
+# /app/challenges/playground (project)
+# /app/crates/syntest (library)
