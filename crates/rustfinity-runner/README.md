@@ -48,7 +48,3 @@ docker run -i \
 - `playground`: Runs a provided snippet of code, used in [rustfinity.com/playground](https://www.rustfinity.com/playground), requires one argument:
 
   - `--code`: Base64 encoded code (user submitted)
-
-## Test commands
-
-Try the [example-playground.sh](./example-playground.sh) and [example-hello-world.sh](./example-hello-world.sh) for testing.
