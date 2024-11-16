@@ -2,7 +2,7 @@ TAG ?= staging
 
 build:
 ifeq ($(TAG), staging)
-	docker build --no-cache -t rustfinity-runner:$(TAG) . -f Dockerfile.staging
+	docker build -t rustfinity-runner:$(TAG) ../../ -f Dockerfile
 else
-	docker build --no-cache -t rustfinity-runner:$(TAG) . -f Dockerfile
+	docker build -t rustfinity-runner:$(TAG) ../../ -f Dockerfile
 endif

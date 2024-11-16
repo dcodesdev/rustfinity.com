@@ -2,14 +2,8 @@ name: Build Rustfinity Runner
 
 on:
   push:
-    branches:
-      - main
-      - staging
-    paths:
-      - ".github/workflows/rustfinity-runner.yaml"
-      - "crates/rustfinity-runner/**"
-      - "challenges/**"
-  workflow_dispatch:
+    tags:
+      - v*
 
 jobs:
   publish:
@@ -30,21 +24,10 @@ jobs:
       - name: Login to GitHub Container Registry
         run: echo "${{ github.token }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
-      - name: Determine tag and Dockerfile
-        id: vars
-        run: |
-          if [[ "${GITHUB_REF#refs/heads/}" == "main" ]]; then
-            echo "TAG_NAME=latest" >> $GITHUB_ENV
-            echo "DOCKERFILE_PATH=crates/rustfinity-runner/Dockerfile" >> $GITHUB_ENV
-          elif [[ "${GITHUB_REF#refs/heads/}" == "staging" ]]; then
-            echo "TAG_NAME=staging" >> $GITHUB_ENV
-            echo "DOCKERFILE_PATH=crates/rustfinity-runner/Dockerfile.staging" >> $GITHUB_ENV
-          fi
-
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
-          file: ${{ env.DOCKERFILE_PATH }}
+          file: crates/rustfinity-runner/Dockerfile
           push: true
           tags: |
-            ghcr.io/${{ github.repository_owner }}/rustfinity-runner:${{ env.TAG_NAME }}
+            ghcr.io/${{ github.repository_owner }}/rustfinity-runner:${{ github.ref_name }}
