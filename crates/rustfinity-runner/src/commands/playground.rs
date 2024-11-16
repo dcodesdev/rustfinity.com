@@ -1,9 +1,8 @@
-use std::fs;
 use std::path::Path;
 
 use crate::{
     constants::PLAYGROUND_DIR,
-    utils::{run_command_and_merge_output, to_utf8},
+    utils::{run_command_and_merge_output, to_utf8, write_file},
 };
 
 pub struct PlaygroundParams {
@@ -34,7 +33,7 @@ async fn execute_code(code_base64: &str) -> anyhow::Result<String> {
     let main_path = Path::new(&cwd).join("src/main.rs");
 
     // Write src/main.rs
-    fs::write(&main_path, &code)?;
+    write_file(&main_path, &code)?;
     let output = run_command_and_merge_output("cargo", &["run"], Some(&cwd)).await?;
 
     Ok(output)

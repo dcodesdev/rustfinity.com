@@ -1,3 +1,9 @@
+use std::{
+    fs::{self, OpenOptions},
+    io::Write,
+    path::Path,
+};
+
 use base64::{prelude::BASE64_STANDARD, Engine};
 use duct::cmd;
 
@@ -22,4 +28,17 @@ pub async fn run_command_and_merge_output(
         .run()?;
 
     Ok(String::from_utf8(output.stdout)?)
+}
+
+pub fn write_file(path: &Path, content: &str) -> std::io::Result<()> {
+    if let Some(parent) = path.parent() {
+        fs::create_dir_all(parent)?; // Ensure parent directories exist
+    }
+    let mut file = OpenOptions::new()
+        .write(true)
+        .create(true) // Create the file if it doesn't exist
+        .truncate(true) // Replace the content if the file exists
+        .open(path)?;
+    file.write_all(content.as_bytes())?;
+    Ok(())
 }

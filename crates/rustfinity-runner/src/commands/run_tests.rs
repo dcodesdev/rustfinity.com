@@ -1,12 +1,11 @@
 use base64::prelude::*;
-use std::fs;
 use std::path::Path;
 use std::process::Command;
 use std::time::Instant;
 
 use crate::constants::PLAYGROUND_DIR;
 use crate::regex::extract_unittest_path;
-use crate::utils::run_command_and_merge_output;
+use crate::utils::{run_command_and_merge_output, write_file};
 
 pub struct RunTestsParams {
     code_base64: String,
@@ -151,11 +150,11 @@ async fn execute_code(
     let lib_path = Path::new(&cwd).join("src/lib.rs");
 
     // Write src/lib.rs
-    fs::write(&lib_path, &code)?;
+    write_file(&lib_path, &code)?;
     // Write tests/tests.rs
-    fs::write(&tests_path, &tests)?;
+    write_file(&tests_path, &tests)?;
     // Write Cargo.toml
-    fs::write(&config_toml_path, &config_toml)?;
+    write_file(&config_toml_path, &config_toml)?;
 
     let output = run_command_and_merge_output("cargo", &["run"], Some(&cwd)).await?;
 
