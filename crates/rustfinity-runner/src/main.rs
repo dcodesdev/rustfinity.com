@@ -1,12 +1,16 @@
 use clap::Parser;
-use command::{run_code, RunCodeParams};
+use cli::{Cli, Commands};
+use commands::{
+    playground::{run_code_in_playground, PlaygroundParams},
+    run_tests::{run_tests, RunTestsParams},
+};
 use dotenvy::dotenv;
 
 mod cli;
-mod command;
+mod commands;
+mod constants;
 mod regex;
-
-use cli::{Cli, Commands};
+mod utils;
 
 #[tokio::main]
 async fn main() {
@@ -14,18 +18,27 @@ async fn main() {
 
     let cli = Cli::parse();
 
-    match cli.command {
-        Commands::Run {
+    let result = match cli.command {
+        Commands::Test {
             code: code_base64,
-            challenge,
+            tests: tests_base64,
+            cargo_toml: cargo_toml_base64,
             n_tests,
         } => {
-            let params = RunCodeParams::new(code_base64, challenge, n_tests);
+            let params = RunTestsParams::new(code_base64, tests_base64, cargo_toml_base64, n_tests);
 
-            match run_code(&params).await {
-                Ok(output) => println!("{}", output),
-                Err(e) => eprintln!("{}", e),
-            };
+            run_tests(&params).await
         }
+
+        Commands::Playground { code: code_base64 } => {
+            let params = PlaygroundParams::new(code_base64);
+
+            run_code_in_playground(&params).await
+        }
+    };
+
+    match result {
+        Ok(output) => println!("{}", output),
+        Err(e) => eprintln!("{}", e),
     }
 }

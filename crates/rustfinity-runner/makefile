@@ -1,8 +1,5 @@
 TAG ?= staging
 
+.PHONY: build
 build:
-ifeq ($(TAG), staging)
-	docker build --no-cache -t rustfinity-runner:$(TAG) . -f Dockerfile.staging
-else
-	docker build --no-cache -t rustfinity-runner:$(TAG) . -f Dockerfile
-endif
+	docker build -t rustfinity-runner:$(TAG) ../../ -f Dockerfile

@@ -1,37 +1,32 @@
-# Stage 1: Clone the repository
-FROM alpine/git AS git
+# --- Stage 1 ---
+FROM rust:slim-buster AS builder
 WORKDIR /app
-RUN git clone https://github.com/dcodesdev/rustfinity.com
 
-# Stage 2: Build the Runner CLI and the rustfinity.com project
-FROM rust:slim-buster
+COPY crates/rustfinity-runner .
+RUN cargo build --release
+
+# --- Stage 2 ---
+
+FROM rust:slim-buster AS runner
 LABEL rustfinity-runner="true"
 
 # Install OpenSSL development packages and pkg-config
 RUN apt-get update && apt-get install -y \
-    pkg-config \
-    libssl-dev \
     heaptrack \
     && rm -rf /var/lib/apt/lists/*
 
-# Build the Runner CLI
-WORKDIR /app/runner
-COPY . .
-RUN cargo build --release
+WORKDIR /app
 
-# Move the Runner CLI executable
-RUN mv target/release/rustfinity-runner /app/
+COPY crates/syntest crates/syntest
+COPY crates/rustfinity-runner/docker/Cargo.toml Cargo.toml
 
-# Build the rustfinity.com project
-WORKDIR /app/rustfinity.com
-COPY --from=git /app/rustfinity.com .
+RUN cargo new challenges/playground && rm -rf challenges/playground/.git
+
 RUN cargo build
 
-# Create a new project for (rustfinity.com/playground)
-WORKDIR /app
-RUN cargo new playground
+COPY --from=builder /app/target/release/rustfinity-runner /app/
 
 # The final structure:
 # /app/rustfinity-runner (executable)
-# /app/rustfinity.com/ (project directory)
-# /app/playground/ (project directory)
+# /app/challenges/playground (project)
+# /app/crates/syntest (library)
