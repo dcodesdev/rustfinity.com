@@ -1,6 +1,9 @@
 name: Test and publish crates
 
 on:
+  push:
+    branches:
+      - main
   pull_request:
     branches:
       - main
