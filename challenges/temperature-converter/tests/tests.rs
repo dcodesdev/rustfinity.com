@@ -43,7 +43,7 @@ mod tests {
     }
 
     #[test]
-    fn test_convert_celsius_to_convert_celsius() {
+    fn test_convert_celsius_to_celsius() {
         assert_eq!(convert_temperature(37.5, "C", "C"), Ok(37.5));
     }
 }
