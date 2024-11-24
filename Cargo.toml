@@ -1,3 +1,6 @@
 [workspace]
 members = ["challenges", "challenges/*", "crates/*"]
 resolver = "2"
+
+[profile.release]
+lto = true
