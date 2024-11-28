@@ -14,3 +14,5 @@ assert_eq!(result, 5);
 - You can use the `count()` method to count the number of elements in the iterator.
 
 > The `count()` method returns a `usize` which is the number of elements in the iterator. In the challenge you are asked to return a `u32`, you can use the `as` keyword to convert the `usize` to a `u32`. For example, `let count_u32 = count as u32;`
+>
+> Don't use `len()` : This length is in bytes, not [`char`]s or graphemes. In other words, it might not be what a human considers the length of the string.

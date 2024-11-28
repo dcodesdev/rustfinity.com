@@ -10,6 +10,9 @@ mod tests {
         assert_eq!(count_characters("hello world!  "), 14);
         assert_eq!(count_characters("hello world!  123"), 17);
         assert_eq!(count_characters("hello world!  123  "), 19);
+        assert_eq!(count_characters("你好 世界"), 5);
+        assert_eq!(count_characters("你好 🌏"), 4);
+        assert_eq!(count_characters("hello 🌏"), 7);
     }
 
     #[test]
