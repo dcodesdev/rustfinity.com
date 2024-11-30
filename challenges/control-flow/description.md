@@ -27,5 +27,5 @@ assert_eq!(result, "zero");
 
 ## Hints
 
-- You can use the `if`, `else-if`, and `else` keywords to implement the control flow.
+- You can use the `if`, `else if`, and `else` keywords to implement the control flow.
 - Remember to return the result as a `String`.
