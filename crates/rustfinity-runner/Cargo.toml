@@ -6,6 +6,7 @@ edition = "2021"
 [dependencies]
 anyhow = "1.0.93"
 base64 = "0.22.1"
+chrono = "0.4"
 clap = { version = "4.5.21", features = ["derive"] }
 dotenvy = "0.15.7"
 duct = "0.13.7"
