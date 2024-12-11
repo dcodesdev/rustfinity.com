@@ -12,9 +12,9 @@ Your task is to implement the following functions:
 
 1. `add_animal_to_section`: This function should add an animal to a section in the registry. If the section does not exist, it should be created. If the animal is already in the section, it should not be added again.
 
-2. `get_animals_in_section`: This function should return a list of animals sorted **alphabetically** in a given section. If the section does not exist, it should return an empty list.
+2. `get_animals_in_section`: This function should return a list of animals **sorted alphabetically** in a given section. If the section does not exist, it should return an empty list.
 
-3. `get_all_animals`: This function should return a copy of the entire registry with all animals **sorted alphabetically** in each section.
+3. `get_all_animals_sorted`: This function should return a copy of the entire registry with all animals **sorted alphabetically** in each section.
 
 ## Example
 
