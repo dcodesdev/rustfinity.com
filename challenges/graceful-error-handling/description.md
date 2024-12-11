@@ -6,7 +6,7 @@ When you have a function that can fail, you can use the `Result` type to return 
 
 ## Your task
 
-In this challenges, you're given a function, `parse_percentage(input: &str) -> Result<u8, String>` that takes a string as input and returns a `Result` type. The function should parse the input string as a percentage and return the percentage as a `u8` if the input is valid. If the input is invalid, the function should return an error message as a `String`.
+In this challenge, you're given a function, `parse_percentage(input: &str) -> Result<u8, String>` that takes a string as input and returns a `Result` type. The function should parse the input string as a percentage and return the percentage as a `u8` if the input is valid. If the input is invalid, the function should return an error message as a `String`.
 
 Parsing from a string to a number can fail for many reasons. For example, the input string may not be a valid number, or it may be a valid number but not a valid percentage. Your task is to handle these errors gracefully and return an error message that explains what went wrong.
 

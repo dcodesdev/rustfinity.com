@@ -12,7 +12,8 @@ In Rust, each value has a variable that's called its **owner**. There can only b
 
 ```rust
 {
-    let s = String::from("hello"); // s is the owner of the String
+    // s is the owner of the String
+    let s = String::from("hello");
 } // s goes out of scope and "hello" is dropped
 ```
 
@@ -30,11 +31,13 @@ You can create multiple **immutable references** to a value, but you cannot have
 fn main() {
     let s1 = String::from("hello");
 
-    let len = calculate_length(&s1); // borrow s1 as immutable
+    // Borrow s1 as immutable
+    let len = calculate_length(&s1);
     println!("The length of '{}' is {}.", s1, len);
 }
 
-fn calculate_length(s: &String) -> usize { // s is an immutable reference to a String
+// s is an immutable reference to a String
+fn calculate_length(s: &String) -> usize {
     s.len()
 }
 ```
