@@ -12,6 +12,7 @@ pub struct RunTestsParams {
     tests_base64: String,
     cargo_toml_base64: String,
     n_tests: usize,
+    test_threads: Option<usize>,
 }
 
 impl RunTestsParams {
@@ -20,12 +21,14 @@ impl RunTestsParams {
         tests_base64: String,
         cargo_toml_base64: String,
         n_tests: Option<usize>,
+        test_threads: Option<usize>,
     ) -> Self {
         Self {
             code_base64,
             n_tests: n_tests.unwrap_or(1),
             tests_base64,
             cargo_toml_base64,
+            test_threads,
         }
     }
 }
@@ -36,11 +39,18 @@ pub async fn run_tests(params: &RunTestsParams) -> anyhow::Result<String> {
         n_tests,
         tests_base64,
         cargo_toml_base64,
+        test_threads,
     } = params;
 
     let mut output = String::new();
 
-    let tests_output = execute_code(&code_base64, &tests_base64, &cargo_toml_base64).await?;
+    let tests_output = execute_code(
+        &code_base64,
+        &tests_base64,
+        &cargo_toml_base64,
+        *test_threads,
+    )
+    .await?;
     output.push_str(&tests_output);
 
     let test_binary_path = extract_unittest_path(&output);
@@ -139,6 +149,7 @@ async fn execute_code(
     code_base64: &str,
     tests_base64: &str,
     config_toml_base64: &str,
+    test_threads: Option<usize>,
 ) -> anyhow::Result<String> {
     let code = to_utf8(code_base64)?;
     let tests = to_utf8(tests_base64)?;
@@ -156,7 +167,14 @@ async fn execute_code(
     // Write Cargo.toml
     write_file(&config_toml_path, &config_toml)?;
 
-    let output = run_command_and_merge_output("cargo", &["test"], Some(&cwd)).await?;
+    let mut args = vec!["test".to_string()];
+
+    if let Some(test_threads) = test_threads {
+        args.push("--test-threads".to_string());
+        args.push(test_threads.to_string());
+    }
+
+    let output = run_command_and_merge_output("cargo", &args, Some(&cwd)).await?;
 
     Ok(output)
 }

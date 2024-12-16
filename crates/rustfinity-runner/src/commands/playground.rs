@@ -34,7 +34,7 @@ async fn execute_code(code_base64: &str) -> anyhow::Result<String> {
 
     // Write src/main.rs
     write_file(&main_path, &code)?;
-    let output = run_command_and_merge_output("cargo", &["run"], Some(&cwd)).await?;
+    let output = run_command_and_merge_output("cargo", &["run".to_string()], Some(&cwd)).await?;
 
     Ok(output)
 }

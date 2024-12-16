@@ -26,6 +26,9 @@ pub enum Commands {
         #[clap(long = "n-tests", short)]
         /// number of tests to take the minimum time of
         n_tests: Option<usize>,
+
+        #[clap(long)]
+        test_threads: Option<usize>,
     },
 
     #[clap(about = "Run and test the code based on the challenge and code provided")]

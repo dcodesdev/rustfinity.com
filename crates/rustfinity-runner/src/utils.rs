@@ -14,7 +14,7 @@ pub fn to_utf8(base64: &str) -> anyhow::Result<String> {
 
 pub async fn run_command_and_merge_output(
     command: &str,
-    args: &[&str],
+    args: &[String],
     cwd: Option<&str>,
 ) -> anyhow::Result<String> {
     let cwd = cwd.unwrap_or(".");
