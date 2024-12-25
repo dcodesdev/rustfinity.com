@@ -25,5 +25,5 @@ Then, calculate the area of a rectangle using the formula `area = width * height
 
 - Use the `let` keyword to declare variables.
 - Remember that variables declared with `let` are immutable by default.
-- You do not need to explicitly specify types (e.g., : u32) for the variables.
+- You do not need to explicitly annotate the types (e.g., `let width: u32 = 10;`) for the variables.
 - Use multiplication `*` to calculate the area.
