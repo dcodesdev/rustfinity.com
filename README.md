@@ -1,12 +1,12 @@
-[![Rustfinity Banner](./images/rustfinity-header.png)](https://rustfinity.com)
+[![Rustfinity Banner](./.github/assets/banner.svg)](https://rustfinity.com)
 
 # Rustfinity
 
 <p>
   <a href="https://rustfinity.com"><img src="https://img.shields.io/badge/Rustfinity%20Docs-18181B?style=flat&logo=rust" alt="Website"></a>
-  <a href="LICENSE"><img src="https://img.shields.io/github/license/rustfinity/rustfinity.svg?style=flat&colorA=18181B&colorB=28CF8D" alt="License"></a>
-  <a href="https://github.com/rustfinity/rustfinity/issues"><img src="https://img.shields.io/github/issues/rustfinity/rustfinity.svg?style=flat&colorA=18181B&colorB=28CF8D" alt="Issues"></a>
-  <a href="https://github.com/rustfinity/rustfinity/pulls"><img src="https://img.shields.io/github/issues-pr/rustfinity/rustfinity.svg?style=flat&colorA=18181B&colorB=28CF8D" alt="Pull Requests"></a>
+  <a href="https://github.com/dcodesdev/rustfinity.com/blob/main/LICENSE"><img src="https://img.shields.io/github/license/dcodesdev/rustfinity.com.svg?style=flat&colorA=18181B&colorB=28CF8D" alt="License"></a>
+  <a href="https://github.com/dcodesdev/rustfinity.com/issues"><img src="https://img.shields.io/github/issues/dcodesdev/rustfinity.com.svg?style=flat&colorA=18181B&colorB=28CF8D" alt="Issues"></a>
+  <a href="https://github.com/dcodesdev/rustfinity.com/pulls"><img src="https://img.shields.io/github/issues-pr/dcodesdev/rustfinity.com.svg?style=flat&colorA=18181B&colorB=28CF8D" alt="Pull Requests"></a>
 </p>
 
 Rustfinity is an **interactive learning platform** dedicated to helping Rust developers of all levels learn and practice Rust programming concepts.  
@@ -107,7 +107,7 @@ This folder contains multiple Rust crates that power the Rustfinity platform.
 
 We’d love your help! Whether it’s fixing bugs, adding challenges, or improving docs, every bit of help **matters**.
 
-1. **Check out our [issues](https://github.com/rustfinity/rustfinity/issues)**: Find a bug or want to suggest an enhancement? Open an issue!
+1. **Check out our [issues](https://github.com/dcodesdev/rustfinity.com/issues)**: Found a bug or want to suggest an enhancement? Open an issue!
 2. **Fork & PR**: Fork the repo, make changes, and submit a pull request.
 3. **Discussions**: Join the conversation in [GitHub Discussions](#) (coming soon) or on our community channels.
 
@@ -119,8 +119,8 @@ Ready to hack on Rustfinity locally? Here’s how:
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/rustfinity/rustfinity.git
-cd rustfinity
+git clone https://github.com/dcodesdev/rustfinity.com.git
+cd rustfinity.com
 
 # 2. (Optional) Switch to a new branch for your work
 git checkout -b my-new-feature
@@ -147,5 +147,5 @@ Stay updated with the latest challenges, features, and announcements!
 
 ## ⚖️ License
 
-This project is licensed under the [MIT License](LICENSE).  
+This project is licensed under the [MIT License](https://github.com/dcodesdev/rustfinity.com/blob/main/LICENSE).  
 Go build something awesome with Rust—**we’re rooting for you!** 🚀
