@@ -143,7 +143,7 @@ We recommend installing [Docker](https://www.docker.com/) if you want to test th
 Stay updated with the latest challenges, features, and announcements!
 
 <p>
-  <a href="https://x.com/rustfinity"><img src="https://img.shields.io/badge/Twitter-18181B?style=flat&logo=twitter&logoColor=white" alt="Twitter"></a>
+  <a href="https://x.com/rustfinity"><img src="https://img.shields.io/badge/X-18181B?style=flat&logo=x&logoColor=white" alt="X"></a>
   <a href="https://github.com/dcodesdev/rustfinity.com"><img src="https://img.shields.io/badge/GitHub-18181B?style=flat&logo=github&logoColor=white" alt="GitHub"></a>
   <a href="https://discord.gg/8GRcUqY48B"><img src="https://img.shields.io/badge/Discord-18181B?style=flat&logo=discord&logoColor=white" alt="Discord"></a>
 </p>
