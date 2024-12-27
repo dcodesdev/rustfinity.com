@@ -147,5 +147,4 @@ Stay updated with the latest challenges, features, and announcements!
 
 ## ⚖️ License
 
-This project is licensed under the [MIT License](https://github.com/dcodesdev/rustfinity.com/blob/main/LICENSE).  
-Go build something awesome with Rust—**we’re rooting for you!** 🚀
+This project is licensed under the [Rustfinity Proprietary License](https://github.com/dcodesdev/rustfinity.com/blob/main/LICENSE).
