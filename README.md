@@ -53,9 +53,14 @@ Rustfinity is an **interactive learning platform** dedicated to helping Rust dev
 ```bash
 .
 ├── challenges/
-│   ├── beginners
-│   ├── intermediate
-│   └── advanced
+│   ├── challenge-1/
+│   │   ├── description.md
+│   │   ├── src/
+│   │   │   ├── lib.rs
+│   │   │   └── starter.rs
+│   │   └── tests/
+│   │       └── tests.rs
+│   └── challenge-2/ (and so on...)
 └── crates/
     ├── cli
     ├── rustfinity-runner
