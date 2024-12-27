@@ -1,4 +1,4 @@
-[![Rustfinity Banner](./.github/assets/banner.svg)](https://rustfinity.com)
+[![Rustfinity Banner](./images/rustfinity-header.png)](https://rustfinity.com)
 
 # Rustfinity
 
