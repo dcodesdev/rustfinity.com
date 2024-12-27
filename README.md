@@ -113,7 +113,8 @@ We’d love your help! Whether it’s fixing bugs, adding challenges, or improvi
 
 1. **Check out our [issues](https://github.com/dcodesdev/rustfinity.com/issues)**: Found a bug or want to suggest an enhancement? Open an issue!
 2. **Fork & PR**: Fork the repo, make changes, and submit a pull request.
-3. **Discussions**: Join the conversation in [GitHub Discussions](#) (coming soon) or on our community channels.
+3. **Join our Discord**: [Join our Discord server](https://discord.gg/8GRcUqY48B) to discuss ideas, ask questions, or just hang out with the community.
+4. **Spread the word**: Share Rustfinity with your friends, colleagues, or on social media.
 
 ---
 
