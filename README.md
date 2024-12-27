@@ -85,8 +85,7 @@ This folder contains multiple Rust crates that power the Rustfinity platform.
   The Rustfinity Command-Line Interface to help you **download, solve, and submit** Rustfinity challenges locally.
 - **Key Features**
   - Download any challenge directly to your local environment
-  - Run and test your solutions offline
-  - Submit solutions without leaving your terminal
+  - Submit solutions with `rustfinity submit` which redirects you to the challenge page with your solution
 
 ### <a name="rustfinity-runner">`rustfinity-runner`</a>
 
