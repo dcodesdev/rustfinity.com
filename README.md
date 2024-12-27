@@ -4,7 +4,6 @@
 
 <p>
   <a href="https://rustfinity.com"><img src="https://img.shields.io/badge/Rustfinity%20Docs-18181B?style=flat&logo=rust" alt="Website"></a>
-  <a href="https://github.com/dcodesdev/rustfinity.com/blob/main/LICENSE"><img src="https://img.shields.io/github/license/dcodesdev/rustfinity.com.svg?style=flat&colorA=18181B&colorB=28CF8D" alt="License"></a>
   <a href="https://github.com/dcodesdev/rustfinity.com/issues"><img src="https://img.shields.io/github/issues/dcodesdev/rustfinity.com.svg?style=flat&colorA=18181B&colorB=28CF8D" alt="Issues"></a>
   <a href="https://github.com/dcodesdev/rustfinity.com/pulls"><img src="https://img.shields.io/github/issues-pr/dcodesdev/rustfinity.com.svg?style=flat&colorA=18181B&colorB=28CF8D" alt="Pull Requests"></a>
 </p>
