@@ -26,4 +26,9 @@ mod tests {
     fn test_find_first_palindrome_edge_case() {
         assert_eq!(find_first_palindrome(1, 1), Some(1));
     }
+
+    #[test]
+    fn test_find_first_palindrome_negative_range() {
+        assert_eq!(find_first_palindrome(-1, 1), Some(0));
+    }
 }
