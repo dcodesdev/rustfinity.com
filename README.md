@@ -22,18 +22,18 @@ Rustfinity is an **interactive learning platform** dedicated to helping Rust dev
 
 ## Table of Contents
 
-- 🚀 [Getting Started](#getting-started)
-- 📂 [Folder Structure](#folder-structure)
+- 🚀 [Getting Started](#-getting-started)
+- 📂 [Folder Structure](#-folder-structure)
   - [challenges/](#challenges)
   - [crates/](#crates)
-- 🤖 [Crates](#crates-details)
+- 🤖 [Crates](#-crates-details)
   - [cli](#cli)
   - [rustfinity-runner](#rustfinity-runner)
   - [syntest](#syntest)
-- ❤️ [Contribute](#contribute)
-- 🏠 [Local Development](#local-development)
-- 🔗 [Follow Us](#follow-us)
-- ⚖️ [License](#license)
+- ❤️ [Contribute](#-contribute)
+- 🏠 [Local Development](#-local-development)
+- 🔗 [Follow Us](#-follow-us)
+- ⚖️ [License](#-license)
 
 ---
 
