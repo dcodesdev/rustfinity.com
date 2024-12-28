@@ -32,9 +32,7 @@ If you're stuck, here are some hints to help you:
 - Use the `.iter_mut()` method to traverse the slice by mutable reference.
 - Remember that you can check if a number is even using `num % 2 == 0`.
 - Use dereferencing (`*`) to update the value pointed to by the mutable reference.
-- The slice directly modifies the original collection it is derived from, so no need to return anything.
 - You can use a `for` loop with mutable references for concise modification.
-- Consider edge cases, such as an empty slice, where there are no elements to modify.
-- Avoid unnecessary allocations by working directly with the slice.
+- The slice directly modifies the original collection it is derived from, so no need to return anything.
 
 </details>
