@@ -6,14 +6,13 @@ In this challenge, you will work with slices to find the largest number in a giv
 
 Implement the function `find_largest_in_slice(slice: &[i32]) -> Option<i32>` that takes an immutable slice of integers and returns the largest integer in the slice. If the slice is empty, return `None`.
 
-Slices provide various methods that can help you work efficiently, such as iterators and bounds checking. Your solution should aim to be both concise and idiomatic.
+Slices provide various methods that can help you work efficiently, such as iterators and bounds checking.
 
 ## Requirements
 
 - The function should return `Some(i32)` with the largest element in the slice if the slice is not empty.
 - If the slice is empty, the function should return `None`.
-- The function should not modify the input slice.
-- You must use idiomatic Rust constructs like iterators, `.max()`, or other slice methods.
+- The function can not modify the input slice.
 
 ## Example
 
@@ -30,6 +29,13 @@ assert_eq!(find_largest_in_slice(&single_element), Some(42));
 
 ## Hints
 
+If you're stuck, here are some hints to help you solve the challenge:
+
+<details>
+    <summary>Click here to reveal hints</summary>
+
 - Use the `.iter()` method on slices to create an iterator over the elements.
 - Consider using the `.max()` method provided by iterators to find the largest value.
 - If using `.max()`, remember to handle the `Option` it returns, as an empty iterator will yield `None`.
+
+</details>
