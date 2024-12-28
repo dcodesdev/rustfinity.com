@@ -264,6 +264,18 @@
     "updated_at": "2024-12-28T00:00:00Z"
   },
   {
+    "id": 38,
+    "title": "Mutable Slices",
+    "slug": "mutable-slices",
+    "short_description": "Manipulate elements in a mutable slice in-place using iteration.",
+    "language": "RUST",
+    "difficulty": "EASY",
+    "track": "RUST_BASICS",
+    "tags": ["slices", "mutability", "iteration"],
+    "created_at": "2024-12-28T00:00:00Z",
+    "updated_at": "2024-12-28T00:00:00Z"
+  },
+  {
     "id": 4,
     "title": "Fizz Buzz",
     "slug": "fizz-buzz",
