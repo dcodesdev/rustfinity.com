@@ -252,6 +252,18 @@
     "updated_at": "2024-04-20T00:00:00Z"
   },
   {
+    "id": 37,
+    "title": "Slices",
+    "slug": "slices",
+    "short_description": "Find the largest element in a slice of integers.",
+    "language": "RUST",
+    "difficulty": "EASY",
+    "track": "RUST_BASICS",
+    "tags": ["slices", "iterators", "collections"],
+    "created_at": "2024-12-28T00:00:00Z",
+    "updated_at": "2024-12-28T00:00:00Z"
+  },
+  {
     "id": 4,
     "title": "Fizz Buzz",
     "slug": "fizz-buzz",
