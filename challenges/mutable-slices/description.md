@@ -15,11 +15,16 @@ Write a function `modify_elements(slice: &mut [i32])` that modifies the elements
 ```rust
 let mut numbers = [1, 2, 3, 4, 5];
 modify_elements(&mut numbers);
-assert_eq!(numbers, [0, 4, 2, 8, 4]); // Odd numbers reduced by 1, even numbers doubled.
+
+// Odd numbers reduced by 1
+// Even numbers doubled
+assert_eq!(numbers, [0, 4, 2, 8, 4]);
 
 let mut numbers = [10, 15, 20];
 modify_elements(&mut numbers);
-assert_eq!(numbers, [20, 14, 40]); // 10 -> 20, 15 -> 14, 20 -> 40
+
+// 10 -> 20, 15 -> 14, 20 -> 40
+assert_eq!(numbers, [20, 14, 40]);
 ```
 
 ## Hints
