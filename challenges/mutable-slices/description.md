@@ -2,22 +2,15 @@ In this challenge, you'll explore how to work with **mutable slices** in Rust. A
 
 Slices are a fundamental part of Rust, providing a view into contiguous sequences of elements such as arrays or vectors. When working with slices, you can iterate over and manipulate the elements dynamically.
 
-### Your Task
+## Your Task
 
 Write a function `modify_elements(slice: &mut [i32])` that modifies the elements of a mutable slice of integers in the following way:
 
 1. **Double each even number** in the slice.
 2. **Subtract 1 from each odd number** in the slice.
+3. Modify the elements directly without creating a new collection.
 
-The function should make changes directly to the given slice without returning anything.
-
-### Requirements
-
-- Use the `.iter_mut()` method to iterate over the slice with mutable references.
-- Modify the elements directly without creating a new collection.
-- Use conditional logic to determine whether a number is even or odd.
-
-### Example
+## Example
 
 ```rust
 let mut numbers = [1, 2, 3, 4, 5];
@@ -29,7 +22,7 @@ modify_elements(&mut numbers);
 assert_eq!(numbers, [20, 14, 40]); // 10 -> 20, 15 -> 14, 20 -> 40
 ```
 
-### Hints
+## Hints
 
 If you're stuck, here are some hints to help you:
 
@@ -45,4 +38,3 @@ If you're stuck, here are some hints to help you:
 - Avoid unnecessary allocations by working directly with the slice.
 
 </details>
-```
