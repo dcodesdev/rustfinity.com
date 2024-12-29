@@ -1,4 +1,4 @@
-use std::{fs, process};
+use std::{fs, mem, process};
 use unit_structs::Logger;
 
 fn create_bin_and_run(code: &str) -> process::Output {
@@ -41,5 +41,9 @@ fn test_log_message() {
 
 #[test]
 fn test_should_be_unit_struct() {
-    let _ = Logger;
+    assert_eq!(
+        mem::size_of::<Logger>(),
+        0,
+        "Logger should be a unit struct"
+    );
 }
