@@ -54,13 +54,12 @@ The constructor function, `Book::new`, should take three parameters (`title`, `a
 
 ## Requirements
 
-1. The struct must be named `Book`.
-2. Implement a constructor function `Book::new` that:
+1. Implement a constructor function `Book::new` that:
 
    - Takes three arguments: `title` (string slice), `author` (string slice), and `year` (integer).
    - Returns a `Book` instance with the specified values and default `likes` value of `0`.
 
-3. Remember to use `pub` for fields (required for testing).
+2. Remember to use `pub` for fields (required for testing).
 
 ## Example Test
 
@@ -68,11 +67,11 @@ The constructor function, `Book::new`, should take three parameters (`title`, `a
 let book = Book::new(
     "ASOIAF",
     "George R. R. Martin",
-    2019
+    1996
 );
 
-assert_eq!(book.title, "The Rust Programming Language");
-assert_eq!(book.author, "Steve Klabnik and Carol Nichols");
-assert_eq!(book.year, 2019);
+assert_eq!(book.title, "ASOIAF");
+assert_eq!(book.author, "George R. R. Martin");
+assert_eq!(book.year, 1996);
 assert_eq!(book.likes, 0);
 ```

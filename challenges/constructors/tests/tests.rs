@@ -11,6 +11,7 @@ fn test_constructor_initialization() {
     assert_eq!(book.title, "The Rust Programming Language");
     assert_eq!(book.author, "Steve Klabnik and Carol Nichols");
     assert_eq!(book.year, 2019);
+    assert_eq!(book.likes, 0);
 }
 
 #[test]
@@ -20,6 +21,7 @@ fn test_constructor_with_different_data() {
     assert_eq!(book.title, "Eloquent JavaScript");
     assert_eq!(book.author, "Marijn Haverbeke");
     assert_eq!(book.year, 2018);
+    assert_eq!(book.likes, 0);
 }
 
 #[test]
@@ -29,6 +31,7 @@ fn test_constructor_handles_edge_case_year() {
     assert_eq!(book.title, "Old Book");
     assert_eq!(book.author, "Unknown Author");
     assert_eq!(book.year, -500);
+    assert_eq!(book.likes, 0);
 }
 
 #[test]
@@ -38,6 +41,7 @@ fn test_constructor_with_empty_title_and_author() {
     assert_eq!(book.title, "");
     assert_eq!(book.author, "");
     assert_eq!(book.year, 2023);
+    assert_eq!(book.likes, 0);
 }
 
 #[test]
@@ -50,6 +54,7 @@ fn test_constructor_long_title_and_author() {
     assert_eq!(book.title, long_title);
     assert_eq!(book.author, long_author);
     assert_eq!(book.year, 2024);
+    assert_eq!(book.likes, 0);
 }
 
 #[test]
@@ -61,6 +66,7 @@ fn test_constructor_special_characters_in_title_and_author() {
     assert_eq!(book.title, special_title);
     assert_eq!(book.author, special_author);
     assert_eq!(book.year, 2020);
+    assert_eq!(book.likes, 0);
 }
 
 #[test]
@@ -72,6 +78,7 @@ fn test_constructor_unicode_characters_in_title_and_author() {
     assert_eq!(book.title, unicode_title);
     assert_eq!(book.author, unicode_author);
     assert_eq!(book.year, 2021);
+    assert_eq!(book.likes, 0);
 }
 
 #[test]
@@ -81,6 +88,7 @@ fn test_constructor_negative_year() {
     assert_eq!(book.title, "Ancient Wisdom");
     assert_eq!(book.author, "Unknown Sage");
     assert_eq!(book.year, -3000);
+    assert_eq!(book.likes, 0);
 }
 
 #[test]
@@ -90,4 +98,5 @@ fn test_constructor_zero_year() {
     assert_eq!(book.title, "The Dawn of Civilization");
     assert_eq!(book.author, "Prehistoric Scholar");
     assert_eq!(book.year, 0);
+    assert_eq!(book.likes, 0);
 }

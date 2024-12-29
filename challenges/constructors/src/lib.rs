@@ -2,6 +2,7 @@ pub struct Book {
     pub title: String,
     pub author: String,
     pub year: i32,
+    pub likes: i32,
 }
 
 impl Book {
@@ -10,6 +11,7 @@ impl Book {
             title: title.to_string(),
             author: author.to_string(),
             year,
+            likes: 0,
         }
     }
 }
