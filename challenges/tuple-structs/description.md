@@ -21,6 +21,10 @@ Then, implement a function `area` that calculates and returns the area of the re
 
 1. Define a tuple struct `Rectangle(u32, u32)`.
 2. Implement the function `area(rect: &Rectangle) -> u32`.
+3. The fields of the tuple struct must be public. Here's an example:
+   ```rust
+   pub struct Point(pub i32, pub i32, pub i32);
+   ```
 
 ---
 
