@@ -312,6 +312,18 @@
     "updated_at": "2024-12-29T00:00:00Z"
   },
   {
+    "id": 42,
+    "title": "Constructors",
+    "slug": "constructors",
+    "short_description": "Learn to create constructors for Rust structs.",
+    "language": "RUST",
+    "difficulty": "EASY",
+    "track": "RUST_BASICS",
+    "tags": ["structs", "methods", "constructors"],
+    "created_at": "2024-12-29T00:00:00Z",
+    "updated_at": "2024-12-29T00:00:00Z"
+  },
+  {
     "id": 4,
     "title": "Fizz Buzz",
     "slug": "fizz-buzz",
