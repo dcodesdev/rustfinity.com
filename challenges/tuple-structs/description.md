@@ -46,6 +46,5 @@ If you get stuck, consider these hints:
     <summary>Click here to reveal hints</summary>
 
 - Use dot notation to access the fields of the tuple struct (e.g., `rect.0` for width and `rect.1` for height).
-- Tuple structs are just like tuples but with a named type, so you can destructure them as you would a regular tuple.
 
 </details>
