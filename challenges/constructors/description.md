@@ -52,10 +52,6 @@ In this challenge, you will implement a constructor for a struct that represents
 
 The constructor function, `Book::new`, should take three parameters (`title`, `author`, and `year`) and return a fully initialized `Book`.
 
-## Your Task
-
-Implement the `Book` struct and its constructor, ensuring that it correctly initializes all fields.
-
 ## Requirements
 
 1. The struct must be named `Book`.
