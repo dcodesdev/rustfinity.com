@@ -12,19 +12,17 @@ You can create an instance of a tuple struct just like you would with a tuple an
 
 Your task is to define a tuple struct called `Rectangle` with two fields:
 
-- The width of the rectangle as a `u32`.
-- The height of the rectangle as a `u32`.
+- The width of the rectangle as a `f32`.
+- The height of the rectangle as a `f32`.
 
 Then, implement a function `area` that calculates and returns the area of the rectangle by multiplying its width and height.
 
 ### Requirements
 
-1. Define a tuple struct `Rectangle(u32, u32)`.
-2. Implement the function `area(rect: &Rectangle) -> u32`.
-3. The fields of the tuple struct must be public. Here's an example:
-   ```rust
-   pub struct Point(pub i32, pub i32, pub i32);
-   ```
+- The fields of the tuple struct must be public. Here's an example:
+  ```rust
+  pub struct Point(pub i32, pub i32, pub i32);
+  ```
 
 ---
 
@@ -33,11 +31,11 @@ Then, implement a function `area` that calculates and returns the area of the re
 Here's how your code will be tested:
 
 ```rust
-let rect = Rectangle(4, 5);
-assert_eq!(area(&rect), 20);
+let rect = Rectangle(4.0, 5.0);
+assert_eq!(area(&rect), 20.0);
 
-let square = Rectangle(10, 10);
-assert_eq!(area(&square), 100);
+let square = Rectangle(10.0, 10.0);
+assert_eq!(area(&square), 100.0);
 ```
 
 ---
