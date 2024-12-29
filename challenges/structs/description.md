@@ -59,7 +59,6 @@ If you're having trouble, consider these hints:
   <summary>Click here to reveal hints</summary>
 
 - Use `&` to pass references to avoid unnecessary copies.
-- Remember that `String` is a heap-allocated type, and its ownership rules apply when assigning or passing it around.
 - Use the `age` field directly in a comparison for the `is_adult` function.
 
 </details>
