@@ -7,6 +7,7 @@ In this challenge, you will define and use a constant in Rust. This will help yo
 - Define a constant named `MAX_SIZE` with a value of `100`.
 - Ensure that `MAX_SIZE` has the type `i32`.
 - Return the value of `MAX_SIZE` from the `main` function.
+- Remember that constants can only be defined at the global scope. You can not define them inside a function.
 
 ## Hints
 
