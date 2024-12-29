@@ -1,17 +1,16 @@
 In Rust, a **unit struct** is a type of struct that doesn't have any fields. It is essentially a "marker" or "tag" type and is represented by an empty pair of curly braces (`struct Name;`).
 
-Unit structs are particularly useful in scenarios where you need to define types without associated data. Some common use cases include:
+Unit structs are particularly useful in scenarios where you need to define types without associated data. Here's an example:
 
-1. **Type markers**: They can be used to implement traits for specific types without storing data.
-2. **Phantom data**: They can act as placeholders for generic parameters without using storage.
-3. **Zero-cost abstraction**: Since they contain no data, they take up no memory at runtime.
-4. **State representation**: Useful for representing specific states in state machines.
+```rust
+pub struct Database;
+```
 
 ## Your Task
 
 In this challenge, you'll implement a unit struct named `Logger`. The struct will serve as a type marker that enables certain logging functionality via a method `log_message`. You'll also implement a `log_message` function that prints a message to the console using the unit struct `Logger` as a marker. The goal is to familiarize yourself with unit structs and their usage as markers.
 
-## Requirements
+### Requirements
 
 1. Define a unit struct named `Logger`.
 2. Implement a `Logger::log_message` method that:

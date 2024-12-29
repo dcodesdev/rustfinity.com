@@ -1,25 +1,40 @@
+use std::{fs, process};
 use unit_structs::Logger;
+
+fn create_bin_and_run(code: &str) -> process::Output {
+    let bin = "src/main.rs";
+    fs::write(bin, code).unwrap();
+    let output = process::Command::new("cargo")
+        .arg("run")
+        .output()
+        .expect("Failed to compile");
+    fs::remove_file(bin).unwrap();
+    output
+}
+
+#[test]
+fn test_compiles() {
+    Logger::log_message("Test message");
+}
 
 #[test]
 fn test_log_message() {
-    Logger::log_message("Test message");
-    // This test ensures the function compiles and runs. Manual verification of output is required for console logs.
-}
+    let code = r#"
+        use unit_structs::Logger;
+        pub fn main() {
+            Logger::log_message("Test message");
+            Logger::log_message("Rust is great");
+            Logger::log_message("I love Rust");
+            Logger::log_message("Rust is the best");
+        }
+    "#;
 
-#[test]
-fn test_log_message_empty() {
-    Logger::log_message("");
-    // This test ensures the function handles empty messages without errors.
-}
+    let output = create_bin_and_run(code);
 
-#[test]
-fn test_log_message_special_characters() {
-    Logger::log_message("Special characters: !@#$%^&*()_+-=[]{}|;:'\",.<>?/`~");
-    // This test ensures special characters are correctly printed.
-}
+    let stdout = String::from_utf8(output.stdout).unwrap();
 
-#[test]
-fn test_log_message_unicode() {
-    Logger::log_message("Unicode characters: 你好, привет, مرحبا, 🚀");
-    // This test ensures unicode characters are correctly printed.
+    assert!(stdout.contains("Test message"));
+    assert!(stdout.contains("Rust is great"));
+    assert!(stdout.contains("I love Rust"));
+    assert!(stdout.contains("Rust is the best"));
 }
