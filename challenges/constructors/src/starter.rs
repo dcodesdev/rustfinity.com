@@ -1,13 +1,9 @@
 pub struct Book {
-    // Define the fields of the struct
-    pub title: String,
-    pub author: String,
-    pub year: i32,
+    // 1. Define the fields of the struct
+    // Make all of them public with `pub`
+    // Read the description for the fields
 }
 
 impl Book {
-    pub fn new(title: &str, author: &str, year: i32) -> Self {
-        // Your code here...
-        unimplemented!()
-    }
+    // 2. Define the `new` associated function
 }

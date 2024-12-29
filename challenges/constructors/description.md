@@ -69,7 +69,11 @@ Implement the `Book` struct and its constructor, ensuring that it correctly init
 ## Example Test
 
 ```rust
-let book = Book::new("The Rust Programming Language", "Steve Klabnik and Carol Nichols", 2019);
+let book = Book::new(
+    "ASOIAF",
+    "George R. R. Martin",
+    2019
+);
 
 assert_eq!(book.title, "The Rust Programming Language");
 assert_eq!(book.author, "Steve Klabnik and Carol Nichols");
