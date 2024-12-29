@@ -1,4 +1,4 @@
-Slices are one of Rust's most powerful features, allowing you to access and manipulate portions of collections like arrays and vectors without taking ownership. Mutable slices (`&mut [T]`) let you modify the data directly, which is particularly useful when working with collections.
+Now that you have an overview of slices, let's make it a little bit more challenging. In this problem, you will implement a function that updates specific elements of a mutable slice.
 
 ## Your Task
 
@@ -12,14 +12,10 @@ The function should handle the following:
 
 - If an index in `indices` is out of bounds for the `slice`, the function should skip it without causing a panic.
 - Modify only the elements specified by valid indices.
-
-### Requirements
-
-- Use mutable slices effectively to make in-place modifications.
 - Ensure that out-of-bound indices in the `indices` slice do not cause runtime errors.
-- The solution should be efficient and avoid unnecessary copying.
+- Remember that slices are views into arrays or vectors; they cannot be resized, but their contents can be modified.
 
-### Example
+## How it Works
 
 ```rust
 let mut data = vec![1, 2, 3, 4, 5];
@@ -40,5 +36,4 @@ If you're having trouble, consider these hints:
 
 - Use the `.get_mut(index)` method to safely access a mutable reference to an element at a given index. This avoids panics for out-of-bound accesses.
 - A `for` loop is useful for iterating through the `indices` slice.
-- Remember that slices are views into arrays or vectors; they cannot be resized, but their contents can be modified.
 </details>
