@@ -1,5 +1,5 @@
-pub struct Rectangle(u32, u32);
+pub struct Rectangle // 1. Finish the struct
 
 pub fn area(rect: &Rectangle) -> u32 {
-    // Your code here
+    // 2. Implement the area function
 }
