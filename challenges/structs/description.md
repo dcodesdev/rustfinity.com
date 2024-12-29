@@ -33,7 +33,7 @@ You must also implement a function `is_adult` that takes a reference to a `Perso
        pub author: String,
    }
    ```
-   This will allow the tests to access the struct and its fields, without this the tests will fail.
+   This will allow the tests to access the struct and its fields. Without this, the tests will fail.
 
 ---
 

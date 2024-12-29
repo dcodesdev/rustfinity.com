@@ -3,6 +3,4 @@ pub struct Person {
     // Read the description
 }
 
-pub fn is_adult(person: &Person) -> bool {
-    // Your code here
-}
+pub fn is_adult() // Finish the function
