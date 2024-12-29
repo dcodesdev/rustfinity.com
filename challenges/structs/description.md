@@ -1,13 +1,11 @@
-# Structs
-
 Structs are one of Rust's fundamental building blocks for creating custom types. They allow you to group together related data under one type, making your programs easier to understand and maintain. In this challenge, you'll work with Rust structs by creating a simple structure to represent a `Person`.
 
 A struct in Rust can have named fields with different data types. For example:
 
 ```rust
-struct Person {
+struct Book {
     name: String,
-    age: u8,
+    author: String,
 }
 ```
 
@@ -22,19 +20,24 @@ Your task is to define a struct called `Person` with the following fields:
 - `name`: A `String` representing the person's name.
 - `age`: A `u8` representing the person's age.
 
-You must also implement a function `is_adult(person: &Person) -> bool` that takes a reference to a `Person` and returns `true` if the person's age is 18 or older, and `false` otherwise.
+You must also implement a function `is_adult` that takes a reference to a `Person` and returns `true` if the person's age is 18 or older, and `false` otherwise.
 
----
-
-## Requirements
+### Requirements
 
 1. Define a struct called `Person` with the fields `name` and `age`.
 2. Implement the function `is_adult` to determine if a person is an adult (18 or older).
-3. Write your solution in a way that avoids unnecessary clones of the `Person` struct.
+3. Make sure the struct and it's fields are public.
+   ```rust
+   pub struct Book {
+       pub name: String,
+       pub author: String,
+   }
+   ```
+   This will allow the tests to access the struct and its fields, without this the tests will fail.
 
 ---
 
-## Example
+## Example Test
 
 Here's how your code will be tested:
 
