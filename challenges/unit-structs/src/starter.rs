@@ -1,7 +1,8 @@
-pub struct Logger;
+// Define a struct named `Logger`
+// Implement an associated function `log_message`
+// That accepts a `&str` and prints the output.
 
-impl Logger {
-    pub fn log_message(message: &str) {
-        // Your code here...
-    }
+// Example usage:
+pub fn main() {
+    Logger::log_message("Hello, World!");
 }

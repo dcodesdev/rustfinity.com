@@ -38,3 +38,8 @@ fn test_log_message() {
     assert!(stdout.contains("I love Rust"));
     assert!(stdout.contains("Rust is the best"));
 }
+
+#[test]
+fn test_should_be_unit_struct() {
+    let _ = Logger;
+}
