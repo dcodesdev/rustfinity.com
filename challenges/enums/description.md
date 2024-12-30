@@ -16,19 +16,11 @@ Write a function `light_action` that takes a `TrafficLight` and returns a string
 - For `Yellow`, return `"Caution"`.
 - For `Green`, return `"Go"`.
 
-### Requirements
-
-- Define the `TrafficLight` enum with three unit variants.
-- Write the function `light_action` to return the correct action for each light.
-- Use a `match` expression to handle the variants.
-
 ## Hints
 
 <details>
     <summary>Click here to reveal hints</summary>
 
 - Use the `match` statement to handle each enum variant.
-- Each match arm should return a string corresponding to the light’s action.
-- Unit variants do not hold any data, so you only need to match on the variant name.
 
 </details>
