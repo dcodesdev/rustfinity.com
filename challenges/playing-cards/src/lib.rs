@@ -5,7 +5,7 @@ pub enum Card {
     Numbered(u8, String), // Tuple variant with value and suit
 }
 
-pub fn card_description(card: Card) -> String {
+pub fn card_description(card: &Card) -> String {
     match card {
         Card::King => "King".to_string(),
         Card::Queen => "Queen".to_string(),
