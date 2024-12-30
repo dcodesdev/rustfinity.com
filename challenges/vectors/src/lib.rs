@@ -3,7 +3,7 @@ pub fn add_elements(vec: &mut Vec<i32>, elements: &[i32]) {
 }
 
 pub fn remove_element(vec: &mut Vec<i32>, index: usize) {
-    if index < vec.len() {
+    if let Some(_) = vec.get(index) {
         vec.remove(index);
     }
 }
