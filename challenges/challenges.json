@@ -384,6 +384,18 @@
     "updated_at": "2024-12-30T00:00:00Z"
   },
   {
+    "id": 48,
+    "title": "Animal Sounds",
+    "slug": "animal-sounds",
+    "short_description": "Explore complex enums by combining unit, tuple, and named field variants in Rust.",
+    "language": "RUST",
+    "difficulty": "MEDIUM",
+    "track": "RUST_BASICS",
+    "tags": ["enums", "advanced concepts"],
+    "created_at": "2024-12-30T00:00:00Z",
+    "updated_at": "2024-12-30T00:00:00Z"
+  },
+  {
     "id": 4,
     "title": "Fizz Buzz",
     "slug": "fizz-buzz",
