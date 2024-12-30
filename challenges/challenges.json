@@ -385,8 +385,8 @@
   },
   {
     "id": 48,
-    "title": "Animal Sounds",
-    "slug": "animal-sounds",
+    "title": "Complex Enums",
+    "slug": "complex-enums",
     "short_description": "Explore complex enums by combining unit, tuple, and named field variants in Rust.",
     "language": "RUST",
     "difficulty": "MEDIUM",

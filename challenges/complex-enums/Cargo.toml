@@ -1,5 +1,5 @@
 [package]
-name = "animal-sounds"
+name = "complex-enums"
 version = "0.1.0"
 edition = "2021"
 
