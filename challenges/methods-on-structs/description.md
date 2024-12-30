@@ -20,13 +20,15 @@ Define a struct `Counter` that represents a simple counter. Implement methods on
 ### Requirements
 
 1. Define a struct `Counter` with a single field `count` of type `i32`.
-2. Implement the following methods for `Counter`:
+2. Define a `new` associated function that acts as a constructor and initializes the `count` field to 0.
+3. Implement the following methods for `Counter`:
 
    - `increment`: Increments the counter by 1.
    - `decrement`: Decrements the counter by 1.
    - `get_count`: Returns the current count.
 
-3. Ensure these methods use the correct `self` parameter type (`&self` or `&mut self`) based on their behavior.
+4. Ensure these methods use the correct `self` parameter type (`&self` or `&mut self`) based on their behavior.
+5. Make the `count` field private and provide a public constructor `Counter::new` that initializes the count to 0.
 
 ## Example Test
 
@@ -42,12 +44,14 @@ assert_eq!(counter.get_count(), 1);
 
 ## Hints
 
+If you're stuck, you can check out these hints:
+
 <details>
     <summary>Click here to reveal hints</summary>
 
+- Fort he `increment` and `decrement` methods, use `&mut self` as the parameter type.
 - Use `self.count += 1` to modify the counter in the `increment` method.
 - Use `self.count -= 1` to modify the counter in the `decrement` method.
 - For `get_count`, use `&self` and return the value of `self.count`.
-- Remember to make the field `count` private to enforce encapsulation and expose it only via methods.
 
 </details>

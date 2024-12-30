@@ -1,26 +1,11 @@
-pub struct Counter {
-    count: i32,
-}
+// 1. Define the struct
+pub struct Counter
 
-impl Counter {
-    pub fn new() -> Self {
-        Self { count: 0 }
-    }
 
-    pub fn increment(&mut self) {
-        // Your code here...
-    }
+// 2. Implement the associated function and methods
 
-    pub fn decrement(&mut self) {
-        // Your code here...
-    }
 
-    pub fn get_count(&self) -> i32 {
-        // Your code here...
-        0
-    }
-}
-
+// Example use case
 pub fn main() {
     let mut counter = Counter::new();
 
