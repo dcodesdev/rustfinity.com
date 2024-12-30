@@ -1,4 +1,4 @@
-Enums in Rust can have a combination of unit, tuple, and named field variants. This makes them incredibly versatile for representing complex and structured data.
+Now that you have an overview of enums and it's possible variants, let's have a more complex example.
 
 In this challenge, you will create an `Animal` enum that demonstrates all three types of variants.
 
@@ -25,25 +25,6 @@ Write a function `describe_animal` that takes a reference to an `Animal` and ret
   - `"A {species} that can fly."` if `can_fly` is true.
   - `"A {species} that cannot fly."` if `can_fly` is false.
 
-### Example
-
-```rust
-let dog = Animal::Dog;
-assert_eq!(describe_animal(&dog), "A friendly dog.");
-
-let cat = Animal::Cat("Whiskers".to_string());
-assert_eq!(describe_animal(&cat), "A cat named Whiskers.");
-
-let bird = Animal::Bird { species: "Penguin".to_string(), can_fly: false };
-assert_eq!(describe_animal(&bird), "A Penguin that cannot fly.");
-```
-
-### Requirements
-
-1. Define the `Animal` enum with the specified variants.
-2. Implement the `describe_animal` function using a `match` expression to handle all variants.
-3. Make sure the function takes a reference to the enum.
-
 ## Hints
 
 <details>
@@ -51,6 +32,5 @@ assert_eq!(describe_animal(&bird), "A Penguin that cannot fly.");
 
 - Use the `match` statement to destructure tuple and named field variants.
 - String formatting with `format!` makes it easy to include dynamic values in your description.
-- `String` is a heap-allocated string; remember to handle it correctly when matching.
 
 </details>
