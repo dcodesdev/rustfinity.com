@@ -444,6 +444,18 @@
     "updated_at": "2024-12-30T00:00:00Z"
   },
   {
+    "id": 53,
+    "title": "Hashmaps",
+    "slug": "hashmaps",
+    "short_description": "Use Rust's HashMap to create a simple key-value store.",
+    "language": "RUST",
+    "difficulty": "EASY",
+    "track": "RUST_BASICS",
+    "tags": ["hashmaps", "collections", "rust"],
+    "created_at": "2024-12-30T00:00:00Z",
+    "updated_at": "2024-12-30T00:00:00Z"
+  },
+  {
     "id": 4,
     "title": "Fizz Buzz",
     "slug": "fizz-buzz",
