@@ -1,4 +1,4 @@
-Enums in Rust can combine unit and tuple variants to represent a wide range of concepts. This challenge uses enums to represent playing cards in a card game.
+Enums in Rust can combine unit, tuple and named field variants to represent a wide range of concepts. This challenge uses enums to represent playing cards in a card game.
 
 You will implement a `Card` enum that can represent either:
 
@@ -19,12 +19,6 @@ Write a function `card_description` that takes a `Card` and returns a descriptio
 - For `Jack`, return `"Jack"`.
 - For `Numbered(value, suit)`, return `"Numbered(value) of suit"`, e.g., `"7 of Hearts"`.
 
-### Requirements
-
-- Define the `Card` enum with the specified variants.
-- Write the function `card_description` to handle all variants of the enum.
-- Use a `match` expression to process the variants.
-
 ## Hints
 
 <details>
@@ -32,6 +26,5 @@ Write a function `card_description` that takes a `Card` and returns a descriptio
 
 - Use the `match` statement to handle each enum variant.
 - String interpolation can be done with the `format!` macro for the `Numbered` variant.
-- Unit variants like `King`, `Queen`, and `Jack` are simple cases in a `match`.
 
 </details>
