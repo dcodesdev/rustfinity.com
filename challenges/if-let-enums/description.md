@@ -37,7 +37,7 @@ Try to solve this using the `if let` construct.
 <details>
 <summary>Click here to reveal hints</summary>
 
-- You can use the `if let` construct with references like this:
+- You can use the `if let` construct like this:
   ```rust
   if let EnumVariant(value) = &enum_instance {
       // Perform actions with `value`.
