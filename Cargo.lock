@@ -347,6 +347,10 @@ name = "derive-debug-for-structs"
 version = "0.1.0"
 
 [[package]]
+name = "derive-partial-eq"
+version = "0.1.0"
+
+[[package]]
 name = "determine-number-characteristics"
 version = "0.1.0"
 
