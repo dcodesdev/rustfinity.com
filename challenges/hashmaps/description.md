@@ -34,6 +34,5 @@ You will write both functions to work with a `HashMap<String, String>`.
 - Use the `HashMap` type from `std::collections`.
 - To insert or update a value, use the `.insert()` method of `HashMap`.
 - To retrieve a value by its key, use the `.get()` method of `HashMap`.
-- Remember to handle ownership properly when dealing with `String`.
 
 </details>
