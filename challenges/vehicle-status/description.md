@@ -1,4 +1,4 @@
-Enums in Rust can have associated methods, just like structs. These methods make it easier to encapsulate behavior directly within the enum.
+Enums in Rust can have associated functions and methods, just like structs. These methods make it easier to encapsulate behavior directly within the enum.
 
 In this challenge, you'll model the statuses of different vehicles and implement methods to describe their behavior.
 
@@ -21,12 +21,6 @@ Implement the following methods for `VehicleStatus`:
   - Returns `"The vehicle is parked."` for `Parked`.
   - Returns `"The vehicle is driving at {speed} km/h."` for `Driving { speed }`.
   - Returns `"The vehicle is broken down: {reason}."` for `BrokenDown(reason)`.
-
-### Requirements
-
-1. Define the `VehicleStatus` enum with the specified variants.
-2. Implement the `is_operational` and `description` methods on the enum.
-3. Use references in your methods to avoid consuming the enum.
 
 ## Hints
 
