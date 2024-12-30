@@ -372,6 +372,18 @@
     "updated_at": "2024-12-30T00:00:00Z"
   },
   {
+    "id": 47,
+    "title": "Playing Cards",
+    "slug": "playing-cards",
+    "short_description": "Learn how to use enums with unit and tuple variants by implementing a Card enum.",
+    "language": "RUST",
+    "difficulty": "EASY",
+    "track": "RUST_BASICS",
+    "tags": ["enums", "basic concepts"],
+    "created_at": "2024-12-30T00:00:00Z",
+    "updated_at": "2024-12-30T00:00:00Z"
+  },
+  {
     "id": 4,
     "title": "Fizz Buzz",
     "slug": "fizz-buzz",
