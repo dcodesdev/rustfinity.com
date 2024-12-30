@@ -20,15 +20,6 @@ The function should:
 
 Use `if let` wherever possible to implement the function.
 
-### Example
-
-```rust
-assert_eq!(process_message(Message::Text(String::from("Hello"))), "Processed Text: Hello");
-assert_eq!(process_message(Message::Number(42)), "Processed Number: 42");
-assert_eq!(process_message(Message::Quit), "Quit Command Received");
-assert_eq!(process_message(Message::None), "No Message");
-```
-
 ---
 
 ## Hints
