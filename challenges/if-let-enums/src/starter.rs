@@ -7,6 +7,8 @@ pub enum Message {
 
 pub fn process_text_message(message: &Message) -> String {
     // Your code here...
+
+    String::from("Unhandled Message")
 }
 
 pub fn main() {

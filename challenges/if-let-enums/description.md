@@ -1,6 +1,17 @@
-Enums in Rust allow you to define types with multiple variants, which can hold data. Sometimes, you only need to handle a specific case while borrowing the data instead of taking ownership. This is where `if let` with references comes in handy.
+Sometimes, you only need to handle a specific case of an enum variant, in this case using a `match` statement can be overkill. Rust provides a more concise way to handle such cases using the `if let` construct. This allows you to match a single variant of an enum and extract its value in a single line.
 
-In this challenge, you will focus on handling a single variant of an enum using `if let` while working with a reference.
+Here's an example:
+
+```rust
+enum Ip {
+    V4(String),
+    V6(String),
+}
+
+if let Ip::V4(ip) = &ip {
+    println!("IPv4 address: {}", ip);
+}
+```
 
 ---
 
@@ -17,7 +28,7 @@ Your task is to implement the function `process_text_message` that takes a refer
 
 If the input is any other variant of the enum, the function should return `"Unhandled Message"`.
 
-You **must** use `if let` to handle the `Text` variant by borrowing its value.
+Try to solve this using the `if let` construct.
 
 ---
 
@@ -33,6 +44,5 @@ You **must** use `if let` to handle the `Text` variant by borrowing its value.
   }
   ```
 - Ensure you return `"Unhandled Message"` for all other variants not explicitly matched.
-- Only match the `Text` variant using `if let` with references.
 
 </details>
