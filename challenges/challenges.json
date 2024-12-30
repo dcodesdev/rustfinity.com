@@ -360,6 +360,18 @@
     "updated_at": "2024-12-30T00:00:00Z"
   },
   {
+    "id": 46,
+    "title": "Enums",
+    "slug": "enums",
+    "short_description": "Learn how to use enums in Rust by implementing a basic TrafficLight enum.",
+    "language": "RUST",
+    "difficulty": "EASY",
+    "track": "RUST_BASICS",
+    "tags": ["enums", "basic concepts"],
+    "created_at": "2024-12-30T00:00:00Z",
+    "updated_at": "2024-12-30T00:00:00Z"
+  },
+  {
     "id": 4,
     "title": "Fizz Buzz",
     "slug": "fizz-buzz",
