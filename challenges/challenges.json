@@ -420,6 +420,18 @@
     "updated_at": "2024-12-30T00:00:00Z"
   },
   {
+    "id": 51,
+    "title": "If Let Enums",
+    "slug": "if-let-enums",
+    "short_description": "Practice pattern matching on enums using `if let`.",
+    "language": "RUST",
+    "difficulty": "EASY",
+    "track": "RUST_BASICS",
+    "tags": ["enums", "if let", "pattern matching"],
+    "created_at": "2024-12-30T00:00:00Z",
+    "updated_at": "2024-12-30T00:00:00Z"
+  },
+  {
     "id": 4,
     "title": "Fizz Buzz",
     "slug": "fizz-buzz",
