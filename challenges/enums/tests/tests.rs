@@ -1,19 +1,19 @@
 use enums::*;
 
 #[test]
-fn test_light_duration_red() {
-    let red = TrafficLight::Red(30);
-    assert_eq!(light_duration(red), 30);
+fn test_light_action_red() {
+    let red = TrafficLight::Red;
+    assert_eq!(light_action(&red), "Stop");
 }
 
 #[test]
-fn test_light_duration_yellow() {
-    let yellow = TrafficLight::Yellow(10);
-    assert_eq!(light_duration(yellow), 10);
+fn test_light_action_yellow() {
+    let yellow = TrafficLight::Yellow;
+    assert_eq!(light_action(&yellow), "Caution");
 }
 
 #[test]
-fn test_light_duration_green() {
-    let green = TrafficLight::Green(60);
-    assert_eq!(light_duration(green), 60);
+fn test_light_action_green() {
+    let green = TrafficLight::Green;
+    assert_eq!(light_action(&green), "Go");
 }

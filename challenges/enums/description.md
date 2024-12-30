@@ -1,40 +1,34 @@
-Enums are a core part of Rust, allowing you to define a type that can be one of several distinct variants. Enums can hold data and make it easier to work with related states or choices.
+Enums are a fundamental feature in Rust that let you define a type that can be one of several distinct variants. Enums make it easier to represent a set of related states or options cleanly and effectively.
 
-In this challenge, you will implement a simple `TrafficLight` enum to represent the states of a traffic light: `Red`, `Yellow`, and `Green`. Each variant will also include the duration (in seconds) the light should stay on.
+In this challenge, you will implement a simple `TrafficLight` enum to represent the states of a traffic light: `Red`, `Yellow`, and `Green`. Each variant will be a unit struct with no associated data.
 
 ## Your Task
 
 Create an enum `TrafficLight` with three variants:
 
-- `Red(u8)` representing the red light with its duration in seconds.
-- `Yellow(u8)` representing the yellow light with its duration in seconds.
-- `Green(u8)` representing the green light with its duration in seconds.
+- `Red` representing the red light.
+- `Yellow` representing the yellow light.
+- `Green` representing the green light.
 
-Write a function `light_duration` that takes a `TrafficLight` and returns its duration.
+Write a function `light_action` that takes a `TrafficLight` and returns a string describing the action associated with the light.
 
-### Example
-
-```rust
-let red = TrafficLight::Red(30);
-assert_eq!(light_duration(red), 30);
-
-let green = TrafficLight::Green(60);
-assert_eq!(light_duration(green), 60);
-```
+- For `Red`, return `"Stop"`.
+- For `Yellow`, return `"Caution"`.
+- For `Green`, return `"Go"`.
 
 ### Requirements
 
-- Define the `TrafficLight` enum with three variants.
-- Write the function `light_duration` to return the duration for each variant.
-- Handle each variant using a `match` expression.
+- Define the `TrafficLight` enum with three unit variants.
+- Write the function `light_action` to return the correct action for each light.
+- Use a `match` expression to handle the variants.
 
 ## Hints
 
 <details>
-<summary>Click here to reveal hints</summary>
+    <summary>Click here to reveal hints</summary>
 
-- Use the `match` statement to handle each enum variant and extract the associated value.
-- Remember that enum variants can hold data like a tuple.
-- The `match` expression must cover all possible variants of the enum.
+- Use the `match` statement to handle each enum variant.
+- Each match arm should return a string corresponding to the light’s action.
+- Unit variants do not hold any data, so you only need to match on the variant name.
 
 </details>

@@ -1,13 +1,13 @@
 pub enum TrafficLight {
-    Red(u8),
-    Yellow(u8),
-    Green(u8),
+    Red,
+    Yellow,
+    Green,
 }
 
-pub fn light_duration(light: TrafficLight) -> u8 {
+pub fn light_action(light: &TrafficLight) -> &'static str {
     match light {
-        TrafficLight::Red(duration) => duration,
-        TrafficLight::Yellow(duration) => duration,
-        TrafficLight::Green(duration) => duration,
+        TrafficLight::Red => "Stop",
+        TrafficLight::Yellow => "Caution",
+        TrafficLight::Green => "Go",
     }
 }
