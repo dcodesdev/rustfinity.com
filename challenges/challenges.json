@@ -432,6 +432,18 @@
     "updated_at": "2024-12-30T00:00:00Z"
   },
   {
+    "id": 52,
+    "title": "Vectors",
+    "slug": "vectors",
+    "short_description": "Perform basic operations on vectors in Rust.",
+    "language": "RUST",
+    "difficulty": "EASY",
+    "track": "RUST_BASICS",
+    "tags": ["vectors", "collections", "Rust"],
+    "created_at": "2024-12-30T00:00:00Z",
+    "updated_at": "2024-12-30T00:00:00Z"
+  },
+  {
     "id": 4,
     "title": "Fizz Buzz",
     "slug": "fizz-buzz",
