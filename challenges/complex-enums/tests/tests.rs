@@ -1,4 +1,4 @@
-use animal_sounds::*;
+use complex_enums::*;
 
 #[test]
 fn test_describe_dog() {
