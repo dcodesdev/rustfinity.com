@@ -10,20 +10,6 @@ You are required to implement the following functions:
 2. `remove_element`: This function takes a mutable reference to a vector of integers and an index. It removes the element at the given index if it exists.
 3. `get_element`: This function takes a reference to a vector of integers and an index. It returns the element at the given index as an `Option<i32>`.
 
-### Example
-
-```rust
-let mut vec = vec![1, 2, 3];
-add_elements(&mut vec, &[4, 5]);
-assert_eq!(vec, vec![1, 2, 3, 4, 5]);
-
-remove_element(&mut vec, 2);
-assert_eq!(vec, vec![1, 2, 4, 5]);
-
-assert_eq!(get_element(&vec, 1), Some(2));
-assert_eq!(get_element(&vec, 10), None);
-```
-
 ## Hints
 
 <details>
