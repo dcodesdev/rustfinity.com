@@ -888,6 +888,10 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "78ca9ab1a0babb1e7d5695e3530886289c18cf2f87ec19a575a0abdce112e3a3"
 
 [[package]]
+name = "methods-on-enums"
+version = "0.1.0"
+
+[[package]]
 name = "methods-on-structs"
 version = "0.1.0"
 
@@ -1993,10 +1997,6 @@ name = "vcpkg"
 version = "0.2.15"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "accd4ea62f7bb7a82fe23066fb0957d48ef677f6eeb8215f372f52e48bb32426"
-
-[[package]]
-name = "vehicle-status"
-version = "0.1.0"
 
 [[package]]
 name = "walkdir"

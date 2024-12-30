@@ -1,5 +1,5 @@
 [package]
-name = "vehicle-status"
+name = "methods-on-enums"
 version = "0.1.0"
 edition = "2021"
 

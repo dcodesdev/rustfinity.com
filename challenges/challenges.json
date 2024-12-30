@@ -397,9 +397,9 @@
   },
   {
     "id": 49,
-    "title": "Vehicle Status",
-    "slug": "vehicle-status",
-    "short_description": "Learn how to implement methods on enums by modeling the status of vehicles.",
+    "title": "Methods on Enums",
+    "slug": "methods-on-enums",
+    "short_description": "Learn how to define and use methods on Rust enums.",
     "language": "RUST",
     "difficulty": "MEDIUM",
     "track": "RUST_BASICS",
