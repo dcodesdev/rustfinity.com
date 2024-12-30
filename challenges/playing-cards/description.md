@@ -18,6 +18,7 @@ Write a function `card_description` that takes a `Card` and returns a descriptio
 - For `Queen`, return `"Queen"`.
 - For `Jack`, return `"Jack"`.
 - For `Numbered(value, suit)`, return `"Numbered(value) of suit"`, e.g., `"7 of Hearts"`.
+- Ignore error handling for this challenge.
 
 ## Hints
 
