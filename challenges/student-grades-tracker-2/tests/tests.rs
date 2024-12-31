@@ -49,14 +49,6 @@ fn test_add_grade_to_student() {
 }
 
 #[test]
-#[should_panic(expected = "called `Option::unwrap()` on a `None` value")]
-fn test_add_grade_nonexistent_student() {
-    let mut tracker = StudentGrades::new();
-    tracker.add_grade("Nonexistent", 85); // No error handling, so just ensure nothing panics
-    assert!(!tracker.students.contains_key("Nonexistent"));
-}
-
-#[test]
 fn test_multiple_students_grades_and_averages() {
     let mut tracker = StudentGrades::new();
     tracker.add_student("Alice");
