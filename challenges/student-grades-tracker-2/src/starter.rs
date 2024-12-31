@@ -50,8 +50,9 @@ pub fn main() {
     tracker.add_grade("Alice", 90);
     tracker.add_grade("Bob", 78);
 
-    let alice = tracker.students.get("Alice").unwrap();
+    let alice = tracker.students.get_mut("Alice").unwrap();
 
+    alice.add_grade(95);
     println!("{:?}", alice.grades);
     println!("{:?}", alice.average_grade());
     println!("{:?}", tracker.get_grades("Bob"));
