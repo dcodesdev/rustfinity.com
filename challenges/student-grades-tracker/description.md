@@ -1,4 +1,4 @@
-Now that we know about vectors and hashmaps, let’s tackle something more challenging. In this exercise, we’ll build a system to manage and analyze student grades. This challenge will help you practice working with structs, hashmaps, and methods while managing a collection of data.
+Now that we know about vectors and hashmaps, let’s tackle something more challenging. In this exercise, we’ll build a system to manage and analyze student grades. This challenge will help you practice working with structs, hashmaps, vectors, and methods while managing a collection of data.
 
 The focus here is on functionality. **Ignore error handling for this challenge**; assume the input is always valid.
 
