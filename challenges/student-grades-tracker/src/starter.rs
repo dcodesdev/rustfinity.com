@@ -27,10 +27,6 @@ impl StudentGrades {
     pub fn get_grades(&self, name: &str) -> &[u8] {
         // Implement here
     }
-
-    pub fn calculate_average(&self) -> f64 {
-        // Implement here
-    }
 }
 
 // Example usage
@@ -46,5 +42,4 @@ pub fn main() {
 
     println!("{:?}", tracker.get_grades("Alice")); // [85, 90]
     println!("{:?}", tracker.get_grades("Bob")); // [78]
-    println!("{:?}", tracker.calculate_average()); // 84.333...
 }

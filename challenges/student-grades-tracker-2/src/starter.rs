@@ -38,22 +38,6 @@ impl StudentGrades {
             student.add_grade(grade);
         }
     }
-
-    pub fn calculate_average(&self) -> f64 {
-        let mut total = 0.0;
-        let mut count = 0;
-
-        for student in self.students.values() {
-            total += student.average_grade() * student.grades.len() as f64;
-            count += student.grades.len();
-        }
-
-        if count == 0 {
-            0.0
-        } else {
-            total / count as f64
-        }
-    }
 }
 
 pub fn main() {
@@ -66,5 +50,9 @@ pub fn main() {
     tracker.add_grade("Alice", 90);
     tracker.add_grade("Bob", 78);
 
-    println!("{:?}", tracker.calculate_average()); // 84.333...
+    let alice = tracker.students.get("Alice").unwrap();
+
+    println!("{:?}", alice.grades);
+    println!("{:?}", alice.average_grade());
+    println!("{:?}", tracker.get_grades("Bob"));
 }

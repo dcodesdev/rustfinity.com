@@ -38,24 +38,10 @@ impl StudentGrades {
     }
 
     pub fn add_grade(&mut self, name: &str, grade: u8) {
-        if let Some(student) = self.students.get_mut(name) {
-            student.add_grade(grade);
-        }
+        self.students.get_mut(name).unwrap().grades.push(grade);
     }
 
-    pub fn calculate_average(&self) -> f64 {
-        let mut total = 0.0;
-        let mut count = 0;
-
-        for student in self.students.values() {
-            total += student.average_grade() * student.grades.len() as f64;
-            count += student.grades.len();
-        }
-
-        if count == 0 {
-            0.0
-        } else {
-            total / count as f64
-        }
+    pub fn get_grades(&self, name: &str) -> &[u8] {
+        &self.students.get(name).unwrap().grades
     }
 }

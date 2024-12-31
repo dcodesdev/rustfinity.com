@@ -30,20 +30,4 @@ impl StudentGrades {
     pub fn get_grades(&self, name: &str) -> &[u8] {
         &self.students.get(name).unwrap().grades
     }
-
-    pub fn calculate_average(&self) -> f64 {
-        let mut total = 0;
-        let mut count = 0;
-
-        for student in self.students.values() {
-            total += student.grades.iter().sum::<u8>() as u64;
-            count += student.grades.len();
-        }
-
-        if count == 0 {
-            0.0
-        } else {
-            total as f64 / count as f64
-        }
-    }
 }
