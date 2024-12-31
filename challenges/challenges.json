@@ -504,6 +504,18 @@
     "updated_at": "2024-12-31T00:00:00Z"
   },
   {
+    "id": 9,
+    "title": "Graceful error handling",
+    "slug": "graceful-error-handling",
+    "short_description": "Implement graceful error handling in Rust using the Result type.",
+    "language": "RUST",
+    "difficulty": "EASY",
+    "track": "RUST_BASICS",
+    "tags": [],
+    "created_at": "2024-05-06T00:00:00Z",
+    "updated_at": "2024-05-06T00:00:00Z"
+  },
+  {
     "id": 4,
     "title": "Fizz Buzz",
     "slug": "fizz-buzz",
@@ -538,18 +550,6 @@
     "tags": [],
     "created_at": "2024-04-30T00:00:00Z",
     "updated_at": "2024-04-30T00:00:00Z"
-  },
-  {
-    "id": 9,
-    "title": "Graceful error handling",
-    "slug": "graceful-error-handling",
-    "short_description": "Implement graceful error handling in Rust using the Result type.",
-    "language": "RUST",
-    "difficulty": "EASY",
-    "track": "RUST_BASICS",
-    "tags": [],
-    "created_at": "2024-05-06T00:00:00Z",
-    "updated_at": "2024-05-06T00:00:00Z"
   },
   {
     "id": 14,
