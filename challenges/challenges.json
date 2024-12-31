@@ -474,6 +474,24 @@
     "updated_at": "2024-12-30T00:00:00Z"
   },
   {
+    "id": 55,
+    "title": "Student Grades Tracker 2",
+    "slug": "student-grades-tracker-2",
+    "short_description": "Extend the student grades system with methods inside the Student struct.",
+    "language": "RUST",
+    "difficulty": "MEDIUM",
+    "track": "RUST_INTERMEDIATE",
+    "tags": [
+      "structs",
+      "hashmaps",
+      "methods",
+      "mutable references",
+      "immutable references"
+    ],
+    "created_at": "2024-12-30T00:00:00Z",
+    "updated_at": "2024-12-30T00:00:00Z"
+  },
+  {
     "id": 4,
     "title": "Fizz Buzz",
     "slug": "fizz-buzz",
