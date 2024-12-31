@@ -456,6 +456,24 @@
     "updated_at": "2024-12-30T00:00:00Z"
   },
   {
+    "id": 54,
+    "title": "Student Grades Tracker",
+    "slug": "student-grades-tracker",
+    "short_description": "Manage student grades using structs and hashmaps without error handling.",
+    "language": "RUST",
+    "difficulty": "MEDIUM",
+    "track": "RUST_INTERMEDIATE",
+    "tags": [
+      "structs",
+      "hashmaps",
+      "impl block",
+      "mutable references",
+      "immutable references"
+    ],
+    "created_at": "2024-12-30T00:00:00Z",
+    "updated_at": "2024-12-30T00:00:00Z"
+  },
+  {
     "id": 4,
     "title": "Fizz Buzz",
     "slug": "fizz-buzz",
