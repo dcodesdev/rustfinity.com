@@ -516,6 +516,18 @@
     "updated_at": "2024-05-06T00:00:00Z"
   },
   {
+    "id": 57,
+    "title": "Graceful error handling 2",
+    "slug": "graceful-error-handling-2",
+    "short_description": "Enhance error handling by defining custom error types and implementing the `Error` trait.",
+    "language": "RUST",
+    "difficulty": "MEDIUM",
+    "track": "RUST_BASICS",
+    "tags": ["error handling", "enums", "traits"],
+    "created_at": "2024-12-31T00:00:00Z",
+    "updated_at": "2024-12-31T00:00:00Z"
+  },
+  {
     "id": 4,
     "title": "Fizz Buzz",
     "slug": "fizz-buzz",
