@@ -39,5 +39,9 @@ If you're stuck, here are some hints to help you solve the challenge:
   ```rust
   let file = File::open(file_path)?;
   ```
+- You can transform an error type to another error type by using the `map_err` method. e.g.
+  ```rust
+  let num = num_str.parse::<i32>().map_err(|_| io::Error::new(io::ErrorKind::InvalidData, "Invalid number"))?;
+  ```
 
 </details>
