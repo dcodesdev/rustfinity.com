@@ -1,22 +1,23 @@
-Error propagation is an essential concept in Rust that allows you to handle errors in a clean and concise way. When working with file I/O, errors can arise from missing files, permission issues, or unexpected file contents. By using the `?` operator, you can propagate errors and handle them at higher levels of your application.
+Error propagation is a core concept in Rust that allows you to handle errors in a clean and structured way. In this challenge, you’ll use `io::Error` to represent potential issues when working with file I/O. This approach leverages Rust’s standard library for concise and idiomatic error handling.
 
-In this challenge, you will read integers from a file, compute their sum, and gracefully handle errors that might occur.
+Your task is to implement a function that reads integers from a file, computes their sum, and gracefully propagates any errors using the `?` operator.
 
 ## Your Task
 
 Implement the function `sum_integers_from_file`:
 
-- This function takes a file path as input.
+- Takes the file path as a parameter.
 - Reads the file line by line, assuming each line contains a single integer.
-- Computes and returns the sum of all integers as a `Result<i32, String>`.
-  - If the file cannot be opened, return an error message like `"Error reading file: <reason>"`.
-  - If a line contains invalid data, return an error message like `"Invalid integer in file: <line>"`.
+- Computes and returns the sum of all integers as a `Result<i32, io::Error>`.
+- Handles the following:
+  - If the file cannot be opened, propagate the `io::Error`.
+  - If a line cannot be parsed as an integer, propagate a custom `io::Error` with a meaningful message.
 
 ### Requirements
 
 1. Use `std::fs::File` and `std::io::{self, BufRead}` to read the file.
 2. Handle errors cleanly and propagate them using the `?` operator.
-3. Return clear and meaningful error messages.
+3. For invalid lines, create an `io::Error` with `io::ErrorKind::InvalidData`.
 
 ## Hints
 
@@ -25,9 +26,9 @@ If you're stuck, here are some hints to help you solve the challenge:
 <details>
 <summary>Click here to reveal hints</summary>
 
-- Use `std::fs::File::open` to open the file.
+- Use `std::fs::File::open` to open a file.
 - Use `io::BufReader::new` to read lines from the file.
 - Convert strings to integers with the `str::parse` method.
-- The `?` operator can propagate errors to the caller automatically.
+- The `io::Error::new` function can create custom errors.
 
 </details>
