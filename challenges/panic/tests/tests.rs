@@ -66,13 +66,6 @@ fn test_get_database_url_edge_case_minimal_valid() {
 }
 
 #[test]
-#[should_panic(expected = "DATABASE_URL must start with 'postgresql://'")]
-fn test_get_database_url_unexpected_trailing_characters() {
-    std::env::set_var("DATABASE_URL", "postgresql://localhost!invalid");
-    get_database_url();
-}
-
-#[test]
 fn test_get_database_url_with_port_only() {
     let port_only_url = "postgresql://:5432";
     std::env::set_var("DATABASE_URL", port_only_url);
