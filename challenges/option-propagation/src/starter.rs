@@ -1,6 +1,10 @@
 pub fn find_and_multiply(numbers: Vec<i32>, index1: usize, index2: usize) -> Option<i32> {
-    // TODO: Implement this function
-    // Hint: Use the `get` method and the `?` operator to propagate `None`.
+    // TODO: Instead of using `unwrap`, use the `?` operator to propagate the option
+    // HINT: `numbers.get` returns a Option<i32> value
+
+    let num1 = numbers.get(index1).unwrap();
+    let num2 = numbers.get(index2).unwrap();
+    Some(num1 * num2)
 }
 
 // Example usage
