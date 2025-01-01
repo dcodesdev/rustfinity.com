@@ -1,8 +1,10 @@
-Sometimes, you need to perform an operation that might fail, such as reading a file or performing other I/O tasks. Rust’s `Result<T, E>` allows you to handle success and failure explicitly, but there are cases where you don’t need to distinguish between different kinds of errors. Instead, you can treat any failure as a `None`.
+Sometimes you run some operation that might fail inside a function that returns an `Option<T>` and you don't care about the error details. You can simply convert the `Result<T, E>` into an `Option<T>` and handle the error as `None`.
 
-In this challenge, you will write a function that performs an I/O operation, handles the result, and converts it into an `Option`.
+You can easily convert between `Result<T, E>` and `Option<T>` using the `ok()` method on `Result`. This method returns `Some(T)` if the `Result` is `Ok(T)`, and `None` if the `Result` is `Err(E)`.
 
 ## Your Task
+
+In this challenge, you will write a function that performs an I/O operation, handles the result, and converts it into an `Option`.
 
 Implement the function `read_first_line_as_option`:
 
