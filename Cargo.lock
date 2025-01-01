@@ -412,6 +412,10 @@ dependencies = [
 ]
 
 [[package]]
+name = "error-propagation"
+version = "0.1.0"
+
+[[package]]
 name = "factorial-calculator"
 version = "0.1.0"
 

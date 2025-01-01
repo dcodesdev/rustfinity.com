@@ -528,6 +528,18 @@
     "updated_at": "2024-12-31T00:00:00Z"
   },
   {
+    "id": 58,
+    "title": "Error Propagation in File Handling",
+    "slug": "error-propagation",
+    "short_description": "Learn how to propagate errors while reading integers from a file in Rust.",
+    "language": "RUST",
+    "difficulty": "EASY",
+    "track": "RUST_BASICS",
+    "tags": ["error handling", "file I/O", "Result type", "error propagation"],
+    "created_at": "2025-01-01T00:00:00Z",
+    "updated_at": "2025-01-01T00:00:00Z"
+  },
+  {
     "id": 4,
     "title": "Fizz Buzz",
     "slug": "fizz-buzz",
