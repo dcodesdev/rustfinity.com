@@ -564,6 +564,18 @@
     "updated_at": "2025-01-01T00:00:00Z"
   },
   {
+    "id": 61,
+    "title": "Option to Result",
+    "slug": "option-to-result",
+    "short_description": "Learn how to convert an `Option<T>` to a `Result<T, E>` in Rust.",
+    "language": "RUST",
+    "difficulty": "EASY",
+    "track": "RUST_BASICS",
+    "tags": ["error handling", "Option type", "Result type", "conversion"],
+    "created_at": "2025-01-01T00:00:00Z",
+    "updated_at": "2025-01-01T00:00:00Z"
+  },
+  {
     "id": 4,
     "title": "Fizz Buzz",
     "slug": "fizz-buzz",
