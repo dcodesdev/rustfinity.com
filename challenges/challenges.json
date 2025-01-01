@@ -576,6 +576,18 @@
     "updated_at": "2025-01-01T00:00:00Z"
   },
   {
+    "id": 62,
+    "title": "Panic",
+    "slug": "panic",
+    "short_description": "Learn to handle unrecoverable errors in Rust using `panic!`.",
+    "language": "RUST",
+    "difficulty": "MEDIUM",
+    "track": "RUST_BASICS",
+    "tags": ["error handling", "panic", "environment variables"],
+    "created_at": "2025-01-01T00:00:00Z",
+    "updated_at": "2025-01-01T00:00:00Z"
+  },
+  {
     "id": 4,
     "title": "Fizz Buzz",
     "slug": "fizz-buzz",
