@@ -1,13 +1,9 @@
 use std::fs::File;
-use std::io::{BufRead, BufReader};
+use std::io::Read;
 
-pub fn read_first_line_as_option(file_path: &str) -> Option<String> {
-    let file = File::open(file_path).ok()?;
-
-    let mut reader = BufReader::new(file);
-    let mut line = String::new();
-
-    reader.read_line(&mut line).ok()?;
-
-    Some(line.trim_end().to_string())
+pub fn read_file(file_path: &str) -> Option<String> {
+    let mut file = File::open(file_path).ok()?; // Open the file, return None on error
+    let mut contents = String::new();
+    file.read_to_string(&mut contents).ok()?; // Read the file content, return None on error
+    Some(contents) // Return the content as Some(String)
 }
