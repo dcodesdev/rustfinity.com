@@ -1,4 +1,4 @@
-Let's make the previous example a little bit more ergonomic by returning a custom error type instead of a plain string. This will allow us to define specific error types and provide more structured error handling.
+Let's improve previous example a little bit by returning a custom error type instead of a plain string. This will allow us to define specific error types and provide more structured error handling.
 
 ## Your Task
 
