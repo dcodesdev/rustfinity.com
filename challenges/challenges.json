@@ -588,6 +588,18 @@
     "updated_at": "2025-01-01T00:00:00Z"
   },
   {
+    "id": 63,
+    "title": "unwrap and expect",
+    "slug": "unwrap-and-expect",
+    "short_description": "Learn to handle unrecoverable errors in Rust using `unwrap` and `expect` with function calls.",
+    "language": "RUST",
+    "difficulty": "MEDIUM",
+    "track": "RUST_BASICS",
+    "tags": ["error handling", "unwrap", "expect", "file io"],
+    "created_at": "2025-01-01T00:00:00Z",
+    "updated_at": "2025-01-01T00:00:00Z"
+  },
+  {
     "id": 4,
     "title": "Fizz Buzz",
     "slug": "fizz-buzz",
