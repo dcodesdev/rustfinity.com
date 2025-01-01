@@ -552,6 +552,18 @@
     "updated_at": "2025-01-01T00:00:00Z"
   },
   {
+    "id": 60,
+    "title": "Result to Option",
+    "slug": "result-to-option",
+    "short_description": "Learn how to handle `Result` from an I/O operation and convert it to `Option`.",
+    "language": "RUST",
+    "difficulty": "EASY",
+    "track": "RUST_BASICS",
+    "tags": ["error handling", "Result type", "Option type", "I/O"],
+    "created_at": "2025-01-01T00:00:00Z",
+    "updated_at": "2025-01-01T00:00:00Z"
+  },
+  {
     "id": 4,
     "title": "Fizz Buzz",
     "slug": "fizz-buzz",
