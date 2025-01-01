@@ -10,22 +10,4 @@ Implement the function `read_file`:
 2. Attempts to open the file and read its entire content as a `String`.
 3. If the operation is successful, return `Some(String)` containing the file content.
 4. If any error occurs (e.g., file not found, permission issues, etc.), return `None`.
-
-### Requirements
-
-- Use `std::fs::File` and `std::io::{self, Read}` to read the file.
-- Handle errors using the `?` operator.
-- Use the `ok()` method to convert `Result` into `Option`.
-
-## Hints
-
-If you're stuck, here are some hints to help you solve the challenge:
-
-<details>
-<summary>Click here to reveal hints</summary>
-
-- Use `std::fs::File::open` to open the file.
-- Use `std::io::Read` to read the file into a `String`.
-- Use `.ok()` to convert `Result` into `Option`.
-
-</details>
+5. Use the `.ok()` method to convert `Result` into `Option` and use the `?` operator to easily propagate errors if required.
