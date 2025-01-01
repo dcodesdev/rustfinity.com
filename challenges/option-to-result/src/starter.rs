@@ -1,6 +1,6 @@
 pub fn get_first_element(numbers: Vec<i32>, min_value: i32) -> Result<i32, String> {
-    // TODO: Implement this function
-    // Hint: Use `Vec::first`, `.ok_or()`, and `if` statements for validation.
+    // Finish the function
+    let first_element = numbers.first(); // <- Returns an Option<&i32>
 }
 
 // Example usage
