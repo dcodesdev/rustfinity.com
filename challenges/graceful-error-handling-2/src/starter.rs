@@ -1,13 +1,10 @@
-#[derive(Debug)]
-pub enum ParsePercentageError {
-    InvalidInput,
-    OutOfRange,
-}
+// 1. Finish the definition
+pub enum ParsePercentageError
 
-// 1. Implement the `Error` trait
+// 2. Implement the `Error` trait
 
 pub fn parse_percentage(input: &str) -> Result<u8, ParsePercentageError> {
-    // 2. Implement this function
+    // 3. Implement this function
 }
 
 // Example usage

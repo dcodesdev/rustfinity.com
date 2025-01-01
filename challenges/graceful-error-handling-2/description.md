@@ -1,10 +1,8 @@
-Rust’s error handling capabilities allow developers to create robust applications. In this challenge, you will define a custom error type as an enum, implement the `Error` trait, and use it to provide meaningful error messages. This is an extension of a previous challenge where errors were handled using plain strings. By using an enum, you can define specific error types, making your error handling more structured and maintainable.
+Let's make the previous example a little bit more ergonomic by returning a custom error type instead of a plain string. This will allow us to define specific error types and provide more structured error handling.
 
 ## Your Task
 
-You will implement a function, `parse_percentage`, which parses a string input and converts it into a `u8`. The function should return a `Result<u8, ParsePercentageError>`, where `ParsePercentageError` is a custom enum that represents the various types of errors that can occur.
-
-### Requirements
+The logic of the function remains the same as the previous challenge, but the returned error type is what you need to change.
 
 1. Define an enum `ParsePercentageError` with the following variants:
 
@@ -18,21 +16,12 @@ You will implement a function, `parse_percentage`, which parses a string input a
    - Return `Err(ParsePercentageError::OutOfRange)` if the number is out of range.
    - Return `Err(ParsePercentageError::InvalidInput)` if the input is not a valid number.
 
-### Example
-
-```rust
-assert_eq!(parse_percentage("50"), Ok(50));
-assert_eq!(parse_percentage("101"), Err(ParsePercentageError::OutOfRange));
-assert_eq!(parse_percentage("abc"), Err(ParsePercentageError::InvalidInput));
-```
-
 ## Hints
 
 <details>
     <summary>Click here to reveal hints</summary>
 
+- The `std::error::Error` trait requires implementing the `Display` and `Debug` traits. You can derive `Debug` by `#[derive(Debug)]` and implement `Display` manually.
 - Use the `std::fmt` module to implement `Display` for the error enum, which is required for the `Error` trait.
-- Use pattern matching to handle parsing results and error scenarios.
-- You can use `.parse::<u8>()` for string-to-integer conversion.
 
 </details>
