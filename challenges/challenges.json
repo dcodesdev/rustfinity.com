@@ -540,6 +540,18 @@
     "updated_at": "2025-01-01T00:00:00Z"
   },
   {
+    "id": 59,
+    "title": "Option Propagation in Rust",
+    "slug": "option-propagation",
+    "short_description": "Learn how to propagate `Option` values in a clean and idiomatic way.",
+    "language": "RUST",
+    "difficulty": "EASY",
+    "track": "RUST_BASICS",
+    "tags": ["error handling", "Option type", "propagation"],
+    "created_at": "2025-01-01T00:00:00Z",
+    "updated_at": "2025-01-01T00:00:00Z"
+  },
+  {
     "id": 4,
     "title": "Fizz Buzz",
     "slug": "fizz-buzz",
