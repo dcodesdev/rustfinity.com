@@ -1,6 +1,5 @@
 use std::{fs, process};
-
-use the_into_trait::print_message;
+use the_as_ref_trait::print_message;
 
 #[test]
 fn test_with_str() {

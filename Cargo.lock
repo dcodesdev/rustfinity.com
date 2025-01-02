@@ -1780,11 +1780,11 @@ dependencies = [
 ]
 
 [[package]]
-name = "the-from-trait"
+name = "the-as-ref-trait"
 version = "0.1.0"
 
 [[package]]
-name = "the-into-trait"
+name = "the-from-trait"
 version = "0.1.0"
 
 [[package]]
