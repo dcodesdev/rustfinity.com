@@ -1,7 +1,4 @@
-pub fn print_message<T: Into<String>>(message: T) {
-    // Convert the message into a String and print it
-    // Your code here...
-}
+pub fn print_message // Finish the function
 
 // Example usage
 pub fn main() {
