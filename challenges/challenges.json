@@ -660,6 +660,18 @@
     "updated_at": "2024-04-30T00:00:00Z"
   },
   {
+    "id": 68,
+    "title": "Lifetimes",
+    "slug": "lifetimes",
+    "short_description": "Understand and implement lifetimes in Rust to ensure memory safety.",
+    "language": "RUST",
+    "difficulty": "MEDIUM",
+    "track": "RUST_ADVANCED",
+    "tags": ["lifetimes", "ownership", "references"],
+    "created_at": "2025-01-02T00:00:00Z",
+    "updated_at": "2025-01-02T00:00:00Z"
+  },
+  {
     "id": 4,
     "title": "Fizz Buzz",
     "slug": "fizz-buzz",
