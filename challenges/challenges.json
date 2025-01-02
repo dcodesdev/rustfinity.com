@@ -624,6 +624,18 @@
     "updated_at": "2025-01-02T00:00:00Z"
   },
   {
+    "id": 66,
+    "title": "Trait Bounds",
+    "slug": "trait-bounds",
+    "short_description": "Use trait bounds to constrain generic types in Rust.",
+    "language": "RUST",
+    "difficulty": "EASY",
+    "track": "RUST_BASICS",
+    "tags": ["traits", "generics", "trait bounds"],
+    "created_at": "2025-01-02T00:00:00Z",
+    "updated_at": "2025-01-02T00:00:00Z"
+  },
+  {
     "id": 6,
     "title": "The From trait",
     "slug": "the-from-trait",

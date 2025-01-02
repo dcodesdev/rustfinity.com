@@ -1,0 +1,35 @@
+Now that we know a bit about traits and generics, let's dive into **trait bounds**. Trait bounds allow you to specify that a generic type must implement a particular trait. This ensures that only types with certain capabilities can be used with your generic code.
+
+For example:
+
+- A generic function can be constrained to types that implement the `std::fmt::Display` trait for printing.
+- A generic struct can be limited to types that implement traits like `PartialOrd` for comparison.
+
+Trait bounds make your code flexible while maintaining strong type safety.
+
+## Your Task
+
+1. Define a generic function `compare_and_display` that:
+
+   - Takes two parameters of the same type.
+   - Prints both parameters using the `Display` trait.
+   - Returns the greater of the two using the `PartialOrd` trait.
+
+2. Use trait bounds to ensure the function works only with types that implement both `Display` and `PartialOrd`.
+
+## Requirements
+
+- Use the `where` clause or inline syntax for trait bounds.
+- Test the function with integers, strings, and a custom struct.
+
+## Hints
+
+If you're stuck, here are some hints to help you solve the challenge:
+
+<details>
+  <summary>Click here to reveal hints</summary>
+
+- Use `std::cmp::PartialOrd` to compare values.
+- Use `std::fmt::Display` to print values with the `println!` macro.
+- You can write trait bounds inline with `T: Trait1 + Trait2` or using a `where` clause.
+</details>
