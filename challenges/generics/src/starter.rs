@@ -10,6 +10,5 @@ impl<T> ItemContainer<T> {
 pub fn main() {
     let container = ItemContainer { item: 42 };
 
-    // Uncomment the line below after implementing the method
-    // println!("Current item: {}", container.get_item());
+    println!("Current item: {}", container.get_item());
 }
