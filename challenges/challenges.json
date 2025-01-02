@@ -600,6 +600,18 @@
     "updated_at": "2025-01-01T00:00:00Z"
   },
   {
+    "id": 6,
+    "title": "The From trait",
+    "slug": "the-from-trait",
+    "short_description": "Implement the From trait for a custom type.",
+    "language": "RUST",
+    "difficulty": "MEDIUM",
+    "track": "RUST_BASICS",
+    "tags": [],
+    "created_at": "2024-04-30T00:00:00Z",
+    "updated_at": "2024-04-30T00:00:00Z"
+  },
+  {
     "id": 4,
     "title": "Fizz Buzz",
     "slug": "fizz-buzz",
@@ -622,18 +634,6 @@
     "tags": [],
     "created_at": "2024-04-20T00:00:00Z",
     "updated_at": "2024-04-20T00:00:00Z"
-  },
-  {
-    "id": 6,
-    "title": "The From trait",
-    "slug": "the-from-trait",
-    "short_description": "Implement the From trait for a custom type.",
-    "language": "RUST",
-    "difficulty": "MEDIUM",
-    "track": "RUST_BASICS",
-    "tags": [],
-    "created_at": "2024-04-30T00:00:00Z",
-    "updated_at": "2024-04-30T00:00:00Z"
   },
   {
     "id": 14,
