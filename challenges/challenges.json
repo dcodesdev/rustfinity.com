@@ -685,6 +685,18 @@
   },
   {
     "id": 70,
+    "title": "Trait Objects",
+    "slug": "trait-objects",
+    "short_description": "Learn how to use trait objects as fields in structs for dynamic behavior in Rust.",
+    "language": "RUST",
+    "difficulty": "MEDIUM",
+    "track": "RUST_ADVANCED",
+    "tags": ["traits", "polymorphism", "structs", "dynamic behavior"],
+    "created_at": "2025-01-02T00:00:00Z",
+    "updated_at": "2025-01-02T00:00:00Z"
+  },
+  {
+    "id": 71,
     "title": "Lifetimes",
     "slug": "lifetimes",
     "short_description": "Understand and implement lifetimes in Rust to ensure memory safety.",

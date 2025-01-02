@@ -1989,6 +1989,10 @@ name = "trait-bounds"
 version = "0.1.0"
 
 [[package]]
+name = "trait-objects"
+version = "0.1.0"
+
+[[package]]
 name = "traits"
 version = "0.1.0"
 
