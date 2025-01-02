@@ -639,7 +639,7 @@
     "id": 67,
     "title": "The AsRef Trait",
     "slug": "the-as-ref-trait",
-    "short_description": "Implement the AsRef trait to convert a type to a reference.",
+    "short_description": "Implement a function that uses the AsRef trait to work seamlessly with borrowed string types.",
     "language": "RUST",
     "difficulty": "MEDIUM",
     "track": "RUST_BASICS",
