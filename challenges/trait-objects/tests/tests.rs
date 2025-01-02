@@ -118,3 +118,30 @@ fn test_canvas_with_large_and_zero_shapes() {
         ]
     );
 }
+
+#[test]
+fn test_render_lots_of_items() {
+    let mut canvas = Canvas::new();
+    for i in 0..1000 {
+        if i % 2 == 0 {
+            canvas.add_shape(Box::new(Circle { radius: i as f64 }));
+        } else {
+            canvas.add_shape(Box::new(Rectangle {
+                width: i as f64,
+                height: i as f64,
+            }));
+        }
+    }
+
+    let rendered_shapes = canvas.render_all();
+    for i in 0..1000 {
+        if i % 2 == 0 {
+            assert_eq!(rendered_shapes[i], format!("Circle with radius {}", i));
+        } else {
+            assert_eq!(
+                rendered_shapes[i],
+                format!("Rectangle with width {} and height {}", i, i)
+            );
+        }
+    }
+}
