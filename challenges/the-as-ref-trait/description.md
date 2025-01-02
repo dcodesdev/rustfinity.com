@@ -9,14 +9,6 @@ Implement a function `print_message` that accepts any type that implements the `
 - Accept a single argument of a generic type that implements `AsRef<str>`.
 - Borrow the input as a string slice (`&str`) and print it to the console using `println!`.
 
-## Requirements
-
-### Constraints
-
-- Use the `AsRef` trait for borrowing.
-- The function must work for both `String` and `&str` without requiring explicit conversions in the function call.
-- The function should print the message to the console.
-
 ## Hints
 
 <details>
@@ -24,6 +16,5 @@ Implement a function `print_message` that accepts any type that implements the `
 
 - The `AsRef` trait provides a `.as_ref()` method to borrow a reference.
 - Both `String` and `&str` implement `AsRef<str>`, so they can be used interchangeably with this trait.
-- Consider using a generic type parameter with the `AsRef<str>` bound in your function signature.
 
 </details>
