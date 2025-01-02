@@ -2463,10 +2463,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "you"
-version = "0.1.0"
-
-[[package]]
 name = "zerocopy"
 version = "0.7.35"
 source = "registry+https://github.com/rust-lang/crates.io-index"
