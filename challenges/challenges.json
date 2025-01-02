@@ -661,9 +661,9 @@
   },
   {
     "id": 68,
-    "title": "Returning a trait object",
+    "title": "Returning impl Trait",
     "slug": "return-impl-trait",
-    "short_description": "Use `impl Trait` syntax to return an iterator from a function that filters even numbers.",
+    "short_description": "Use `impl Trait` syntax to return an iterator that filters strings starting with a keyword.",
     "language": "RUST",
     "difficulty": "EASY",
     "track": "RUST_BASICS",

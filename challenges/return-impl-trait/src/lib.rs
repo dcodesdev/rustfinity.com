@@ -1,3 +1,6 @@
-pub fn filter_even_numbers(input: &[i32]) -> impl Iterator<Item = &i32> {
-    input.iter().filter(|&x| x % 2 == 0)
+pub fn filter_starts_with<'a>(
+    input: &'a [String],
+    keyword: &'a str,
+) -> impl Iterator<Item = &'a String> {
+    input.iter().filter(move |s| s.starts_with(keyword))
 }

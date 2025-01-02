@@ -1,9 +1,14 @@
 // Finish the function
-pub fn filter_even_numbers
+pub fn filter_starts_with
 
 // Example usage
 pub fn main() {
-    let input = [1, 2, 3, 4, 5, 6];
-    let even_numbers: Vec<&i32> = filter_even_numbers(&input).collect();
-    println!("{:?}", even_numbers); // Expected output: [&2, &4, &6]
+    let input = vec![
+        String::from("apple"),
+        String::from("apricot"),
+        String::from("banana"),
+        String::from("cherry"),
+    ];
+    let filtered: Vec<&String> = filter_starts_with(&input, "ap").collect();
+    println!("{:?}", filtered); // Expected output: ["apple", "apricot"]
 }
