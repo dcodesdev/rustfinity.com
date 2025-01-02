@@ -62,3 +62,12 @@ fn test_filter_even_numbers_large_range() {
             .collect::<Vec<&i32>>()
     );
 }
+
+#[test]
+fn test_works_with_vec() {
+    let input = vec![1, 2, 3, 4, 5, 6];
+
+    let result: Vec<&i32> = filter_even_numbers(&input).collect();
+
+    assert_eq!(result, vec![&2, &4, &6]);
+}
