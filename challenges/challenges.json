@@ -600,6 +600,18 @@
     "updated_at": "2025-01-01T00:00:00Z"
   },
   {
+    "id": 64,
+    "title": "Traits",
+    "slug": "traits",
+    "short_description": "Implement and use traits to define shared behavior in Rust.",
+    "language": "RUST",
+    "difficulty": "EASY",
+    "track": "RUST_BASICS",
+    "tags": ["traits", "polymorphism", "basics"],
+    "created_at": "2025-01-02T00:00:00Z",
+    "updated_at": "2025-01-02T00:00:00Z"
+  },
+  {
     "id": 6,
     "title": "The From trait",
     "slug": "the-from-trait",
