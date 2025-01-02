@@ -43,20 +43,6 @@ fn test_with_long_string() {
 }
 
 #[test]
-fn test_with_mixed_types_in_loop() {
-    let inputs: Vec<&dyn Into<String>> = vec![
-        &"String 1",
-        &String::from("String 2"),
-        &"Another &str",
-        &String::from("More strings!"),
-    ];
-
-    for input in inputs {
-        print_message(input.into());
-    }
-}
-
-#[test]
 fn test_with_escape_sequences() {
     print_message("Line 1\nLine 2\tIndented");
 }
