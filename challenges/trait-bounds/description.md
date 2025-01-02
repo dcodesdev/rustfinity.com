@@ -7,6 +7,31 @@ For example:
 
 Trait bounds make your code flexible while maintaining strong type safety.
 
+## Syntax
+
+You can specify trait bounds in two ways:
+
+1. **Inline**: Specify the trait bounds after the `impl` or `fn` keyword.
+
+   ```rust
+   fn my_function<T: Trait1 + Trait2>(value: T) {
+       // code here
+   }
+   ```
+
+2. **Where clause**: Use a `where` clause to specify trait bounds.
+
+   ```rust
+   fn my_function<T>(value: T)
+   where
+        T: Trait1 + Trait2,
+   {
+        // code here
+   }
+   ```
+
+This means that the generic type `T` must implement both `Trait1` and `Trait2`.
+
 ## Your Task
 
 1. Define a generic function `compare_and_display` that:
