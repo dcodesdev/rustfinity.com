@@ -637,9 +637,9 @@
   },
   {
     "id": 67,
-    "title": "The Into Trait",
-    "slug": "the-into-trait",
-    "short_description": "Implement a function that accepts either `String` or `&str` as an argument using the `Into` trait.",
+    "title": "The AsRef Trait",
+    "slug": "the-as-ref-trait",
+    "short_description": "Implement the AsRef trait to convert a type to a reference.",
     "language": "RUST",
     "difficulty": "MEDIUM",
     "track": "RUST_BASICS",
