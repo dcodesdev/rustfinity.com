@@ -7,17 +7,11 @@ In this challenge, you will implement a function that filters strings from a sli
 Write a function named `filter_starts_with` that:
 
 1. Accepts two arguments:
-   - A slice of `String` values (`&[String]`).
-   - A `&str` keyword.
-2. Returns an iterator (`impl Iterator<Item = &String>`) that filters and yields only the strings starting with the given keyword.
+   - A slice of `String`
+   - A `&str` keyword
+2. Returns an iterator that filters and yields only the strings starting with the given keyword.
 
-### Requirements
-
-1. Use the `.iter()` method to create an iterator over the slice.
-2. Use the `filter` method to include only strings that start with the keyword.
-3. Use the `starts_with` method on strings to check if they start with the keyword.
-
-### Hints
+## Hints
 
 <details>
     <summary>Click here to reveal hints</summary>
