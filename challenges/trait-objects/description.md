@@ -24,7 +24,7 @@ Here are the requirements for the program, make sure to read them carefully:
 
 #### Define the `Canvas` Struct
 
-- The struct should have a `shapes: Vec<Box<dyn Renderable>>` field.
+- The struct should have a `shapes` field that can store a `Vec` of the Renderable trait objects.
 - Implement the following methods for `Canvas`:
   - `new() -> Canvas`: Initializes an empty canvas.
   - `add_shape()`: Adds a shape to the canvas.
