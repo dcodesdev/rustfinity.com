@@ -11,40 +11,11 @@ pub struct Rectangle {
     pub height: f64,
 }
 
-impl Renderable for Circle {
-    fn render(&self) -> String {
-        // Implement here
-        unimplemented!()
-    }
-}
+// 1. Implement the trait for Circle and Rectangle
 
-impl Renderable for Rectangle {
-    fn render(&self) -> String {
-        // Implement here
-        unimplemented!()
-    }
-}
+// 2. Create the Canvas struct
 
-pub struct Canvas {
-    shapes: Vec<Box<dyn Renderable>>,
-}
-
-impl Canvas {
-    pub fn new() -> Self {
-        // Implement here
-        unimplemented!()
-    }
-
-    pub fn add_shape(&mut self, shape: Box<dyn Renderable>) {
-        // Implement here
-        unimplemented!()
-    }
-
-    pub fn render_all(&self) -> Vec<String> {
-        // Implement here
-        unimplemented!()
-    }
-}
+// 3. Implement the Canvas struct
 
 // Example usage
 pub fn main() {
