@@ -8,7 +8,12 @@ impl<T> ItemContainer<T> {
 
 // Example usage
 pub fn main() {
-    let container = ItemContainer { item: 42 };
+    let item_1 = ItemContainer { item: 42 };
+    assert_eq!(*item_1.get_item(), 42);
 
-    println!("Current item: {}", container.get_item());
+    let item_2 = ItemContainer {
+        item: String::from("Hello"),
+    };
+
+    assert_eq!(item_2.get_item(), "Hello");
 }
