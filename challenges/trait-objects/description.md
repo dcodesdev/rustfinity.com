@@ -29,3 +29,21 @@ Here are the requirements for the program, make sure to read them carefully:
   - `new() -> Canvas`: Initializes an empty canvas.
   - `add_shape()`: Adds a shape to the canvas.
   - `render_all()`: Returns a vector of strings, each representing a rendered shape.
+
+**⚠️ Make sure you make all the relevant items public with the `pub` keyword, this is required for the tests to work.**
+
+## Hints
+
+If you're stuck, here are some hints to help you solve the challenge:
+
+<details>
+  <summary>Click here to reveal hints</summary>
+
+- Use `Box<dyn Trait>` to store objects with dynamic behavior. e.g.
+  ```rust
+  pub struct Canvas {
+    pub shapes: Vec<Box<dyn Renderable>>,
+  }
+  ```
+
+</details>
