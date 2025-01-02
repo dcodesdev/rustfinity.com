@@ -9,7 +9,6 @@ In this challenge, you'll implement a trait `Describable` and use it to define a
 1. Define a trait `Describable` with a single method `describe` that returns a `String`.
 2. Implement this trait for the struct `Person`.
 3. Implement this trait for the struct `Book`.
-4. Use the `describe` method to get a description of both a `Person` and a `Book`.
 
 ## Requirements
 
@@ -27,9 +26,14 @@ If you're stuck, here are some hints to help you solve the challenge:
 <details>
   <summary>Click here to reveal hints</summary>
 
-- To define a trait, use the `trait` keyword.
-- Implement a trait for a struct using `impl TraitName for StructName`.
-- You can concatenate strings using the `format!` macro for more readable code.
-- Use `&self` as the parameter for the `describe` method in the trait.
+- Implement a trait for a struct using `impl TraitName for StructName`. e.g.
+  ```rust
+  impl Describable for Person {
+      fn describe(&self) -> String {
+          format!("Person: {}, Age: {}", self.name, self.age)
+      }
+  }
+  ```
+- Don't forget to use the `&self` as the parameter for the `describe` method in the trait.
 
 </details>
