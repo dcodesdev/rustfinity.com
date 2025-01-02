@@ -673,12 +673,24 @@
   },
   {
     "id": 69,
+    "title": "Return Trait Objects",
+    "slug": "return-trait-objects",
+    "short_description": "Learn to create and return trait objects in Rust using Box<dyn Trait>.",
+    "language": "RUST",
+    "difficulty": "MEDIUM",
+    "track": "RUST_BASICS",
+    "tags": ["traits", "polymorphism", "trait objects"],
+    "created_at": "2025-01-02T00:00:00Z",
+    "updated_at": "2025-01-02T00:00:00Z"
+  },
+  {
+    "id": 70,
     "title": "Lifetimes",
     "slug": "lifetimes",
     "short_description": "Understand and implement lifetimes in Rust to ensure memory safety.",
     "language": "RUST",
     "difficulty": "MEDIUM",
-    "track": "RUST_ADVANCED",
+    "track": "RUST_BASICS",
     "tags": ["lifetimes", "ownership", "references"],
     "created_at": "2025-01-02T00:00:00Z",
     "updated_at": "2025-01-02T00:00:00Z"
