@@ -666,7 +666,7 @@
     "short_description": "Write a program that prints 'Fizz' for multiples of three, 'Buzz' for multiples of five, and 'FizzBuzz' for multiples of both.",
     "language": "RUST",
     "difficulty": "EASY",
-    "track": "RUST_BASICS",
+    "track": "CONTROL_FLOW",
     "tags": [],
     "created_at": "2024-04-20T00:00:00Z",
     "updated_at": "2024-04-20T00:00:00Z"
@@ -678,7 +678,7 @@
     "short_description": "Write a function that returns the nth number in the Fibonacci sequence.",
     "language": "RUST",
     "difficulty": "EASY",
-    "track": "RUST_BASICS",
+    "track": "CONTROL_FLOW",
     "tags": [],
     "created_at": "2024-04-20T00:00:00Z",
     "updated_at": "2024-04-20T00:00:00Z"
@@ -755,7 +755,7 @@
     "short_description": "Write a program that calculates the median and mode of a list of numbers.",
     "language": "RUST",
     "difficulty": "MEDIUM",
-    "track": "RUST_BASICS",
+    "track": "CONTROL_FLOW",
     "tags": [],
     "created_at": "2024-05-03T00:00:00Z",
     "updated_at": "2024-05-03T00:00:00Z"
