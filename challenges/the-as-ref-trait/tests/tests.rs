@@ -71,7 +71,7 @@ fn create_bin_and_run(code: &str) -> process::Output {
 #[test]
 fn test_should_print_the_right_message() {
     let code = r#"
-        use the_into_trait::print_message;
+        use the_as_ref_trait::print_message;
 
         fn main() {
             print_message("Hello, world!");
