@@ -83,3 +83,11 @@ fn test_longest_unicode_strings() {
     let s2 = "안녕하세요"; // Korean for "Hello"
     assert_eq!(longest(s1, s2), s1); // Both are the same length, return s1.
 }
+
+#[test]
+fn test_with_emoji() {
+    let s1 = "👋🏼🏼";
+    let s2 = "longer";
+
+    assert_eq!(longest(s1, s2), s2);
+}

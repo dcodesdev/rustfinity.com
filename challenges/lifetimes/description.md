@@ -6,27 +6,19 @@ In this challenge, you'll implement a function that finds the longest string sli
 
 ## Your Task
 
-Write a function `longest<'a>(x: &'a str, y: &'a str) -> &'a str` that takes two string slices and returns the longest one. If both slices are of the same length, return the first one.
-
-### Requirements
-
-- Use lifetime annotations to ensure that the returned reference lives as long as both input references.
-- If the input strings are of equal length, return the first input.
-
-### Constraints
-
-1. The function must use explicit lifetime annotations.
-2. The function should not clone or allocate new strings; it must work with references.
-3. Ensure the function works with slices of strings and not owned `String` types.
+Write a function `longest` that takes two string slices and returns the longest one. If both slices are of the same length, return the first one.
 
 ## Hints
 
 <details>
     <summary>Click here to reveal hints</summary>
 
-- Use explicit lifetime annotations in the function signature, such as `'a`.
-- Rust allows you to compare the lengths of strings using the `.len()` method.
-- Lifetimes ensure that the returned reference is valid for as long as the shorter-lived input reference.
-- Test your implementation with both static and dynamically allocated strings.
+- Use explicit lifetime annotations in the function signature, such as `'a`. e.g
+  ```rust
+  fn longest<'a>(first: &'a str, second: &'a str) -> &'a str {
+      // implementation goes here
+  }
+  ```
+- Rust allows you to compare the lengths of strings using the `.chars().count()` method.
 
 </details>
