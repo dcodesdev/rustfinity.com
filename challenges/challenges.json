@@ -661,6 +661,18 @@
   },
   {
     "id": 68,
+    "title": "Returning a trait object",
+    "slug": "return-impl-trait",
+    "short_description": "Use `impl Trait` syntax to return an iterator from a function that filters even numbers.",
+    "language": "RUST",
+    "difficulty": "EASY",
+    "track": "RUST_BASICS",
+    "tags": ["iterators", "impl Trait", "rust"],
+    "created_at": "2025-01-02T00:00:00Z",
+    "updated_at": "2025-01-02T00:00:00Z"
+  },
+  {
+    "id": 69,
     "title": "Lifetimes",
     "slug": "lifetimes",
     "short_description": "Understand and implement lifetimes in Rust to ensure memory safety.",
