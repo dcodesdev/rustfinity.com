@@ -1,4 +1,5 @@
 // TODO: Define the generic function `compare_and_display` with appropriate trait bounds.
+pub fn compare_and_display // Complete the function definition
 
 // Example usage
 pub fn main() {

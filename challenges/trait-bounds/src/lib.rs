@@ -1,5 +1,4 @@
-use std::cmp::PartialOrd;
-use std::fmt::Display;
+use std::{cmp::PartialOrd, fmt::Display};
 
 pub fn compare_and_display<T>(a: T, b: T) -> T
 where

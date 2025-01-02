@@ -17,11 +17,6 @@ Trait bounds make your code flexible while maintaining strong type safety.
 
 2. Use trait bounds to ensure the function works only with types that implement both `Display` and `PartialOrd`.
 
-## Requirements
-
-- Use the `where` clause or inline syntax for trait bounds.
-- Test the function with integers, strings, and a custom struct.
-
 ## Hints
 
 If you're stuck, here are some hints to help you solve the challenge:
@@ -31,5 +26,11 @@ If you're stuck, here are some hints to help you solve the challenge:
 
 - Use `std::cmp::PartialOrd` to compare values.
 - Use `std::fmt::Display` to print values with the `println!` macro.
-- You can write trait bounds inline with `T: Trait1 + Trait2` or using a `where` clause.
+- You can write trait bounds inline with `T: Trait1 + Trait2` or using a `where` clause. e.g.
+  ```rust
+  fn my_function<T: Trait1 + Trait2>(value: T) {
+      // code here
+  }
+  ```
+
 </details>
