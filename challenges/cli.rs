@@ -1,4 +1,4 @@
-use std::{io, process::Command};
+use std::{io, path::Path, process::Command};
 
 use challenges::{challenges_json, get_max_id};
 
@@ -24,9 +24,9 @@ fn main() {
                 .output()
                 .expect("Failed to create new project");
 
-            let starter_path = format!("challenges/{slug}/src/starter.rs");
-            let description_path = format!("challenges/{slug}/description.md");
-            let tests_path = format!("challenges/{slug}/tests/tests.rs");
+            let starter_path = format!("{slug}/src/starter.rs");
+            let description_path = format!("{slug}/description.md");
+            let tests_path = format!("{slug}/tests/tests.rs");
 
             create_file(starter_path.as_str()).expect("Failed to create starter.rs");
             create_file(description_path.as_str()).expect("Failed to create description.md");
@@ -41,6 +41,11 @@ fn main() {
 }
 
 fn create_file(file_path: &str) -> Result<(), io::Error> {
+    let parent = Path::new(file_path)
+        .parent()
+        .expect("Failed to get parent directory");
+
+    std::fs::create_dir_all(parent)?;
     std::fs::File::create(file_path)?;
 
     Ok(())
