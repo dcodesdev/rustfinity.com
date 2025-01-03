@@ -690,7 +690,7 @@
     "short_description": "Learn how to use trait objects as fields in structs for dynamic behavior in Rust.",
     "language": "RUST",
     "difficulty": "MEDIUM",
-    "track": "RUST_ADVANCED",
+    "track": "RUST_BASICS",
     "tags": ["traits", "polymorphism", "structs", "dynamic behavior"],
     "created_at": "2025-01-02T00:00:00Z",
     "updated_at": "2025-01-02T00:00:00Z"
@@ -702,7 +702,7 @@
     "short_description": "Implement a trait with associated types in Rust.",
     "language": "RUST",
     "difficulty": "MEDIUM",
-    "track": "RUST_INTERMEDIATE",
+    "track": "RUST_BASICS",
     "tags": ["traits", "associated types"],
     "created_at": "2025-01-03T00:00:00Z",
     "updated_at": "2025-01-03T00:00:00Z"
@@ -714,13 +714,30 @@
     "short_description": "Implement a trait that requires another trait in Rust.",
     "language": "RUST",
     "difficulty": "MEDIUM",
-    "track": "RUST_INTERMEDIATE",
+    "track": "RUST_BASICS",
     "tags": ["traits", "supertraits"],
     "created_at": "2025-01-03T00:00:00Z",
     "updated_at": "2025-01-03T00:00:00Z"
   },
   {
     "id": 73,
+    "title": "Plugin System",
+    "slug": "plugin-system",
+    "short_description": "Design a plugin system using Rust's trait objects.",
+    "language": "RUST",
+    "difficulty": "HARD",
+    "track": "RUST_BASICS",
+    "tags": [
+      "traits",
+      "object safety",
+      "plugin architecture",
+      "dynamic dispatch"
+    ],
+    "created_at": "2025-01-03T00:00:00Z",
+    "updated_at": "2025-01-03T00:00:00Z"
+  },
+  {
+    "id": 74,
     "title": "Lifetimes",
     "slug": "lifetimes",
     "short_description": "Understand and implement lifetimes in Rust to ensure memory safety.",
