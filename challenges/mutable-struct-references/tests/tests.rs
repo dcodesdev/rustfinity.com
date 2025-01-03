@@ -109,3 +109,13 @@ fn test_get_text_combined_operations() {
     finder.replace_lines("keyword", "found");
     assert_eq!(&text, "Search line\nfound\nLast line");
 }
+
+#[test]
+fn test_find_first_should_find_first_only() {
+    let mut text = "Same line\nSame line 2\nSame line 3\nDifferent\nSame line 4".to_string();
+
+    let finder = MutableTextFinder::new(&mut text);
+    let first = finder.find_first("Same");
+
+    assert_eq!(first, Some("Same line"));
+}
