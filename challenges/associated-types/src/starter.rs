@@ -1,34 +1,16 @@
-use std::collections::HashMap;
+// 1. Finish the trait definition
+pub trait KeyValueStore
 
-pub trait KeyValueStore {
-    type Key;
-    type Value;
+// 2. Implement the trait for InMemoryStore
+// Make sure the fields are public
+pub struct InMemoryStore
 
-    fn set(&mut self, key: Self::Key, value: Self::Value);
-    fn get(&self, key: &Self::Key) -> Option<&Self::Value>;
-}
-
-pub struct InMemoryStore<K, V> {
-    // Your code here...
-}
-
-impl<K, V> KeyValueStore for InMemoryStore<K, V> {
-    type Key = K;
-    type Value = V;
-
-    fn set(&mut self, key: Self::Key, value: Self::Value) {
-        // Implement here...
-    }
-
-    fn get(&self, key: &Self::Key) -> Option<&Self::Value> {
-        // Implement here...
-    }
-}
+// 3. Implement the trait for InMemoryStore
 
 // Example usage
 pub fn main() {
     let mut store: InMemoryStore<String, String> = InMemoryStore {
-        // Initialize your store here...
+        storage: HashMap::new(),
     };
 
     store.set("name".to_string(), "Rust".to_string());
