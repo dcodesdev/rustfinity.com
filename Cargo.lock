@@ -959,6 +959,10 @@ name = "mutable-slices"
 version = "0.1.0"
 
 [[package]]
+name = "mutable-struct-references"
+version = "0.1.0"
+
+[[package]]
 name = "mutable-variables"
 version = "0.1.0"
 dependencies = [
