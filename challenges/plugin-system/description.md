@@ -1,4 +1,4 @@
-In Rust, traits are a powerful tool for creating abstractions. When combined with trait objects, they allow for dynamic polymorphism, making them ideal for designing extensible systems like plugin architectures. In this challenge, you will create a plugin system that dynamically loads and executes plugins at runtime.
+We now have an overview of traits, how to define them and how they work, now it's time to put that knowledge to use and build a plugin system using traits.
 
 A plugin in this system is any type that implements a specific trait. Each plugin will perform a specific task, and the system should manage a collection of these plugins, executing them in sequence. You’ll also address advanced issues like object safety and resolving potential conflicts between overlapping trait implementations.
 
@@ -19,11 +19,9 @@ Design and implement a plugin system using trait objects. You will:
   - `fn name(&self) -> &str;` - Returns the name of the plugin.
   - `fn execute(&self);` - Executes the plugin's functionality.
 - The `PluginManager` should:
-  - Use dynamic dispatch to store and manage plugins.
   - Provide methods to add, remove, and list plugins.
   - Execute all registered plugins using their `execute` method.
-- Ensure that the `Plugin` trait is object-safe.
-- Use appropriate error handling for cases like duplicate plugin names.
+- Use appropriate error handling for cases like duplicate plugins.
 
 ## Hints
 
