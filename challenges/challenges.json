@@ -754,7 +754,7 @@
     "slug": "structs-and-references",
     "short_description": "Create a struct that holds a reference and performs keyword searches in a string slice.",
     "language": "RUST",
-    "difficulty": "HARD",
+    "difficulty": "MEDIUM",
     "track": "RUST_BASICS",
     "tags": ["lifetimes", "structs", "references"],
     "created_at": "2025-01-03T00:00:00Z",
