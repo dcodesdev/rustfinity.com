@@ -5,6 +5,7 @@ In this challenge, you will create a struct named `TextFinder` that holds a refe
 ## Your Task
 
 - Create a struct called `TextFinder` that holds a reference to a string slice.
+- The struct should have a constructor `new()` that takes a string slice and returns a `TextFinder` instance.
 - The struct should have a method called `find_first` that returns the first line containing the keyword, or `None` if no match is found.
 - The struct should have a method called `find_many` that returns a vector of all lines containing the keyword.
 - The search functionality should be case-sensitive.

@@ -121,5 +121,5 @@ fn test_whitespace_in_keyword() {
     assert_eq!(finder.find_first("a "), Some("Line with a space"));
 
     let results = finder.find_many("a ");
-    assert_eq!(results, vec!["Line with a space"]);
+    assert_eq!(results, vec!["Line with a space", "Keyword in a line"]);
 }

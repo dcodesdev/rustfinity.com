@@ -1,20 +1,7 @@
-pub struct TextFinder<'a> {
-    text: &'a str,
-}
+// 1. Define the struct
+pub struct TextFinder
 
-impl<'a> TextFinder<'a> {
-    pub fn new(text: &'a str) -> Self {
-        Self { text }
-    }
-
-    pub fn find_first(&self, keyword: &str) -> Option<&str> {
-        // Your code here...
-    }
-
-    pub fn find_many(&self, keyword: &str) -> Vec<&str> {
-        // Your code here...
-    }
-}
+// 2. Implement the struct and define the methods
 
 // Example usage
 pub fn main() {
