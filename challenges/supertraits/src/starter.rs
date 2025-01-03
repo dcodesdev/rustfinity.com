@@ -1,33 +1,15 @@
-pub trait Person {
-    fn name(&self) -> String;
-}
+// 1. Finish the trait definition
+pub trait Person
 
-pub trait Student: Person {
-    fn id(&self) -> u32;
-    fn field_of_study(&self) -> String;
-}
+// 2. Finish the trait definition
+pub trait Student
 
+// 3. Finish the struct definition
 pub struct Undergraduate {
     // Define fields for id, name, and field_of_study here...
 }
 
-// Implement Person for Undergraduate
-impl Person for Undergraduate {
-    fn name(&self) -> String {
-        // Your code here...
-    }
-}
-
-// Implement Student for Undergraduate
-impl Student for Undergraduate {
-    fn id(&self) -> u32 {
-        // Your code here...
-    }
-
-    fn field_of_study(&self) -> String {
-        // Your code here...
-    }
-}
+// 4. Implement the necessary traits for the Undergraduate struct
 
 // Example usage
 pub fn main() {
