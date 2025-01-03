@@ -3,7 +3,7 @@ use quote::quote;
 use std::{fs, process};
 
 fn on_error(file_path: &str) {
-    fs::remove_file(file_path).expect("Failed to remove file");
+    let _ = fs::remove_file(file_path);
 }
 
 pub fn create_bin_and_run(code: TokenStream) -> process::Output {
