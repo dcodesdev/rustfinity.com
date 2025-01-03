@@ -1,24 +1,7 @@
-pub struct MutableTextFinder<'a> {
-    text: &'a mut String,
-}
+// 1. Finish the struct definition
+pub struct MutableTextFinder
 
-impl<'a> MutableTextFinder<'a> {
-    pub fn new(text: &'a mut String) -> Self {
-        Self { text }
-    }
-
-    pub fn find_first(&self, keyword: &str) -> Option<&str> {
-        // Your code here...
-    }
-
-    pub fn replace_lines(&mut self, keyword: &str, replacement: &str) {
-        // Your code here...
-    }
-
-    pub fn get_text(&self) -> &str {
-        // Your code here...
-    }
-}
+// 2. Implement the methods for the struct
 
 // Example usage
 pub fn main() {
