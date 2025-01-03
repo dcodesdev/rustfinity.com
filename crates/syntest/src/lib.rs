@@ -7,6 +7,8 @@ mod syntest;
 mod var;
 mod visitor;
 
+pub mod utils;
+
 pub use constants::Const;
 pub use mutation::Mutation;
 pub use syn::*;
