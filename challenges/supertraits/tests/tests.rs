@@ -1,5 +1,8 @@
 use supertraits::*;
 
+fn implements_person<T: Person>() {}
+fn implements_student<T: Student>() {}
+
 #[test]
 fn test_person_trait() {
     let student = Undergraduate {
@@ -139,4 +142,43 @@ fn test_edge_case_id_large_value() {
     assert_eq!(student.name(), "Max Value Student");
     assert_eq!(student.id(), u32::MAX);
     assert_eq!(student.field_of_study(), "Large Numbers");
+}
+
+#[test]
+fn test_implements_person_trait() {
+    implements_person::<Undergraduate>();
+}
+
+#[test]
+fn test_implements_student_trait() {
+    implements_student::<Undergraduate>();
+}
+
+#[test]
+fn test_should_not_compile() {
+    let code = syntest::quote! {
+        use supertraits::*;
+
+        pub struct Graduate {
+            pub id: u32,
+            pub name: String,
+            pub field_of_study: String,
+        }
+
+        impl Student for Graduate {
+            fn id(&self) -> u32 {
+                self.id
+            }
+
+            fn field_of_study(&self) -> String {
+                self.field_of_study.clone()
+            }
+        }
+    };
+
+    let output = syntest::create_bin_and_run(code);
+
+    let stderr = String::from_utf8(output.stderr).unwrap();
+
+    assert!(stderr.contains("required by this bound in `Student`"));
 }
