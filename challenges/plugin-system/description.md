@@ -11,7 +11,6 @@ Design and implement a plugin system using trait objects. You will:
    - Dynamically load plugins implementing the `Plugin` trait.
    - Allow adding and removing plugins.
    - Execute all registered plugins in sequence.
-3. Address object safety to ensure the system works correctly with trait objects.
 
 ### Requirements
 
@@ -19,18 +18,21 @@ Design and implement a plugin system using trait objects. You will:
   - `fn name(&self) -> &str;` - Returns the name of the plugin.
   - `fn execute(&self);` - Executes the plugin's functionality.
 - The `PluginManager` should:
-  - Provide methods to add, remove, and list plugins.
-  - Execute all registered plugins using their `execute` method.
-- Use appropriate error handling for cases like duplicate plugins.
+  - Have the following methods and associated functions:
+    - `new() -> Self` - Creates a new `PluginManager` instance.
+    - `add_plugin` - Adds a plugin to the list.
+    - `remove_plugin` - Removes a plugin from the list.
+    - `execute_all` - Executes all registered plugins.
+- If a duplicate plugin is added (with the same name), it should **panic**.
+
+Make sure you make all relevant items public.
 
 ## Hints
 
 <details>
     <summary>Click here to reveal hints</summary>
 
-- **Object Safety**: Remember that traits used with trait objects must be object-safe. This means no methods with generic parameters or `Self` in non-where clause positions.
 - **Dynamic Dispatch**: Store plugins in a `Vec<Box<dyn Plugin>>` for dynamic dispatch.
 - **Plugin Uniqueness**: Use the `name` method to identify and ensure uniqueness among plugins.
-- **Iterators**: Leverage iterators to execute plugins in sequence or to filter them by specific criteria.
 
 </details>
