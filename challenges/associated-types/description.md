@@ -4,6 +4,8 @@ For example, instead of passing types as generic parameters every time, you can 
 
 In this challenge, you'll define a trait with an associated type and implement it for a struct. The goal is to create a structure for managing a simple Key-Value store where keys and values can have different types specified by the trait implementation.
 
+You can solve the problem using either generics or associated types, but the challenge is made to make you familiar with associated types, so try to solve the challenge by using them intead of generics.
+
 ## Your Task
 
 Define a trait `KeyValueStore` with an associated type `Key` and `Value`. Implement this trait for the struct `InMemoryStore`. The implementation should allow storing and retrieving key-value pairs of the specified types.
@@ -15,12 +17,11 @@ Define a trait `KeyValueStore` with an associated type `Key` and `Value`. Implem
    - An associated type `Key`.
    - An associated type `Value`.
    - Methods:
-     - `set(&mut self, key: Self::Key, value: Self::Value)` to add a key-value pair.
-     - `get(&self, key: &Self::Key) -> Option<&Self::Value>` to retrieve a value by key.
+     - `set` to add a key-value pair.
+     - `get` takes a reference of `&Key` and returns `Option<&Value>`.
 
 2. Create a struct `InMemoryStore` that uses a `HashMap` to store key-value pairs. Implement the `KeyValueStore` trait for this struct.
-
-3. Your implementation should ensure type safety by enforcing the correct types for keys and values.
+3. Make sure all relevant values are public so that they can be accessed from outside the module (essential to pass the tests).
 
 ## Hints
 
@@ -29,13 +30,16 @@ If you're stuck, here are some hints to help you solve the challenge:
 <details>
     <summary>Click here to reveal hints</summary>
 
-- You can use the `HashMap` from Rust's standard library as the internal storage for your `InMemoryStore`.
 - Define associated types in the `KeyValueStore` trait like this:
+
   ```rust
-  type Key;
-  type Value;
+  pub trait KeyValueStore {
+      type Key;
+      type Value;
+
+      fn set(&mut self, key: Self::Key, value: Self::Value);
+      fn get(&self, key: &Self::Key) -> Option<&Self::Value>;
+  }
   ```
-- Remember to use the fully qualified syntax for methods in traits when needed, such as `<YourType as YourTrait>::AssociatedType`.
-- You may need to derive traits like `Eq`, `Hash`, and `Clone` for your keys and values to work seamlessly with `HashMap`.
 
 </details>
