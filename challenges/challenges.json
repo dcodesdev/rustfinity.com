@@ -709,6 +709,18 @@
   },
   {
     "id": 72,
+    "title": "Supertraits",
+    "slug": "supertraits",
+    "short_description": "Implement a trait that requires another trait in Rust.",
+    "language": "RUST",
+    "difficulty": "MEDIUM",
+    "track": "RUST_INTERMEDIATE",
+    "tags": ["traits", "supertraits"],
+    "created_at": "2025-01-03T00:00:00Z",
+    "updated_at": "2025-01-03T00:00:00Z"
+  },
+  {
+    "id": 73,
     "title": "Lifetimes",
     "slug": "lifetimes",
     "short_description": "Understand and implement lifetimes in Rust to ensure memory safety.",
