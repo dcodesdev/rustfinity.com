@@ -1280,9 +1280,9 @@ dependencies = [
 
 [[package]]
 name = "quote"
-version = "1.0.36"
+version = "1.0.38"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0fa76aaf39101c457836aec0ce2316dbdc3ab723cdda1c6bd4e6ad4208acaca7"
+checksum = "0e4dccaaaf89514f546c693ddc140f729f958c247918a13380cccc6078391acc"
 dependencies = [
  "proc-macro2",
 ]
@@ -1734,6 +1734,9 @@ version = "0.1.0"
 [[package]]
 name = "supertraits"
 version = "0.1.0"
+dependencies = [
+ "syntest",
+]
 
 [[package]]
 name = "syn"
@@ -1758,6 +1761,7 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "proc-macro2",
+ "quote",
  "syn",
 ]
 
