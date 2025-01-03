@@ -86,7 +86,7 @@ fn test_longest_unicode_strings() {
 
 #[test]
 fn test_with_emoji() {
-    let s1 = "👋🏼🏼";
+    let s1 = "👋🏼🏼🏼🏼";
     let s2 = "longer";
 
     assert_eq!(longest(s1, s2), s2);
