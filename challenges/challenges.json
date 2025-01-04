@@ -797,6 +797,18 @@
     "updated_at": "2025-01-04T00:00:00Z"
   },
   {
+    "id": 79,
+    "title": "Unique Items",
+    "slug": "unique-items",
+    "short_description": "Use Rust iterators to filter and collect unique items from a collection.",
+    "language": "RUST",
+    "difficulty": "MEDIUM",
+    "track": "RUST_COLLECTIONS",
+    "tags": ["iterators", "collections", "filtering"],
+    "created_at": "2025-01-04T00:00:00Z",
+    "updated_at": "2025-01-04T00:00:00Z"
+  },
+  {
     "id": 4,
     "title": "Fizz Buzz",
     "slug": "fizz-buzz",
