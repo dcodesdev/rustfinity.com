@@ -1,13 +1,14 @@
 use std::collections::HashSet;
 
-pub fn unique_items<I>(iterator: I) -> Vec<String>
+pub fn unique_items<I, K>(iterator: I) -> Vec<String>
 where
-    I: Iterator<Item = String>,
+    K: AsRef<str>,
+    I: Iterator<Item = K>,
 {
     let mut seen = HashSet::new();
     let mut result: Vec<String> = iterator
         .filter_map(|item| {
-            let trimmed = item.trim().to_string();
+            let trimmed = item.as_ref().trim().to_string();
             if !trimmed.is_empty() && seen.insert(trimmed.clone()) {
                 Some(trimmed)
             } else {

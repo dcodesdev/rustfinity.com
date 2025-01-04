@@ -105,3 +105,10 @@ fn test_unique_items_mixed_whitespace() {
     let unique_items = unique_items(items.into_iter());
     assert_eq!(unique_items, vec!["abc"]);
 }
+
+#[test]
+fn test_unique_items_with_str() {
+    let items = vec!["abc", "  ", "def", "abc", "ghi", "ghi", "   def"];
+    let unique_items = unique_items(items.into_iter());
+    assert_eq!(unique_items, vec!["abc", "def", "ghi"]);
+}
