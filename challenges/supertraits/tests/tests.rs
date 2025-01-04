@@ -176,9 +176,9 @@ fn test_should_not_compile() {
         }
     };
 
-    let output = syntest::create_bin_and_run(code);
+    let result = syntest::create_bin_and_run(&code);
 
-    let stderr = String::from_utf8(output.stderr).unwrap();
-
-    assert!(stderr.contains("required by this bound in `Student`"));
+    assert!(result
+        .stderr()
+        .contains("required by this bound in `Student`"));
 }

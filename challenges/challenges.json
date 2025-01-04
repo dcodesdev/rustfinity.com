@@ -773,6 +773,18 @@
     "updated_at": "2024-06-12T00:00:00Z"
   },
   {
+    "id": 77,
+    "title": "Closure Types",
+    "slug": "closure-types",
+    "short_description": "Understand and define closure types in Rust with practical examples.",
+    "language": "RUST",
+    "difficulty": "MEDIUM",
+    "track": "RUST_BASICS",
+    "tags": ["closures", "types", "functions"],
+    "created_at": "2025-01-04T00:00:00Z",
+    "updated_at": "2025-01-04T00:00:00Z"
+  },
+  {
     "id": 4,
     "title": "Fizz Buzz",
     "slug": "fizz-buzz",

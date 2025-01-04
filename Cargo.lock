@@ -263,6 +263,13 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1462739cb27611015575c0c11df5df7601141071f07518d56fcc1be504cbec97"
 
 [[package]]
+name = "closure-types"
+version = "0.1.0"
+dependencies = [
+ "syntest",
+]
+
+[[package]]
 name = "closures"
 version = "0.1.0"
 

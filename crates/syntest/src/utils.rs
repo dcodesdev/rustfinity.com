@@ -6,7 +6,25 @@ fn on_error(file_path: &str) {
     let _ = fs::remove_file(file_path);
 }
 
-pub fn create_bin_and_run(code: TokenStream) -> process::Output {
+pub struct TestOutput {
+    output: process::Output,
+}
+
+impl TestOutput {
+    pub fn stdout(&self) -> String {
+        String::from_utf8(self.output.stdout.clone()).unwrap()
+    }
+
+    pub fn stderr(&self) -> String {
+        String::from_utf8(self.output.stderr.clone()).unwrap()
+    }
+
+    pub fn output(&self) -> &process::Output {
+        &self.output
+    }
+}
+
+pub fn create_bin_and_run(code: &TokenStream) -> TestOutput {
     let bin = "src/main.rs";
 
     let rust_code = quote! {
@@ -28,7 +46,7 @@ pub fn create_bin_and_run(code: TokenStream) -> process::Output {
 
     fs::remove_file(bin).unwrap();
 
-    output
+    TestOutput { output }
 }
 
 #[cfg(test)]
@@ -41,9 +59,8 @@ mod tests {
             println!("Hello, world!");
         };
 
-        let output = create_bin_and_run(code);
+        let result = create_bin_and_run(&code);
 
-        let stdout = String::from_utf8(output.stdout).unwrap();
-        assert_eq!(stdout, "Hello, world!\n");
+        assert_eq!(result.stdout(), "Hello, world!\n");
     }
 }
