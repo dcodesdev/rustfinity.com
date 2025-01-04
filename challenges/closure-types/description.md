@@ -21,7 +21,9 @@ Implement the following closures and their respective behaviors:
 
 - Use `impl Fn`, `impl FnMut`, or `impl FnOnce` to define the types of the closures. e.g.
   ```rust
-  impl FnMut(&mut f64, f64),
+    pub fn return_closure() -> impl Fn(f64, f64) -> f64 {
+        //
+    }
   ```
 
 </details>
