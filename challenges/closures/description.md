@@ -8,7 +8,7 @@ A closure is defined using a pair of vertical bars `|` that enclose the paramete
 let add = |a: i32, b: i32| a + b;
 ```
 
-In this example, add is a closure that takes two parameters, `a` and `b`, and returns their **sum**. **You can call this closure just like a function**:
+In this example, `add` is a closure that takes two parameters, `a` and `b`, and returns their **sum**. **You can call this closure just like a function**:
 
 ```rust
 let result = add(2, 3); // result is 5
@@ -24,7 +24,7 @@ let result = add_x(3); // result is 5
 
 In this case, the closure `add_x` captures the variable `x` from the surrounding scope and adds it to its parameter `a`.
 
-## Your task
+## Your Task
 
 Your task is to complete the implementation of the following closures:
 
@@ -37,15 +37,14 @@ Your task is to complete the implementation of the following closures:
 - Each closure should take two parameters of type `i32`.
 - Each closure should return a result of type `i32`.
 
-## Example
-
-```rust
-assert_eq!(add_closure(3, 4), 7);
-assert_eq!(subtract_closure(10, 4), 6);
-assert_eq!(multiply_closure(3, 5), 15);
-```
-
 ## Hints
 
-- Remember to use the `let` keyword to define closures.
+<details>
+    <summary>Click here to reveal hints</summary>
+
+- Use the `let` keyword to define closures.
 - Use the `|a, b|` syntax to define the parameters of the closure.
+- Closures can access variables in their surrounding scope if needed.
+- Each closure can be defined inline using concise syntax.
+
+</details>
