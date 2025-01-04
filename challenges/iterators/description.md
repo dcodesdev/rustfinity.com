@@ -17,25 +17,7 @@ Write the following two functions:
 2. **`uppercase_strings`**:  
    Takes an iterator of string slices and converts each string to uppercase, returning a vector of the transformed strings.
 
-## Requirements
-
-### `filter_even_numbers`
-
-- Accepts an iterator of type `impl Iterator<Item = i32>`.
-- Filters out even numbers and retains odd numbers.
-- Returns a `Vec<i32>` containing the odd numbers.
-
-### `uppercase_strings`
-
-- Accepts an iterator of type `impl Iterator<Item = &str>`.
-- Converts each string to uppercase using Rust's string manipulation methods.
-- Returns a `Vec<String>` with the uppercase strings.
-
-### Constraints
-
-- Use iterator methods (`filter`, `map`, etc.) to implement the functionality.
-- Avoid using loops (`for`, `while`, etc.).
-- Use `collect` to convert the processed iterator into a `Vec`.
+Read the `main()` function carefully to understand how the functions will be used and what is expected from them.
 
 ## Hints
 
@@ -43,8 +25,21 @@ Write the following two functions:
     <summary>Click here to reveal hints</summary>
 
 - Use the `filter` method for filtering elements based on a condition.
-- Use the `map` method for transforming elements in an iterator.
+- Make sure you dereference the values when using them in the closure. For example:
+
+  ```rust
+  .filter(|&x| x % 2 != 0)
+  ```
+
+  Or
+
+  ```rust
+  .filter(|x| *x % 2 != 0)
+  ```
+
 - Use the `collect` method to gather results from an iterator into a vector.
-- Remember to handle edge cases, such as empty input.
+- Use the `map` method for transforming elements in an iterator.
+- Use the `to_uppercase` method to convert a string to uppercase.
+- Define lifetimes for the input and output types in the function signature.
 
 </details>
