@@ -15,6 +15,6 @@ pub fn main() {
 
     // Converting strings to uppercase
     let words = vec!["hello", "world"];
-    let uppercase_words = uppercase_strings(words.iter().map(|&s| s));
+    let uppercase_words = uppercase_strings(words.into_iter());
     println!("{:?}", uppercase_words); // Should print: ["HELLO", "WORLD"]
 }
