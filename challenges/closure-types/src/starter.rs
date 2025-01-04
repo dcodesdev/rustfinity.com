@@ -1,19 +1,14 @@
-pub fn create_typed_closures() -> (
-    impl Fn(f64, f64) -> f64,
-    impl FnMut(&mut f64, f64),
-    impl FnOnce(String) -> String,
-) {
-    let calculate_total = |price: f64, tax_rate: f64| {
-        // Step 1: Implement total price calculation here
-    };
+// 1. Based on the `main` function below,
+// Find out the types of the closures and define them
+pub fn create_typed_closures() {
+    // 2. Implement calculate_total closure here
+    let calculate_total = || {};
 
-    let apply_discount = |total: &mut f64, discount: f64| {
-        // Step 2: Implement discount application here
-    };
+    // 3. Implement apply_discount closure here
+    let apply_discount = || {};
 
-    let checkout_cart = |cart_details: String| {
-        // Step 3: Implement checkout processing here
-    };
+    // 4. Implement checkout_cart closure here
+    let checkout_cart = || {};
 
     (calculate_total, apply_discount, checkout_cart)
 }
