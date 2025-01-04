@@ -785,6 +785,18 @@
     "updated_at": "2025-01-04T00:00:00Z"
   },
   {
+    "id": 78,
+    "title": "Iterators",
+    "slug": "iterators",
+    "short_description": "Learn to work with Rust iterators by implementing filtering and transformation operations.",
+    "language": "RUST",
+    "difficulty": "MEDIUM",
+    "track": "RUST_BASICS",
+    "tags": ["iterators", "functional programming", "collections"],
+    "created_at": "2025-01-04T00:00:00Z",
+    "updated_at": "2025-01-04T00:00:00Z"
+  },
+  {
     "id": 4,
     "title": "Fizz Buzz",
     "slug": "fizz-buzz",
