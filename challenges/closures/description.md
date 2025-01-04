@@ -1,29 +1,5 @@
 Closures in Rust are anonymous functions that can **capture variables from their environment.** They are similar to functions but have some unique properties that make them powerful and flexible. Closures are often used for short, simple operations and can be defined in a very concise way.
 
-## Understanding Closures
-
-A closure is defined using a pair of vertical bars `|` that enclose the parameters, followed by the closure body. Here's a simple example of a closure that adds two numbers:
-
-```rust
-let add = |a: i32, b: i32| a + b;
-```
-
-In this example, `add` is a closure that takes two parameters, `a` and `b`, and returns their **sum**. **You can call this closure just like a function**:
-
-```rust
-let result = add(2, 3); // result is 5
-```
-
-Closures can **capture variables** from their enclosing scope. For example:
-
-```rust
-let x = 2;
-let add_x = |a: i32| a + x;
-let result = add_x(3); // result is 5
-```
-
-In this case, the closure `add_x` captures the variable `x` from the surrounding scope and adds it to its parameter `a`.
-
 ## Your Task
 
 Your task is to complete the implementation of the following closures:
@@ -32,19 +8,19 @@ Your task is to complete the implementation of the following closures:
 - `subtract_closure`: This closure should return the **difference between two integers**.
 - `multiply_closure`: This closure should return the **product of two integers**.
 
-## Requirements
+### Requirements
 
 - Each closure should take two parameters of type `i32`.
 - Each closure should return a result of type `i32`.
 
 ## Hints
 
+Here are some hints to help you solve the exercise:
+
 <details>
     <summary>Click here to reveal hints</summary>
 
-- Use the `let` keyword to define closures.
 - Use the `|a, b|` syntax to define the parameters of the closure.
-- Closures can access variables in their surrounding scope if needed.
-- Each closure can be defined inline using concise syntax.
+- Since the type is already specified, it can be inferred, so you don't need to specify `a` and `b`.
 
 </details>
