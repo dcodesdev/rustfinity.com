@@ -821,6 +821,18 @@
     "updated_at": "2025-01-08T00:00:00Z"
   },
   {
+    "id": 81,
+    "title": "The Drop Trait",
+    "slug": "the-drop-trait",
+    "short_description": "Implement custom behavior for a struct when it goes out of scope using the Drop trait.",
+    "language": "RUST",
+    "difficulty": "MEDIUM",
+    "track": "RUST_INTERMEDIATE",
+    "tags": ["drop", "traits", "RAII"],
+    "created_at": "2025-01-08T00:00:00Z",
+    "updated_at": "2025-01-08T00:00:00Z"
+  },
+  {
     "id": 4,
     "title": "Fizz Buzz",
     "slug": "fizz-buzz",
