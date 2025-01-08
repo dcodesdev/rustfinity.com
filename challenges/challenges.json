@@ -809,6 +809,18 @@
     "updated_at": "2025-01-04T00:00:00Z"
   },
   {
+    "id": 80,
+    "title": "Box<T>",
+    "slug": "box-t",
+    "short_description": "Understand and use Box<T> to allocate values on the heap.",
+    "language": "RUST",
+    "difficulty": "EASY",
+    "track": "RUST_BASICS",
+    "tags": ["box", "heap allocation", "smart pointers", "deref", "structs"],
+    "created_at": "2025-01-08T00:00:00Z",
+    "updated_at": "2025-01-08T00:00:00Z"
+  },
+  {
     "id": 4,
     "title": "Fizz Buzz",
     "slug": "fizz-buzz",
