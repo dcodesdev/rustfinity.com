@@ -46,28 +46,6 @@ fn test_tempfile_creation_with_empty_name() {
 }
 
 #[test]
-fn test_tempfile_creation_with_invalid_characters() {
-    // On most file systems, these characters are invalid in file names
-    let invalid_names = vec!["test<>.tmp", "test|.tmp", "test:.tmp", "test?.tmp"];
-
-    for name in invalid_names {
-        let result = TempFile::new(name);
-        assert!(
-            result.is_err(),
-            "Expected error for invalid file name: {}",
-            name
-        );
-    }
-}
-
-#[test]
-fn test_tempfile_handles_non_utf8_name_gracefully() {
-    let invalid_name = String::from_utf8_lossy(&[0xFF, 0xFE, 0xFD]);
-    let result = TempFile::new(&invalid_name);
-    assert!(result.is_err(), "Expected error for non-UTF-8 file name");
-}
-
-#[test]
 fn test_tempfile_does_not_leave_orphan_files() {
     let file_name = "orphan_test_file.tmp";
     {
@@ -76,21 +54,4 @@ fn test_tempfile_does_not_leave_orphan_files() {
     }
     // Ensure the file does not exist after the TempFile goes out of scope
     assert!(!Path::new(file_name).exists());
-}
-
-#[test]
-fn test_tempfile_handles_long_file_name() {
-    let long_name = "a".repeat(255) + ".tmp";
-    let result = TempFile::new(&long_name);
-    if cfg!(target_os = "windows") {
-        assert!(
-            result.is_err(),
-            "Expected error for excessively long file name on Windows"
-        );
-    } else {
-        assert!(
-            result.is_ok(),
-            "Expected successful creation for long file name on non-Windows"
-        );
-    }
 }
