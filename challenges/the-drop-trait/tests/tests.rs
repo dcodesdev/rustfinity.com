@@ -5,6 +5,9 @@ use the_drop_trait::TempFile;
 fn test_tempfile_creation_with_unique_name() {
     let temp_file = TempFile::new("unique_test_file.tmp").expect("Failed to create temporary file");
     assert!(temp_file.path.exists());
+    // Ensure the file does not exist after the TempFile is dropped
+    drop(temp_file);
+    assert!(!Path::new("unique_test_file.tmp").exists());
 }
 
 #[test]
@@ -21,6 +24,11 @@ fn test_tempfile_creation_with_same_name_overwrites() {
 
     // The second creation overwrites the first one
     assert_eq!(temp_file_1.path, temp_file_2.path);
+
+    // Ensure the file does not exist after both TempFiles are dropped
+    drop(temp_file_1);
+    drop(temp_file_2);
+    assert!(!Path::new(file_name).exists());
 }
 
 #[test]
