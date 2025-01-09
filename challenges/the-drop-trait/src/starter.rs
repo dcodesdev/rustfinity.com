@@ -5,18 +5,7 @@ pub struct TempFile {
 }
 
 impl TempFile {
-    /// Creates a new temporary file with the specified name.
-    ///
-    /// # Arguments
-    /// - `file_name`: The name of the file (accepts both `String` and `&str`).
-    ///
-    /// # Returns
-    /// - `Ok(Self)` if the file is created successfully.
-    /// - `Err(std::io::Error)` if an error occurs during file creation.
-    pub fn new<S: AsRef<str>>(file_name: S) -> Result<Self, std::io::Error> {
-        // Your code here to create the temporary file
-        unimplemented!()
-    }
+    // 1. Define the `new` associated function
 }
 
 impl Drop for TempFile {
@@ -28,9 +17,18 @@ impl Drop for TempFile {
 
 // Example usage
 pub fn main() {
-    let temp_file =
-        TempFile::new("example_temp_file.tmp").expect("Failed to create temporary file");
-    println!("Temporary file created at: {:?}", temp_file.path);
+    let file_path = PathBuf::from("example_temp_file.tmp");
+    let tempfile =
+        TempFile::new(file_path.to_str().unwrap()).expect("Failed to create temporary file");
 
-    // TempFile will automatically delete the file when it goes out of scope.
+    assert!(tempfile.path.exists(), "File does not exist");
+
+    drop(tempfile);
+
+    assert!(!file_path.exists(), "File was not deleted");
+
+    let tempfile_2 = TempFile::new(&String::from("example_temp_file_2.tmp"))
+        .expect("Failed to create temporary file");
+
+    drop(tempfile_2);
 }

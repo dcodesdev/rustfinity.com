@@ -6,29 +6,8 @@ In this challenge, you will implement a struct that represents a temporary file.
 
 ## Your Task
 
-Your task is to implement the `Drop` trait for a struct `TempFile`. This struct should:
-
-1. Create a temporary file with a user-specified name when initialized.
-2. Delete the file when it goes out of scope.
-
-The implementation should ensure that the file cleanup happens even if the program ends abruptly or panics.
-
-## Requirements
-
-### Functional Requirements
-
-- Implement a struct `TempFile` with:
-  - A method `new` that takes a file name as input (using `AsRef<str>` for flexibility).
-  - A field to store the file's path.
-- Implement the `Drop` trait for `TempFile` to delete the file automatically.
-- Use `std::fs` for file operations.
-
-### Constraints
-
-- The method `new` should accept both `String` and `&str` types for the file name.
-- Handle potential errors during file creation or deletion gracefully.
-- Ensure the file cleanup occurs under all circumstances (e.g., panics).
-- Do not use external crates; stick to the Rust standard library.
+1. Create `TempFile` struct with a method `new` that takes a file name as input, it must accept both `&str` and `String` types.
+2. Implement the `Drop` trait for `TempFile` to delete the file automatically when the struct goes out of scope.
 
 ## Hints
 
