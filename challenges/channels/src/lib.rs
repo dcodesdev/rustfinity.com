@@ -1,40 +1,59 @@
 use std::sync::mpsc::{self, Receiver, Sender};
-use std::thread;
+use std::thread::{self, JoinHandle};
 
-pub fn start_channel_system(num_producers: usize, messages_per_producer: usize) -> Vec<String> {
-    let (tx, rx): (Sender<String>, Receiver<String>) = mpsc::channel();
+// Function to create a producer thread
+pub fn create_producer_thread(
+    producer_id: usize,
+    messages_count: usize,
+    tx: Sender<String>,
+) -> JoinHandle<()> {
+    thread::spawn(move || {
+        for msg_num in 0..messages_count {
+            let msg = format!("Message from producer {} - {}", producer_id, msg_num);
+            tx.send(msg).unwrap();
+        }
+    })
+}
 
-    let mut handles = vec![];
-
-    // Create producer threads
-    for producer_id in 0..num_producers {
-        let tx_clone = tx.clone();
-        let handle = thread::spawn(move || {
-            for msg_num in 0..messages_per_producer {
-                let msg = format!("Message from producer {} - {}", producer_id, msg_num);
-                tx_clone.send(msg).unwrap();
-            }
-        });
-        handles.push(handle);
-    }
-
-    // Drop the original sender to close the channel when producers are done
-    drop(tx);
-
-    // Create consumer thread
-    let consumer_handle = thread::spawn(move || {
+// Function to create the consumer thread
+pub fn create_consumer_thread(rx: Receiver<String>) -> JoinHandle<Vec<String>> {
+    thread::spawn(move || {
         let mut results = vec![];
         while let Ok(msg) = rx.recv() {
             results.push(format!("Processed: {}", msg));
         }
         results
-    });
+    })
+}
 
-    // Wait for all producer threads to finish
-    for handle in handles {
+// Example of how to use the thread creation functions
+pub fn main() {
+    // Create a channel
+    let (tx, rx) = mpsc::channel();
+
+    // Create 3 producer threads
+    let mut producer_handles = vec![];
+    for id in 0..3 {
+        let tx_clone = tx.clone();
+        let handle = create_producer_thread(id, 2, tx_clone);
+        producer_handles.push(handle);
+    }
+
+    // Drop the original sender
+    drop(tx);
+
+    // Create the consumer thread
+    let consumer_handle = create_consumer_thread(rx);
+
+    // Wait for all producers to finish
+    for handle in producer_handles {
         handle.join().unwrap();
     }
 
-    // Get the consumer's results
-    consumer_handle.join().unwrap()
+    // Get and print the results from consumer
+    let results = consumer_handle.join().unwrap();
+    println!("Processed messages:");
+    for msg in results {
+        println!("{}", msg);
+    }
 }
