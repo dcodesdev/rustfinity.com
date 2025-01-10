@@ -20,16 +20,29 @@ where
 }
 
 pub fn main() {
-    let mut v = vec![1, 2, 3, 4, 5];
+    {
+        let mut list = vec![1, 2, 3, 4, 5];
 
-    let handles = concurrent_add(v.clone(), 3);
+        let handles = concurrent_add(list.clone(), 3);
 
-    for handle in handles {
-        let result = handle.join().unwrap();
-        let original = v.remove(0);
+        for handle in handles {
+            let result = handle.join().unwrap();
+            let original = list.remove(0);
 
-        assert_eq!(result, original + 3);
+            assert_eq!(result, original + 3);
+        }
     }
 
-    println!("All items have been added successfully!");
+    {
+        let mut list = vec![10., 20., 30., 40., 50.];
+
+        let handles = concurrent_add(list.clone(), 5.);
+
+        for handle in handles {
+            let result = handle.join().unwrap();
+            let original = list.remove(0);
+
+            assert_eq!(result, original + 5.);
+        }
+    }
 }

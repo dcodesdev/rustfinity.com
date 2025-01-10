@@ -1,18 +1,34 @@
 use std::thread;
 
-pub fn concurrent_add<T>(items: Vec<T>) -> Vec<thread::JoinHandle<()>> {
+pub fn concurrent_add<T>(items: Vec<T>, num: T) -> Vec<thread::JoinHandle<T>> {
     // Implement the function here
 }
 
 // Example Usage
 pub fn main() {
-    let v = vec![1, 2, 3, 4, 5];
+    {
+        let mut list = vec![1, 2, 3, 4, 5];
 
-    let handles = concurrent_logging(v);
+        let handles = concurrent_add(list.clone(), 3);
 
-    for handle in handles {
-        handle.join().unwrap();
+        for handle in handles {
+            let result = handle.join().unwrap();
+            let original = list.remove(0);
+
+            assert_eq!(result, original + 3);
+        }
     }
 
-    // Must log all items, each in a different thread
+    {
+        let mut list = vec![10., 20., 30., 40., 50.];
+
+        let handles = concurrent_add(list.clone(), 5.);
+
+        for handle in handles {
+            let result = handle.join().unwrap();
+            let original = list.remove(0);
+
+            assert_eq!(result, original + 5.);
+        }
+    }
 }
