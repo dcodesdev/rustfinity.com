@@ -209,6 +209,10 @@ dependencies = [
 ]
 
 [[package]]
+name = "channels"
+version = "0.1.0"
+
+[[package]]
 name = "character-counting-string"
 version = "0.1.0"
 

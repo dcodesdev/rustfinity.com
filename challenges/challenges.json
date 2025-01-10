@@ -869,6 +869,18 @@
     "updated_at": "2025-01-10T00:00:00Z"
   },
   {
+    "id": 85,
+    "title": "Channels",
+    "slug": "channels",
+    "short_description": "Learn how to communicate between threads using Rust's mpsc channels.",
+    "language": "RUST",
+    "difficulty": "MEDIUM",
+    "track": "RUST_BASICS",
+    "tags": ["threads", "channels", "mpsc", "concurrency"],
+    "created_at": "2025-01-11T00:00:00Z",
+    "updated_at": "2025-01-11T00:00:00Z"
+  },
+  {
     "id": 4,
     "title": "Fizz Buzz",
     "slug": "fizz-buzz",
