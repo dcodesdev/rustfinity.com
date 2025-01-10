@@ -14,12 +14,21 @@ where
 
 // Example usage
 pub fn main() {
-    let original = Rc::new(vec![1, 2, 3]);
-    let modified = clone_and_append(Rc::clone(&original), 4);
+    // Example usage of `use_shared_data`
+    let shared_numbers = Rc::new(vec![1, 2, 3, 4, 5]);
+    println!("Using shared data:");
+    use_shared_data(Rc::clone(&shared_numbers));
 
-    // The original vector remains unchanged
-    println!("{:?}", original); // Output: [1, 2, 3]
+    // Example usage of `share_data_to_other_functions`
+    let strings = vec!["Rust".to_string(), "is".to_string(), "awesome!".to_string()];
 
-    // The modified vector includes the new value
-    println!("{:?}", modified); // Output: [1, 2, 3, 4]
+    let print_data = |data: Rc<Vec<String>>| {
+        println!("Printing shared data:");
+        for item in data.iter() {
+            println!("{}", item);
+        }
+    };
+
+    println!("\nSharing data with other functions:");
+    share_data_to_other_functions(print_data, strings);
 }
