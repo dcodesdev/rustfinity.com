@@ -106,3 +106,23 @@ fn test_stdout() {
         );
     }
 }
+
+#[test]
+fn test_plus_one() {
+    let my_num = Rc::new(RefCell::new(5));
+
+    plus_one(Rc::clone(&my_num));
+
+    assert_eq!(*my_num.borrow(), 6, "Value was not incremented correctly.");
+
+    plus_one(Rc::clone(&my_num));
+    plus_one(Rc::clone(&my_num));
+    plus_one(Rc::clone(&my_num));
+    plus_one(Rc::clone(&my_num));
+
+    assert_eq!(
+        *my_num.borrow(),
+        10,
+        "Value was not incremented correctly multiple times."
+    );
+}
