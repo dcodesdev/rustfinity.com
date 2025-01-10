@@ -881,6 +881,18 @@
     "updated_at": "2025-01-11T00:00:00Z"
   },
   {
+    "id": 86,
+    "title": "Advanced Match Patterns",
+    "slug": "advanced-match-patterns",
+    "short_description": "Utilize Rust's advanced pattern matching capabilities to destructure complex data.",
+    "language": "RUST",
+    "difficulty": "HARD",
+    "track": "RUST_ADVANCED",
+    "tags": ["match", "pattern matching", "advanced"],
+    "created_at": "2025-01-11T00:00:00Z",
+    "updated_at": "2025-01-11T00:00:00Z"
+  },
+  {
     "id": 4,
     "title": "Fizz Buzz",
     "slug": "fizz-buzz",
