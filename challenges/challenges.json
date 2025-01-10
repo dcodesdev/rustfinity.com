@@ -803,7 +803,7 @@
     "short_description": "Use Rust iterators to filter and collect unique items from a collection.",
     "language": "RUST",
     "difficulty": "MEDIUM",
-    "track": "RUST_COLLECTIONS",
+    "track": "RUST_BASICS",
     "tags": ["iterators", "collections", "filtering"],
     "created_at": "2025-01-04T00:00:00Z",
     "updated_at": "2025-01-04T00:00:00Z"
@@ -853,6 +853,18 @@
     "difficulty": "MEDIUM",
     "track": "RUST_BASICS",
     "tags": ["Rc", "RefCell", "Interior Mutability", "Smart Pointers"],
+    "created_at": "2025-01-10T00:00:00Z",
+    "updated_at": "2025-01-10T00:00:00Z"
+  },
+  {
+    "id": 84,
+    "title": "Concurrency",
+    "slug": "concurrency",
+    "short_description": "Use threads to mutate a shared vector with non-deterministic ordering.",
+    "language": "RUST",
+    "difficulty": "MEDIUM",
+    "track": "RUST_BASICS",
+    "tags": ["threads", "concurrency", "synchronization"],
     "created_at": "2025-01-10T00:00:00Z",
     "updated_at": "2025-01-10T00:00:00Z"
   },
