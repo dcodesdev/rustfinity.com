@@ -1,35 +1,29 @@
-In Rust, ownership is a core concept that ensures memory safety. However, there are scenarios where multiple parts of your program need shared access to the same data. The `Rc<T>` type, which stands for "Reference Counted," is a smart pointer that provides shared ownership of immutable data. It keeps track of the number of references to the data and automatically deallocates it when there are no more references.
+Reference-counted pointers, `Rc<T>`, are a type of smart pointer in Rust that allow multiple ownership of the same data. This means you can have multiple references to a value, and the value will only be dropped when the last reference is out of scope. This is particularly useful in scenarios where you want to share data between multiple parts of your program without needing to copy it.
 
-`Rc<T>` is primarily used in single-threaded scenarios. For multi-threaded programs, `Arc<T>` (atomic reference counting) should be used instead.
+In this challenge, you'll use `Rc<T>` to share data between functions.
 
-## Your Task
+### Your Task
 
-In this challenge, you will implement a function `clone_and_append` that:
+Implement the functions `use_shared_data` and `share_data_to_other_functions` to work with `Rc<T>`.
 
-1. Accepts an `Rc<Vec<T>>` where `T` implements the `Clone` trait.
-2. Clones the original `Rc<Vec<T>>` and appends a new value to the cloned vector.
-3. Returns the modified `Rc<Vec<T>>`.
+- `use_shared_data`:
 
-This function demonstrates the ability to clone and manipulate data while keeping the original data intact for other owners.
+  - Take an `Rc<Vec<T>>` as argument.
+  - Loop over each item in the vector and print each element using `println!`.
 
-## Requirements
+- `share_data_to_other_functions`:
+  - Share the input as a reference-counted pointer 3 times with the given closure.
+  - Do cheap clones only and avoid deep copying the data.
 
-### Constraints
-
-1. Use `Rc<T>` to create shared ownership of the vector.
-2. Ensure that the original vector is not modified.
-3. The function must be generic over any type `T` that implements the `Clone` trait.
-
-## Hints
+### Hints
 
 If you're stuck, here are some hints to help you solve the challenge:
 
 <details>
     <summary>Click here to reveal hints</summary>
 
-- Use `Rc::clone(&original)` to create a new reference to the original data.
-- To modify the vector, you may need to dereference the `Rc` to access the underlying vector.
-- Remember, `Rc<T>` only allows immutable access to the data it wraps. To modify the data, you will need to create a new instance.
-- Review the methods available on `Vec<T>` to append items.
+- Use `Rc::new` to wrap your vector in an `Rc` smart pointer.
+- Use `Rc::clone` to create new references to the shared data.
+- For `use_shared_data`, make sure to use `T: Display` to allow printing elements with `{}` formatting.
 
 </details>
