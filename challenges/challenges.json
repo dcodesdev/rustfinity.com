@@ -845,6 +845,18 @@
     "updated_at": "2025-01-10T00:00:00Z"
   },
   {
+    "id": 83,
+    "title": "Interior Mutability with Rc and RefCell",
+    "slug": "interior-mutability",
+    "short_description": "Understand and utilize interior mutability in Rust using Rc and RefCell.",
+    "language": "RUST",
+    "difficulty": "MEDIUM",
+    "track": "RUST_BASICS",
+    "tags": ["Rc", "RefCell", "Interior Mutability", "Smart Pointers"],
+    "created_at": "2025-01-10T00:00:00Z",
+    "updated_at": "2025-01-10T00:00:00Z"
+  },
+  {
     "id": 4,
     "title": "Fizz Buzz",
     "slug": "fizz-buzz",
