@@ -827,10 +827,22 @@
     "short_description": "Implement custom behavior for a struct when it goes out of scope using the Drop trait.",
     "language": "RUST",
     "difficulty": "MEDIUM",
-    "track": "RUST_INTERMEDIATE",
+    "track": "RUST_BASICS",
     "tags": ["drop", "traits", "RAII"],
     "created_at": "2025-01-08T00:00:00Z",
     "updated_at": "2025-01-08T00:00:00Z"
+  },
+  {
+    "id": 82,
+    "title": "Rc<T>",
+    "slug": "rc",
+    "short_description": "Explore reference-counted smart pointers in Rust using Rc<T> to share data.",
+    "language": "RUST",
+    "difficulty": "MEDIUM",
+    "track": "RUST_BASICS",
+    "tags": ["smart pointers", "Rc", "shared ownership"],
+    "created_at": "2025-01-10T00:00:00Z",
+    "updated_at": "2025-01-10T00:00:00Z"
   },
   {
     "id": 4,
