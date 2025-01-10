@@ -1,7 +1,7 @@
 use std::rc::Rc;
 
-pub fn use_shared_data<T: Display>(data: Rc<Vec<T>>) {
-    // 1. Implement the function
+pub fn use_shared_data<T>(data: Rc<Vec<T>>) {
+    // 1. Loop over each item in the vector and print it using `println!`
 }
 
 pub fn share_data_to_other_functions<F>(mut take_item: F, items: Vec<String>)
