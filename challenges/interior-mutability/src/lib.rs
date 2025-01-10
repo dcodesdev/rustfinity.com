@@ -12,3 +12,16 @@ pub fn iterate_and_print_shared_data<T: std::fmt::Display>(data: Rc<RefCell<Vec<
         println!("{}", item);
     }
 }
+
+// Example usage
+pub fn main() {
+    let shared_data = Rc::new(RefCell::new(vec![1, 2, 3]));
+
+    // Updating shared data
+    update_shared_data(Rc::clone(&shared_data), 4);
+    update_shared_data(Rc::clone(&shared_data), 5);
+
+    // Iterating and printing shared data
+    println!("Shared Data:");
+    iterate_and_print_shared_data(Rc::clone(&shared_data));
+}
