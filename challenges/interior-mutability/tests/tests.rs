@@ -52,51 +52,57 @@ fn test_empty_vector_behavior() {
 
 #[test]
 fn test_stdout() {
-    let code_1 = syntest::quote! {
-        use interior_mutability::*;
-        use std::cell::RefCell;
-        use std::rc::Rc;
+    {
+        let code = syntest::quote! {
+            use interior_mutability::*;
+            use std::cell::RefCell;
+            use std::rc::Rc;
 
-        let shared_data = Rc::new(RefCell::new(vec!["Rust".to_string(), "is".to_string(), "awesome".to_string()]));
-        iterate_and_print_shared_data(Rc::clone(&shared_data));
-    };
+            let shared_data = Rc::new(RefCell::new(vec!["Rust".to_string(), "is".to_string(), "awesome".to_string()]));
+            iterate_and_print_shared_data(Rc::clone(&shared_data));
+        };
 
-    let code_2 = syntest::quote! {
-        use interior_mutability::*;
-        use std::cell::RefCell;
-        use std::rc::Rc;
+        let output = syntest::create_bin_and_run(&code);
+        assert_eq!(
+            output.stdout().trim(),
+            "Rust\nis\nawesome",
+            "Unexpected output for first syntest block."
+        );
+    }
 
-        let shared_data = Rc::new(RefCell::new(vec![1, 2, 3, 4, 5]));
-        iterate_and_print_shared_data(Rc::clone(&shared_data));
-    };
+    {
+        let code = syntest::quote! {
+            use interior_mutability::*;
+            use std::cell::RefCell;
+            use std::rc::Rc;
 
-    let code_3 = syntest::quote! {
-        use interior_mutability::*;
-        use std::cell::RefCell;
-        use std::rc::Rc;
+            let shared_data = Rc::new(RefCell::new(vec![1, 2, 3, 4, 5]));
+            iterate_and_print_shared_data(Rc::clone(&shared_data));
+        };
 
-        let empty_shared_data = Rc::new(RefCell::new(Vec::<i32>::new()));
-        iterate_and_print_shared_data(Rc::clone(&empty_shared_data));
-    };
+        let output = syntest::create_bin_and_run(&code);
+        assert_eq!(
+            output.stdout().trim(),
+            "1\n2\n3\n4\n5",
+            "Unexpected output for second syntest block."
+        );
+    }
 
-    let output_1 = syntest::create_bin_and_run(&code_1);
-    assert_eq!(
-        output_1.stdout().trim(),
-        "Rust\nis\nawesome",
-        "Unexpected output for first syntest block."
-    );
+    {
+        let code = syntest::quote! {
+            use interior_mutability::*;
+            use std::cell::RefCell;
+            use std::rc::Rc;
 
-    let output_2 = syntest::create_bin_and_run(&code_2);
-    assert_eq!(
-        output_2.stdout().trim(),
-        "1\n2\n3\n4\n5",
-        "Unexpected output for second syntest block."
-    );
+            let empty_shared_data = Rc::new(RefCell::new(Vec::<i32>::new()));
+            iterate_and_print_shared_data(Rc::clone(&empty_shared_data));
+        };
 
-    let output_3 = syntest::create_bin_and_run(&code_3);
-    assert_eq!(
-        output_3.stdout().trim(),
-        "",
-        "Unexpected output for third syntest block (empty vector case)."
-    );
+        let output = syntest::create_bin_and_run(&code);
+        assert_eq!(
+            output.stdout().trim(),
+            "",
+            "Unexpected output for third syntest block (empty vector case)."
+        );
+    }
 }
