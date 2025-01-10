@@ -5,11 +5,11 @@ use std::sync::mpsc;
 fn test_single_producer() {
     let (tx, rx) = mpsc::channel();
     let handle = create_producer_thread(0, 1, tx);
+    handle.join().unwrap();
 
     let messages: Vec<String> = rx.iter().collect();
     assert_eq!(messages.len(), 1);
     assert_eq!(messages[0], "Message from producer 0 - 0");
-    handle.join().unwrap();
 }
 
 #[test]
@@ -17,13 +17,14 @@ fn test_multiple_messages_from_producer() {
     let (tx, rx) = mpsc::channel();
     let handle = create_producer_thread(1, 3, tx);
 
+    handle.join().unwrap();
+
     let messages: Vec<String> = rx.iter().collect();
+
     assert_eq!(messages.len(), 3);
     assert!(messages.contains(&"Message from producer 1 - 0".to_string()));
     assert!(messages.contains(&"Message from producer 1 - 1".to_string()));
     assert!(messages.contains(&"Message from producer 1 - 2".to_string()));
-
-    handle.join().unwrap();
 }
 
 #[test]
@@ -84,11 +85,10 @@ fn test_producer_consumer_integration() {
 fn test_message_format_correctness() {
     let (tx, rx) = mpsc::channel();
     let handle = create_producer_thread(99, 1, tx);
+    handle.join().unwrap();
 
     let messages: Vec<String> = rx.iter().collect();
     assert!(!messages.is_empty());
     assert!(messages[0].contains("producer 99"));
     assert!(messages[0].contains("- 0"));
-
-    handle.join().unwrap();
 }
