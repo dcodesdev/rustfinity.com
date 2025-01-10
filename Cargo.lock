@@ -1341,6 +1341,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "rc"
+version = "0.1.0"
+dependencies = [
+ "syntest",
+]
+
+[[package]]
 name = "redox_syscall"
 version = "0.5.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
