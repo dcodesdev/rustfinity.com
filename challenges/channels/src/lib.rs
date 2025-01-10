@@ -26,7 +26,7 @@ pub fn create_consumer_thread(rx: Receiver<String>) -> JoinHandle<Vec<String>> {
     })
 }
 
-// Example of how to use the thread creation functions
+// Example Usage
 pub fn main() {
     // Create a channel
     let (tx, rx) = mpsc::channel();
