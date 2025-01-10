@@ -151,3 +151,14 @@ fn test_message_format_correctness() {
         "Message should contain correct message number"
     );
 }
+
+#[test]
+fn test_channel_creation() {
+    let (tx, rx) = create_message_channel();
+    tx.send("Test message".to_string()).unwrap();
+    assert_eq!(
+        rx.recv().unwrap(),
+        "Test message",
+        "Channel should correctly transmit messages"
+    );
+}

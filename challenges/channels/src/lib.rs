@@ -24,10 +24,14 @@ pub fn create_consumer_thread(rx: Receiver<String>) -> JoinHandle<Vec<String>> {
     })
 }
 
+pub fn create_message_channel() -> (Sender<String>, Receiver<String>) {
+    mpsc::channel()
+}
+
 // Example Usage
 pub fn main() {
     // Create a channel
-    let (tx, rx) = mpsc::channel();
+    let (tx, rx) = create_message_channel();
 
     // Create 3 producer threads
     let mut producer_handles = vec![];
