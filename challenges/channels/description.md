@@ -4,14 +4,11 @@ In this challenge, you will create a producer-consumer system where multiple thr
 
 ## Your Task
 
-Your task is to implement a function `start_channel_system` that:
+Your task is to implement three functions:
 
-1. Creates a channel using `std::sync::mpsc`.
-2. Spawns a specified number of producer threads that send messages through the channel.
-3. Spawns a single consumer thread that receives and processes messages from the channel.
-4. Returns a `Vec<String>` containing all processed messages in the order they were received.
-
-Producers should send unique string messages to the channel, and the consumer should append `"Processed: "` to each message.
+1. `create_message_channel()` - Creates and returns a channel for message passing
+2. `create_producer_thread()` - Creates a thread that sends messages
+3. `create_consumer_thread()` - Creates a thread that receives messages
 
 ### Requirements
 
