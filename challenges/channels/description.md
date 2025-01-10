@@ -20,6 +20,11 @@ Producers should send unique string messages to the channel, and the consumer sh
 - The consumer thread should receive the messages and add `"Processed: "` to the beginning of each message.
 - The function must return all processed messages in a `Vec<String>` in the order they were received.
 
+### Notes
+
+- For this challenge, you can ignore error handling (use `unwrap()` where needed).
+- Focus on the core concurrency concepts rather than handling edge cases.
+
 ## Hints
 
 <details>
