@@ -1,7 +1,6 @@
 use std::sync::mpsc::{self, Receiver, Sender};
 use std::thread::{self, JoinHandle};
 
-// Function to create a producer thread
 pub fn create_producer_thread(
     producer_id: usize,
     messages_count: usize,
@@ -15,7 +14,6 @@ pub fn create_producer_thread(
     })
 }
 
-// Function to create the consumer thread
 pub fn create_consumer_thread(rx: Receiver<String>) -> JoinHandle<Vec<String>> {
     thread::spawn(move || {
         let mut results = vec![];

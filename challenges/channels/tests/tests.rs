@@ -8,8 +8,15 @@ fn test_single_producer() {
     handle.join().unwrap();
 
     let messages: Vec<String> = rx.iter().collect();
-    assert_eq!(messages.len(), 1);
-    assert_eq!(messages[0], "Message from producer 0 - 0");
+    assert_eq!(
+        messages.len(),
+        1,
+        "Single producer should generate exactly one message"
+    );
+    assert_eq!(
+        messages[0], "Message from producer 0 - 0",
+        "Message format should match 'Message from producer 0 - 0'"
+    );
 }
 
 #[test]
@@ -21,10 +28,23 @@ fn test_multiple_messages_from_producer() {
 
     let messages: Vec<String> = rx.iter().collect();
 
-    assert_eq!(messages.len(), 3);
-    assert!(messages.contains(&"Message from producer 1 - 0".to_string()));
-    assert!(messages.contains(&"Message from producer 1 - 1".to_string()));
-    assert!(messages.contains(&"Message from producer 1 - 2".to_string()));
+    assert_eq!(
+        messages.len(),
+        3,
+        "Producer should generate exactly three messages"
+    );
+    assert!(
+        messages.contains(&"Message from producer 1 - 0".to_string()),
+        "Should contain message with number 0"
+    );
+    assert!(
+        messages.contains(&"Message from producer 1 - 1".to_string()),
+        "Should contain message with number 1"
+    );
+    assert!(
+        messages.contains(&"Message from producer 1 - 2".to_string()),
+        "Should contain message with number 2"
+    );
 }
 
 #[test]
@@ -36,8 +56,15 @@ fn test_consumer_basic_processing() {
     drop(tx);
 
     let results = consumer_handle.join().unwrap();
-    assert_eq!(results.len(), 1);
-    assert_eq!(results[0], "Processed: Test message");
+    assert_eq!(
+        results.len(),
+        1,
+        "Consumer should process exactly one message"
+    );
+    assert_eq!(
+        results[0], "Processed: Test message",
+        "Consumer should prepend 'Processed: ' to the message"
+    );
 }
 
 #[test]
@@ -51,10 +78,23 @@ fn test_consumer_multiple_messages() {
     drop(tx);
 
     let results = consumer_handle.join().unwrap();
-    assert_eq!(results.len(), 3);
-    assert_eq!(results[0], "Processed: First");
-    assert_eq!(results[1], "Processed: Second");
-    assert_eq!(results[2], "Processed: Third");
+    assert_eq!(
+        results.len(),
+        3,
+        "Consumer should process exactly three messages"
+    );
+    assert_eq!(
+        results[0], "Processed: First",
+        "First message should be processed correctly"
+    );
+    assert_eq!(
+        results[1], "Processed: Second",
+        "Second message should be processed correctly"
+    );
+    assert_eq!(
+        results[2], "Processed: Third",
+        "Third message should be processed correctly"
+    );
 }
 
 #[test]
@@ -64,7 +104,10 @@ fn test_consumer_empty_channel() {
     drop(tx);
 
     let results = consumer_handle.join().unwrap();
-    assert!(results.is_empty());
+    assert!(
+        results.is_empty(),
+        "Consumer should return empty vector when no messages are sent"
+    );
 }
 
 #[test]
@@ -77,8 +120,15 @@ fn test_producer_consumer_integration() {
     producer_handle.join().unwrap();
     let results = consumer_handle.join().unwrap();
 
-    assert_eq!(results.len(), 1);
-    assert_eq!(results[0], "Processed: Message from producer 42 - 0");
+    assert_eq!(
+        results.len(),
+        1,
+        "Integration test should process exactly one message"
+    );
+    assert_eq!(
+        results[0], "Processed: Message from producer 42 - 0",
+        "Producer and consumer should work together correctly"
+    );
 }
 
 #[test]
@@ -88,7 +138,16 @@ fn test_message_format_correctness() {
     handle.join().unwrap();
 
     let messages: Vec<String> = rx.iter().collect();
-    assert!(!messages.is_empty());
-    assert!(messages[0].contains("producer 99"));
-    assert!(messages[0].contains("- 0"));
+    assert!(
+        !messages.is_empty(),
+        "Producer should generate at least one message"
+    );
+    assert!(
+        messages[0].contains("producer 99"),
+        "Message should contain correct producer ID"
+    );
+    assert!(
+        messages[0].contains("- 0"),
+        "Message should contain correct message number"
+    );
 }
