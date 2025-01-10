@@ -1,4 +1,4 @@
-use vehicle_status::*;
+use methods_on_enums::*;
 
 #[test]
 fn test_is_operational() {
