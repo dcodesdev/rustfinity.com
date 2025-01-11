@@ -89,12 +89,31 @@ fn test_collection_valid() {
             pages: 10,
             discount: None,
         },
-        BookItem::OutOfPrint,
+        BookItem::Book {
+            pages: 20,
+            discount: Some(30),
+        },
     ]);
     assert_eq!(
         data.check_validity(),
         true,
-        "Collection with at least one valid item should be valid"
+        "Collection with all valid items should be valid"
+    );
+}
+
+#[test]
+fn test_collection_with_invalid() {
+    let data = BookItem::Collection(vec![
+        BookItem::Book {
+            pages: 10,
+            discount: None,
+        },
+        BookItem::OutOfPrint,
+    ]);
+    assert_eq!(
+        data.check_validity(),
+        false,
+        "Collection with any invalid item should be invalid"
     );
 }
 
@@ -142,14 +161,17 @@ fn test_nested_collection_valid() {
                 pages: 10,
                 discount: None,
             },
-            BookItem::OutOfPrint,
+            BookItem::Book {
+                pages: 20,
+                discount: Some(30),
+            },
         ]),
         BookItem::EBook("nested".to_string(), (5, 6)),
     ]);
     assert_eq!(
         data.check_validity(),
         true,
-        "Nested collection with at least one valid item should be valid"
+        "Nested collection with all valid items should be valid"
     );
 }
 

@@ -19,6 +19,6 @@ pub fn main() {
 
     println!("{}", book_a.check_validity()); // e.g. true
     println!("{}", ebook_b.check_validity()); // e.g. true
-    println!("{}", collection_c.check_validity()); // e.g. true
+    println!("{}", collection_c.check_validity()); // e.g. false (contains OutOfPrint)
     println!("{}", BookItem::OutOfPrint.check_validity()); // e.g. false
 }

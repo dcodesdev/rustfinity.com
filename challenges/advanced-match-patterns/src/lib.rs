@@ -18,7 +18,9 @@ impl BookItem {
                 discount: None,
             } if *pages > 0 => true,
             BookItem::EBook(name, (_, second)) if !name.is_empty() && *second > 0 => true,
-            BookItem::Collection(items) => items.iter().any(|i| i.check_validity()),
+            BookItem::Collection(items) => {
+                !items.is_empty() && items.iter().all(|i| i.check_validity())
+            }
             BookItem::OutOfPrint => false,
             _ => false,
         }
