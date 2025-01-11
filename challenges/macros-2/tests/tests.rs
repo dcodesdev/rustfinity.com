@@ -104,7 +104,7 @@ fn test_all_ports_different() {
     }
 }
 
-// Use the macro to do more impls
+// Use the macro to do more impl
 struct CustomPort(pub u16);
 
 config_default_impl!(CustomPort, 8080);

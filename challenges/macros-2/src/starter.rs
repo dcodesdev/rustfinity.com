@@ -1,28 +1,28 @@
-// Define the `DefaultValue` trait
-pub trait DefaultValue {
-    fn default_value() -> Self;
+pub trait ConfigDefault {
+    fn get_default() -> Self;
 }
 
-// Define the `default_value_impl` macro
+pub struct ConnectionTimeout(pub u64);
+pub struct MaxConnections(pub u32);
+pub struct RetryAttempts(pub u8);
+pub struct PostgresPort(pub u16);
+pub struct MySQLPort(pub u16);
+pub struct MongoPort(pub u16);
+pub struct RedisPort(pub u16);
+
+#[macro_export]
 macro_rules! default_value_impl {
-    ($type:ty, $value:expr) => {
-        impl DefaultValue for $type {
-            fn default_value() -> Self {
-                $value
-            }
-        }
-    };
+    // Your code here
 }
 
 // Example usage
 pub fn main() {
-    // Example of how the code will be tested:
-    // let value: f64 = <f64 as DefaultValue>::default_value();
-    // assert_eq!(value, 0.0);
+    // let's say we have a new struct
+    struct CustomPort(pub u16);
 
-    // Implement the macro for some types
-    // Uncomment the following to test your implementation
-    // default_value_impl!(f64, 0.0);
-    // default_value_impl!(u32, 2147483647);
-    // default_value_impl!(u8, 127);
+    // we implement the ConfigDefault trait for CustomPort
+    config_default_impl!(CustomPort, 8080);
+
+    // when running the `get_default` method, it should return the default value
+    assert_eq!(<CustomPort as ConfigDefault>::get_default().0, 8080);
 }
