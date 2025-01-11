@@ -1,19 +1,26 @@
-#[derive(Debug)]
-pub enum Data {
-    VariantA { x: i32, y: Option<i32> },
-    VariantB(String, (i32, i32)),
-    VariantC(Vec<Data>),
-    VariantD,
+#[derive(Debug, Clone)]
+pub enum BookItem {
+    Book { pages: i32, discount: Option<i32> },
+    EBook(String, (i32, i32)),
+    Collection(Vec<BookItem>),
+    OutOfPrint,
 }
 
-pub fn analyze_data(data: Data) -> String {
-    match data {
-        Data::VariantA { x, y: Some(y) } => format!("VariantA with x: {} and y: {}", x, y),
-        Data::VariantA { x, y: None } => format!("VariantA with x: {} and y: None", x),
-        Data::VariantB(s, (a, b)) => {
-            format!("VariantB with string '{}' and tuple ({}, {})", s, a, b)
+impl BookItem {
+    pub fn check_validity(&self) -> bool {
+        match self {
+            BookItem::Book {
+                pages,
+                discount: Some(d),
+            } if *pages > 0 && *d >= 0 && *d <= 50 => true,
+            BookItem::Book {
+                pages,
+                discount: None,
+            } if *pages > 0 => true,
+            BookItem::EBook(name, (_, second)) if !name.is_empty() && *second > 0 => true,
+            BookItem::Collection(items) => items.iter().any(|i| i.check_validity()),
+            BookItem::OutOfPrint => false,
+            _ => false,
         }
-        Data::VariantC(contents) => format!("VariantC with {} elements", contents.len()),
-        Data::VariantD => "VariantD".to_string(),
     }
 }

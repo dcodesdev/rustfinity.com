@@ -1,27 +1,24 @@
 #[derive(Debug)]
-pub enum Data {
-    VariantA { x: i32, y: Option<i32> },
-    VariantB(String, (i32, i32)),
-    VariantC(Vec<Data>),
-    VariantD,
+pub enum BookItem {
+    Book { pages: i32, discount: Option<i32> },
+    EBook(String, (i32, i32)),
+    Collection(Vec<BookItem>),
+    OutOfPrint,
 }
 
-pub fn analyze_data(data: Data) -> String {
-    // TODO: Implement the function here
-    unimplemented!()
-}
+// Removed standalone check_validity. We'll rely on BookItem::check_validity.
 
 // Example usage
 pub fn main() {
-    let data_a = Data::VariantA {
-        x: 42,
-        y: Some(100),
+    let book_a = BookItem::Book {
+        pages: 42,
+        discount: Some(100),
     };
-    let data_b = Data::VariantB("hello".to_string(), (1, 2));
-    let data_c = Data::VariantC(vec![data_a.clone(), Data::VariantD]);
+    let ebook_b = BookItem::EBook("hello".to_string(), (1, 2));
+    let collection_c = BookItem::Collection(vec![book_a.clone(), BookItem::OutOfPrint]);
 
-    println!("{}", analyze_data(data_a)); // Example output: "VariantA with x: 42 and y: Some(100)"
-    println!("{}", analyze_data(data_b)); // Example output: "VariantB with string hello and tuple (1, 2)"
-    println!("{}", analyze_data(data_c)); // Example output: "VariantC with 2 elements"
-    println!("{}", analyze_data(Data::VariantD)); // Example output: "VariantD"
+    println!("{}", book_a.check_validity()); // e.g. true
+    println!("{}", ebook_b.check_validity()); // e.g. true
+    println!("{}", collection_c.check_validity()); // e.g. true
+    println!("{}", BookItem::OutOfPrint.check_validity()); // e.g. false
 }
