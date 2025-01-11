@@ -1,37 +1,47 @@
-Concurrency is an essential concept in modern programming. Rust provides robust tools for concurrent programming, including threads and channels for message passing. Channels enable safe communication between threads using the `std::sync::mpsc` module (where `mpsc` stands for "multiple producer, single consumer").
-
-In this challenge, you will create a producer-consumer system where multiple threads generate messages (producers) and a single thread processes them (consumer). You'll use Rust's channels to send messages safely across threads.
+Concurrency is an essential concept in modern programming. This challenge focuses on building a message processing system using Rust's channels and threads. You'll create a system where multiple producers send messages with different priority levels, and a single consumer processes and formats these messages.
 
 ## Your Task
 
-Your task is to implement three functions:
+Implement three key functions that work with a message processing system:
 
-1. `create_message_channel()` - Creates and returns a channel for message passing
-2. `create_producer_thread()` - Creates a thread that sends messages
-3. `create_consumer_thread()` - Creates a thread that receives messages
+1. `create_message_channel()` - Creates a channel for sending Message structs
+2. `create_producer_thread()` - Creates a thread that analyzes and forwards messages
+3. `create_consumer_thread()` - Creates a thread that formats and collects messages
 
 ### Requirements
 
-- The number of producer threads and the messages each sends are provided as input.
-- Messages should be strings of the form `"Message from producer {id} - {msg_number}"`, where `{id}` is the producer ID and `{msg_number}` is the message number.
-- The consumer thread should receive the messages and add `"Processed: "` to the beginning of each message.
-- The function must return all processed messages in a `Vec<String>` in the order they were received.
+#### Producer Thread
+
+- Receives a vector of messages and a sender channel
+- Updates priority based on content keywords:
+  - "ERROR" → Critical
+  - "WARNING" → High
+  - "DEBUG" → Medium
+  - Others become Low
+- Sends each updated message through the channel
+
+#### Consumer Thread
+
+- Receives messages until the channel is closed
+- Formats each message as: `[PRIORITY|SENDER_ID] CONTENT`
+  where PRIORITY is one of: LOW, MED, HIGH, CRIT
+- Returns a vector of formatted message strings
 
 ### Notes
 
-- For this challenge, you can ignore error handling (use `unwrap()` where needed).
-- Focus on the core concurrency concepts rather than handling edge cases.
+- Ignore error handling, you can simply `unwrap()`
+- Have a look at the `main` function to see how the functions are used.
 
 ## Hints
 
-<details>
-    <summary>Click here to reveal hints</summary>
+Here are some tips to help you get started:
 
-- Use the `std::sync::mpsc::channel` function to create a channel.
-- You can clone the sender to allow multiple producers to send messages.
-- Use `thread::spawn` to create threads.
-- The consumer thread should run a loop to receive messages using `recv()` or `try_recv()` until all producers are finished.
-- Consider using `join` on threads to ensure all threads complete before collecting the results.
-- Handle channel closing properly by dropping the sender in the main thread when all producers are done.
+<details>
+    <summary>Click here for implementation hints</summary>
+
+- Use `mpsc::channel()` to create the message channel
+- Use `thread::spawn` and move closures
+- Use `while let Ok(msg) = rx.recv()` for receiving
+- Format with `format!("[{}|{}] {}", priority, id, content)`
 
 </details>

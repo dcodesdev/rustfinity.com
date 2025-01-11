@@ -1,43 +1,95 @@
 use std::sync::mpsc::{self, Receiver, Sender};
 use std::thread::{self, JoinHandle};
 
-pub fn create_producer_thread(
-    producer_id: usize,
-    messages_count: usize,
-    tx: Sender<String>,
-) -> JoinHandle<()> {
+#[derive(Clone, Debug)]
+pub enum Priority {
+    Low,
+    Medium,
+    High,
+    Critical,
+}
+
+impl Priority {
+    fn as_str(&self) -> &'static str {
+        match self {
+            Priority::Low => "LOW",
+            Priority::Medium => "MED",
+            Priority::High => "HIGH",
+            Priority::Critical => "CRIT",
+        }
+    }
+}
+
+#[derive(Clone, Debug)]
+pub struct Message {
+    pub content: String,
+    pub sender_id: u32,
+    pub priority: Priority,
+}
+
+pub fn create_producer_thread(messages: Vec<Message>, tx: Sender<Message>) -> JoinHandle<()> {
     thread::spawn(move || {
-        for msg_num in 0..messages_count {
-            let msg = format!("Message from producer {} - {}", producer_id, msg_num);
+        for mut msg in messages {
+            // Always update priority based on content analysis
+            msg.priority = if msg.content.contains("ERROR") {
+                Priority::Critical
+            } else if msg.content.contains("WARNING") {
+                Priority::High
+            } else if msg.content.contains("DEBUG") {
+                Priority::Medium
+            } else {
+                Priority::Low
+            };
+
             tx.send(msg).unwrap();
         }
     })
 }
 
-pub fn create_consumer_thread(rx: Receiver<String>) -> JoinHandle<Vec<String>> {
+pub fn create_consumer_thread(rx: Receiver<Message>) -> JoinHandle<Vec<String>> {
     thread::spawn(move || {
         let mut results = vec![];
         while let Ok(msg) = rx.recv() {
-            results.push(format!("Processed: {}", msg));
+            results.push(format!(
+                "[{}|{}] {}",
+                msg.priority.as_str(),
+                msg.sender_id,
+                msg.content
+            ));
         }
         results
     })
 }
 
-pub fn create_message_channel() -> (Sender<String>, Receiver<String>) {
+pub fn create_message_channel() -> (Sender<Message>, Receiver<Message>) {
     mpsc::channel()
 }
 
 // Example Usage
 pub fn main() {
-    // Create a channel
     let (tx, rx) = create_message_channel();
 
-    // Create 3 producer threads
     let mut producer_handles = vec![];
     for id in 0..3 {
         let tx_clone = tx.clone();
-        let handle = create_producer_thread(id, 2, tx_clone);
+        let messages = vec![
+            Message {
+                content: format!("Normal message from producer {}", id),
+                sender_id: id,
+                priority: Priority::Low,
+            },
+            Message {
+                content: format!("WARNING: System running hot on producer {}", id),
+                sender_id: id,
+                priority: Priority::Low,
+            },
+            Message {
+                content: format!("ERROR: Connection lost on producer {}", id),
+                sender_id: id,
+                priority: Priority::Low,
+            },
+        ];
+        let handle = create_producer_thread(messages, tx_clone);
         producer_handles.push(handle);
     }
 
