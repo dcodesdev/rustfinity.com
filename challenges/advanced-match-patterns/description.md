@@ -9,7 +9,9 @@ You need to implement a method `check_validity(&self)` for the `BookItem` enum t
 1. **Book**:
 
    - The number of pages must be greater than 0.
-   - If there is a discount, it must be between 0 and 50 (inclusive).
+   - If there is a discount:
+     - Must be non-negative (≥ 0)
+     - Must not exceed 50% (≤ 50)
 
 2. **EBook**:
 

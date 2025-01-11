@@ -53,6 +53,19 @@ fn test_book_discount_out_of_range_invalid() {
 }
 
 #[test]
+fn test_book_negative_discount_invalid() {
+    let data = BookItem::Book {
+        pages: 42,
+        discount: Some(-10),
+    };
+    assert_eq!(
+        data.check_validity(),
+        false,
+        "Book with negative discount should be invalid"
+    );
+}
+
+#[test]
 fn test_ebook_valid() {
     let data = BookItem::EBook("hello".to_string(), (1, 2));
     assert_eq!(

@@ -6,7 +6,9 @@ pub enum BookItem {
     OutOfPrint,
 }
 
-// Removed standalone check_validity. We'll rely on BookItem::check_validity.
+impl BookItem {
+    // TODO: Finish the implementation
+}
 
 // Example usage
 pub fn main() {
@@ -17,8 +19,20 @@ pub fn main() {
     let ebook_b = BookItem::EBook("hello".to_string(), (1, 2));
     let collection_c = BookItem::Collection(vec![book_a.clone(), BookItem::OutOfPrint]);
 
-    println!("{}", book_a.check_validity()); // e.g. true
-    println!("{}", ebook_b.check_validity()); // e.g. true
-    println!("{}", collection_c.check_validity()); // e.g. false (contains OutOfPrint)
-    println!("{}", BookItem::OutOfPrint.check_validity()); // e.g. false
+    assert!(
+        !book_a.check_validity(),
+        "Book with discount > 50 should be invalid"
+    );
+    assert!(
+        ebook_b.check_validity(),
+        "EBook with valid title and tuple should be valid"
+    );
+    assert!(
+        !collection_c.check_validity(),
+        "Collection containing invalid items should be invalid"
+    );
+    assert!(
+        !BookItem::OutOfPrint.check_validity(),
+        "OutOfPrint should always be invalid"
+    );
 }
