@@ -911,8 +911,20 @@
     "short_description": "Implement and use advanced trait functionalities in Rust.",
     "language": "RUST",
     "difficulty": "MEDIUM",
-    "track": "RUST_ADVANCED",
+    "track": "RUST_BASICS",
     "tags": ["traits", "type system", "operator overloading"],
+    "created_at": "2025-01-12T00:00:00Z",
+    "updated_at": "2025-01-12T00:00:00Z"
+  },
+  {
+    "id": 89,
+    "title": "Macros",
+    "slug": "macros",
+    "short_description": "Create a basic macro in Rust to demonstrate its functionality.",
+    "language": "RUST",
+    "difficulty": "EASY",
+    "track": "RUST_BASICS",
+    "tags": ["macros", "meta-programming"],
     "created_at": "2025-01-12T00:00:00Z",
     "updated_at": "2025-01-12T00:00:00Z"
   },
