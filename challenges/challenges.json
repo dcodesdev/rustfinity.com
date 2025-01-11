@@ -882,6 +882,18 @@
   },
   {
     "id": 86,
+    "title": "Shared State Concurrency",
+    "slug": "shared-state-concurrency",
+    "short_description": "Implement and manage shared state in concurrent programming using threads and Mutex in Rust.",
+    "language": "RUST",
+    "difficulty": "MEDIUM",
+    "track": "RUST_ADVANCED",
+    "tags": ["concurrency", "mutex", "threads", "shared state"],
+    "created_at": "2025-01-11T00:00:00Z",
+    "updated_at": "2025-01-11T00:00:00Z"
+  },
+  {
+    "id": 87,
     "title": "Advanced Match Patterns",
     "slug": "advanced-match-patterns",
     "short_description": "Utilize Rust's advanced pattern matching capabilities to destructure complex data.",
