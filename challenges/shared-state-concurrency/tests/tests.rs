@@ -4,18 +4,25 @@ use std::thread;
 use std::time::Duration;
 
 #[test]
-fn test_create_counter() {
-    let counter = create_counter();
+fn test_create_shared_data() {
+    let counter = create_shared_data(0);
     assert_eq!(
         *counter.lock().unwrap(),
         0,
         "New counter should be initialized to zero"
     );
+
+    let string_data = create_shared_data(String::from("test"));
+    assert_eq!(
+        *string_data.lock().unwrap(),
+        "test",
+        "Should initialize with given value"
+    );
 }
 
 #[test]
 fn test_increment_counter() {
-    let counter = create_counter();
+    let counter = create_shared_data(0);
     let handles = increment_counter(Arc::clone(&counter), 5, 10);
 
     for handle in handles {
@@ -43,7 +50,7 @@ fn test_modify_shared_data() {
 
 #[test]
 fn test_multiple_modifications() {
-    let counter = create_counter();
+    let counter = create_shared_data(0);
 
     let handles1 = increment_counter(Arc::clone(&counter), 3, 5);
     for handle in handles1 {
@@ -68,8 +75,8 @@ fn test_multiple_modifications() {
 
 #[test]
 fn test_concurrent_modifications() {
-    let counter = create_counter();
-    let counter2 = create_counter();
+    let counter = create_shared_data(0);
+    let counter2 = create_shared_data(0);
 
     let handles1 = increment_counter(Arc::clone(&counter), 2, 5);
     let handles2 = increment_counter(Arc::clone(&counter), 3, 3);
@@ -92,7 +99,7 @@ fn test_concurrent_modifications() {
 
 #[test]
 fn test_zero_increments() {
-    let counter = create_counter();
+    let counter = create_shared_data(0);
     let handles = increment_counter(Arc::clone(&counter), 5, 0);
 
     for handle in handles {
@@ -131,8 +138,8 @@ fn test_modify_with_delay() {
 
 #[test]
 fn test_multiple_counters() {
-    let counter1 = create_counter();
-    let counter2 = create_counter();
+    let counter1 = create_shared_data(0);
+    let counter2 = create_shared_data(0);
 
     let handles1 = increment_counter(Arc::clone(&counter1), 2, 3);
     let handles2 = increment_counter(Arc::clone(&counter2), 3, 2);
@@ -158,7 +165,7 @@ fn test_multiple_counters() {
 
 #[test]
 fn test_num_of_threads() {
-    let counter = create_counter();
+    let counter = create_shared_data(0);
     let expected_threads = 5;
     let handles = increment_counter(Arc::clone(&counter), expected_threads, 1);
 
@@ -182,7 +189,7 @@ fn test_num_of_threads() {
 
 #[test]
 fn test_increments() {
-    let counter = create_counter();
+    let counter = create_shared_data(0);
     let expected_increments = 10;
     let handles = increment_counter(Arc::clone(&counter), 1, expected_increments);
 
