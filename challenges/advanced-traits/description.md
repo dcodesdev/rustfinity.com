@@ -31,7 +31,7 @@ If you're stuck, here are some hints to help you solve the challenge!
   fn add(self, other: Meters) -> Self::Output;
   ```
 
-- Remember that meters must be multiplied by 1000 to convert to millimeters
+- Remember that meters must be **multiplied** by `1000` to convert to millimeters
 - Access tuple struct fields with `.0`
 
 </details>
