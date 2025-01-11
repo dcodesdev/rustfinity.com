@@ -929,6 +929,18 @@
     "updated_at": "2025-01-12T00:00:00Z"
   },
   {
+    "id": 90,
+    "title": "Macros 2",
+    "slug": "macros-2",
+    "short_description": "Create a macro to implement a trait for generating default values for various types.",
+    "language": "RUST",
+    "difficulty": "INTERMEDIATE",
+    "track": "RUST_MACROS",
+    "tags": ["macros", "traits", "type system"],
+    "created_at": "2025-01-12T00:00:00Z",
+    "updated_at": "2025-01-12T00:00:00Z"
+  },
+  {
     "id": 4,
     "title": "Fizz Buzz",
     "slug": "fizz-buzz",
