@@ -1,23 +1,29 @@
-pub trait DefaultValue {
-    fn default_value() -> Self;
+pub trait ConfigDefault {
+    fn get_default() -> Self;
 }
 
-macro_rules! default_value_impl {
+pub struct ConnectionTimeout(pub u64);
+pub struct MaxConnections(pub u32);
+pub struct RetryAttempts(pub u8);
+pub struct PostgresPort(pub u16);
+pub struct MySQLPort(pub u16);
+pub struct MongoPort(pub u16);
+pub struct RedisPort(pub u16);
+
+macro_rules! config_default_impl {
     ($type:ty, $value:expr) => {
-        impl DefaultValue for $type {
-            fn default_value() -> Self {
-                $value
+        impl ConfigDefault for $type {
+            fn get_default() -> Self {
+                Self($value)
             }
         }
     };
 }
 
-// Use the macro to implement DefaultValue for multiple types
-default_value_impl!(f64, 0.0);
-default_value_impl!(f32, 0.0);
-default_value_impl!(u32, 2147483647);
-default_value_impl!(u8, 127);
-default_value_impl!(i32, 0);
-default_value_impl!(u16, 32767);
-default_value_impl!(i16, 0);
-default_value_impl!(i8, 0);
+config_default_impl!(ConnectionTimeout, 30);
+config_default_impl!(MaxConnections, 100);
+config_default_impl!(RetryAttempts, 3);
+config_default_impl!(PostgresPort, 5432);
+config_default_impl!(MySQLPort, 3306);
+config_default_impl!(MongoPort, 27017);
+config_default_impl!(RedisPort, 6379);

@@ -1,36 +1,24 @@
 use macros_2::*;
 
 #[test]
-fn test_default_value_f64() {
-    assert_eq!(<f64 as DefaultValue>::default_value(), 0.0);
+fn test_connection_timeout() {
+    assert_eq!(<ConnectionTimeout as ConfigDefault>::get_default().0, 30);
 }
 
 #[test]
-fn test_default_value_u32() {
-    assert_eq!(<u32 as DefaultValue>::default_value(), 2147483647);
+fn test_max_connections() {
+    assert_eq!(<MaxConnections as ConfigDefault>::get_default().0, 100);
 }
 
 #[test]
-fn test_default_value_u8() {
-    assert_eq!(<u8 as DefaultValue>::default_value(), 127);
+fn test_retry_attempts() {
+    assert_eq!(<RetryAttempts as ConfigDefault>::get_default().0, 3);
 }
 
 #[test]
-fn test_default_value_i32() {
-    assert_eq!(<i32 as DefaultValue>::default_value(), 0);
-}
-
-#[test]
-fn test_default_value_u16() {
-    assert_eq!(<u16 as DefaultValue>::default_value(), 32767);
-}
-
-#[test]
-fn test_default_value_i16() {
-    assert_eq!(<i16 as DefaultValue>::default_value(), 0);
-}
-
-#[test]
-fn test_default_value_i8() {
-    assert_eq!(<i8 as DefaultValue>::default_value(), 0);
+fn test_database_ports() {
+    assert_eq!(<PostgresPort as ConfigDefault>::get_default().0, 5432);
+    assert_eq!(<MySQLPort as ConfigDefault>::get_default().0, 3306);
+    assert_eq!(<MongoPort as ConfigDefault>::get_default().0, 27017);
+    assert_eq!(<RedisPort as ConfigDefault>::get_default().0, 6379);
 }
