@@ -9,5 +9,5 @@ pub fn main() {
     let length2 = Meters(3);
 
     let result = length1 + length2;
-    assert_eq!(result.0, 4500); // Should assert: 1500mm + 3000mm = 4500mm
+    assert_eq!(result.0, 4500);
 }
