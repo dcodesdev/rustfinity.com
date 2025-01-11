@@ -6,7 +6,7 @@ In this challenge, you'll create a macro that formats mathematical operations as
 
 In this challenge, you will implement a macro named `math_operations!` that:
 
-1. Takes three arguments: two numbers and an operator
+1. Takes three arguments: two integers and an operator
 2. Performs the mathematical operation
 3. Returns a formatted string showing the operation and its result
 
@@ -14,24 +14,23 @@ In this challenge, you will implement a macro named `math_operations!` that:
 
 1. The macro should format the output as: `"{number} {operator} {number} = {result}"`
 
-2. Supported Operations:
+2. Input Types:
+
+   - The macro expects integer operands only (no floating-point numbers)
+   - Both signed and unsigned integers are supported
+   - Results will also be **integers** (division rounds towards zero)
+
+3. Supported Operations:
 
    - Addition (`+`)
    - Subtraction (`-`)
    - Multiplication (`*`)
    - Division (`/`)
 
-3. Error Handling:
+4. Error Handling:
 
    - Division by zero should panic with message: `"Division by zero"`
    - Invalid operators should panic with message: `"Unsupported operator: {operator}"`
-
-4. Support for:
-
-   - Positive and negative numbers
-   - Zero operations
-   - Large numbers
-   - Same number operations
 
 ## Hints
 
