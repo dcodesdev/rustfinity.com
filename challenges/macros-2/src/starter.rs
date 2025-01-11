@@ -11,9 +11,12 @@ pub struct MongoPort(pub u16);
 pub struct RedisPort(pub u16);
 
 #[macro_export]
-macro_rules! default_value_impl {
-    // Your code here
+macro_rules! config_default_impl {
+    // 1. Finish the macro
 }
+
+// 2. Implement the ConfigDefault trait using the macro
+// Note: Check the description to get the expected default values
 
 // Example usage
 pub fn main() {
