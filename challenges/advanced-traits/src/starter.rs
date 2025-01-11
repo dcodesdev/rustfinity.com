@@ -1,15 +1,7 @@
-use std::ops::Add;
-
 pub struct Millimeters(pub u32);
 pub struct Meters(pub u32);
 
-impl Add<Meters> for Millimeters {
-    type Output = Millimeters;
-
-    fn add(self, other: Meters) -> Millimeters {
-        // Implement here
-    }
-}
+// Implement the Add trait
 
 // Example usage
 pub fn main() {
@@ -17,5 +9,5 @@ pub fn main() {
     let length2 = Meters(3);
 
     let result = length1 + length2;
-    println!("Result: {} mm", result.0); // Should print: Result: 4500 mm
+    assert_eq!(result.0, 4500); // Should assert: 1500mm + 3000mm = 4500mm
 }
