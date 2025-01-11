@@ -103,3 +103,13 @@ fn test_all_ports_different() {
         }
     }
 }
+
+// Use the macro to do more impls
+struct CustomPort(pub u16);
+
+config_default_impl!(CustomPort, 8080);
+
+#[test]
+fn test_custom_port() {
+    assert_eq!(<CustomPort as ConfigDefault>::get_default().0, 8080);
+}

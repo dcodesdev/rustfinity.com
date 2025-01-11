@@ -10,6 +10,7 @@ pub struct MySQLPort(pub u16);
 pub struct MongoPort(pub u16);
 pub struct RedisPort(pub u16);
 
+#[macro_export]
 macro_rules! config_default_impl {
     ($type:ty, $value:expr) => {
         impl ConfigDefault for $type {
