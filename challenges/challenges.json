@@ -905,6 +905,18 @@
     "updated_at": "2025-01-11T00:00:00Z"
   },
   {
+    "id": 88,
+    "title": "Advanced Traits",
+    "slug": "advanced-traits",
+    "short_description": "Implement and use advanced trait functionalities in Rust.",
+    "language": "RUST",
+    "difficulty": "MEDIUM",
+    "track": "RUST_ADVANCED",
+    "tags": ["traits", "type system", "operator overloading"],
+    "created_at": "2025-01-12T00:00:00Z",
+    "updated_at": "2025-01-12T00:00:00Z"
+  },
+  {
     "id": 4,
     "title": "Fizz Buzz",
     "slug": "fizz-buzz",
