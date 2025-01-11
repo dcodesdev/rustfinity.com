@@ -887,7 +887,7 @@
     "short_description": "Implement and manage shared state in concurrent programming using threads and Mutex in Rust.",
     "language": "RUST",
     "difficulty": "MEDIUM",
-    "track": "RUST_ADVANCED",
+    "track": "RUST_BASICS",
     "tags": ["concurrency", "mutex", "threads", "shared state"],
     "created_at": "2025-01-11T00:00:00Z",
     "updated_at": "2025-01-11T00:00:00Z"
@@ -899,7 +899,7 @@
     "short_description": "Utilize Rust's advanced pattern matching capabilities to destructure complex data.",
     "language": "RUST",
     "difficulty": "HARD",
-    "track": "RUST_ADVANCED",
+    "track": "RUST_BASICS",
     "tags": ["match", "pattern matching", "advanced"],
     "created_at": "2025-01-11T00:00:00Z",
     "updated_at": "2025-01-11T00:00:00Z"
