@@ -1,42 +1,56 @@
 Macros in Rust are one of its most powerful features, enabling meta-programming and reducing repetitive code. A macro allows you to generate and include code fragments during compilation, making it an excellent tool for tasks like boilerplate elimination.
 
-In this challenge, you will create a macro named `math_operations!` that evaluates a mathematical expression involving two numbers and formats the result as a string. The macro should take three arguments: the first number, the operator, and the second number, and return a formatted string of the operation and result.
+In this challenge, you'll create a macro that formats mathematical operations as human-readable strings. The macro should perform the calculation and present it in a clear, formatted way.
 
-For example:
+## Your Task
 
-- `math_operations!(4, "+", 2)` should return `"4 + 2 = 6"`.
-- `math_operations!(10, "-", 3)` should return `"10 - 3 = 7"`.
-- `math_operations!(6, "*", 4)` should return `"6 * 4 = 24"`.
-- `math_operations!(15, "/", 3)` should return `"15 / 3 = 5"`.
+In this challenge, you will implement a macro named `math_operations!` that:
 
-### Your Task
-
-Write the `math_operations!` macro to handle the following:
-
-1. Perform basic mathematical operations: addition (`+`), subtraction (`-`), multiplication (`*`), and division (`/`).
-2. Return the formatted string showing the operation and the result.
-3. Handle unsupported operators with a compile-time panic.
-4. Panic if there is an attempt to divide by zero.
+1. Takes three arguments: two numbers and an operator
+2. Performs the mathematical operation
+3. Returns a formatted string showing the operation and its result
 
 ### Requirements
 
-- The macro must take three arguments:
-  - A numeric value (the first operand).
-  - A string operator (`"+", "-", "*", "/"`).
-  - Another numeric value (the second operand).
-- If the operator is invalid, the macro should panic with a clear message: `"Unsupported operator: <operator>"`.
-- If dividing by zero, the macro should panic with the message: `"Division by zero"`.
+1. The macro should format the output as: `"{number} {operator} {number} = {result}"`
+
+2. Supported Operations:
+
+   - Addition (`+`)
+   - Subtraction (`-`)
+   - Multiplication (`*`)
+   - Division (`/`)
+
+3. Error Handling:
+
+   - Division by zero should panic with message: `"Division by zero"`
+   - Invalid operators should panic with message: `"Unsupported operator: {operator}"`
+
+4. Support for:
+
+   - Positive and negative numbers
+   - Zero operations
+   - Large numbers
+   - Same number operations
 
 ## Hints
 
-If you're stuck, here are some tips to help you out:
+If you're stuck, check out the hints below.
 
 <details>
   <summary>Click here to reveal hints</summary>
 
-- Use a `match` statement inside the macro to evaluate the operator and apply the operation.
-- The `panic!` macro is useful for handling invalid input at compile time.
-- You can use the `expr` matcher for the operands and the operator in the macro's signature.
-- Be sure to include zero-check logic when dividing to prevent runtime errors.
+- Use pattern matching to handle different operators
+- Remember to check for division by zero before performing division
+- The `format!` macro is useful for creating the output string
+- Use `expr` matchers in your macro for maximum flexibility, e.g.
+
+  ```rust
+  macro_rules! math_operations {
+    ($a:expr, $op:expr, $b:expr) => {{
+        // Your code here
+    }};
+  }
+  ```
 
 </details>
