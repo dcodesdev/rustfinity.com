@@ -21,7 +21,7 @@ Implement the following functions to demonstrate shared ownership and interior m
    - Accept an `Rc<RefCell<i32>` as input.
    - Increment the value inside the `RefCell` by one.
 
-## Requirements
+### Requirements
 
 - Use `Rc` to share ownership of the vector.
 - Use `RefCell` to allow interior mutability.
