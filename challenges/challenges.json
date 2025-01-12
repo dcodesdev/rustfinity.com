@@ -941,6 +941,18 @@
     "updated_at": "2025-01-12T00:00:00Z"
   },
   {
+    "id": 91,
+    "title": "The Default Trait",
+    "slug": "the-default-trait",
+    "short_description": "Implement and use the Default trait for custom types in Rust.",
+    "language": "RUST",
+    "difficulty": "EASY",
+    "track": "RUST_BASICS",
+    "tags": ["traits", "default", "structs"],
+    "created_at": "2025-01-12T00:00:00Z",
+    "updated_at": "2025-01-12T00:00:00Z"
+  },
+  {
     "id": 4,
     "title": "Fizz Buzz",
     "slug": "fizz-buzz",
