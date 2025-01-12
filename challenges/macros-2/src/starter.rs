@@ -2,6 +2,7 @@ pub trait ConfigDefault {
     fn get_default() -> Self;
 }
 
+// These types need default values
 pub struct ConnectionTimeout(pub u64);
 pub struct MaxConnections(pub u32);
 pub struct RetryAttempts(pub u8);
@@ -12,11 +13,10 @@ pub struct RedisPort(pub u16);
 
 #[macro_export]
 macro_rules! config_default_impl {
-    // 1. Finish the macro
+    // TODO: Implement the macro here
 }
 
-// 2. Implement the ConfigDefault trait using the macro
-// Note: Check the description to get the expected default values
+// TODO: Use the macro to implement ConfigDefault for each type
 
 // Example usage
 pub fn main() {
