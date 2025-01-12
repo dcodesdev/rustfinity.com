@@ -1,4 +1,8 @@
-use procedural_macros::Describe;
+use procedural_macros::*;
+
+trait Describe {
+    fn describe(&self) -> String;
+}
 
 #[derive(Describe)]
 struct Point {
