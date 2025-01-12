@@ -18,12 +18,6 @@ In this challenge, you'll define a simple enum and use `#[derive(PartialEq)]` to
 
 3. Write tests to ensure that the derived implementation works as expected.
 
-### Example
-
-```rust
-
-```
-
 ### Requirements
 
 1. Use the `#[derive(PartialEq)]` macro for the `OrderStatus` enum.
@@ -32,7 +26,7 @@ In this challenge, you'll define a simple enum and use `#[derive(PartialEq)]` to
 ## Hints
 
 <details>
-<summary>Click here to reveal hints</summary>
+   <summary>Click here to reveal hints</summary>
 
 - Use the `derive` macro on the enum to automatically implement `PartialEq`.
 - String types in Rust already implement `PartialEq`, so `Cancelled(String)` can be compared automatically.

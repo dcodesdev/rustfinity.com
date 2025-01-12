@@ -33,7 +33,7 @@ You need to implement a method `check_validity(&self)` for the `BookItem` enum t
 - Return a boolean (`true` or `false`) based on the type of `BookItem`.
 - Ensure that the function does not panic for any valid input.
 
-### Hints
+## Hints
 
 <details>
   <summary>Click here to reveal hints</summary>
