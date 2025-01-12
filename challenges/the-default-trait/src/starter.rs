@@ -4,12 +4,7 @@ pub struct AppConfig {
     pub max_users: u32,
 }
 
-impl Default for AppConfig {
-    fn default() -> Self {
-        // Implement here
-        todo!()
-    }
-}
+// TODO: implement the `Default` trait for `AppConfig`
 
 // Example usage
 pub fn main() {
