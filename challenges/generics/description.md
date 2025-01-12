@@ -18,7 +18,7 @@ If you're stuck, here are some hints to help you solve the challenge:
 
   ```rust
   struct ItemContainer<T> {
-      item: T,
+    item: T,
   }
   ```
 
