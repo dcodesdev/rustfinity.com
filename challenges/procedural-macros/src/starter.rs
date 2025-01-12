@@ -4,12 +4,18 @@ pub fn derive_describe(input: TokenStream) -> TokenStream {
 }
 
 // Example Test
-// #[test]
-// fn test_example() {
-//     let person = Person {
-//         name: "Alice".to_string(),
-//         age: 30,
-//     };
-
-//     assert_eq!(person.describe(), "Person { name: \"Alice\", age: 30 }");
-// }
+//#[test]
+//fn test_example() {
+//    #[derive(Describe)]
+//    struct Person {
+//        name: String,
+//        age: u32,
+//    }
+//
+//    let person = Person {
+//        name: "Alice".to_string(),
+//        age: 30,
+//    };
+//
+//    assert_eq!(person.describe(), "Person { name: \"Alice\", age: 30 }");
+//}

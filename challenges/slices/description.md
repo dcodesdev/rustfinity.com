@@ -8,24 +8,11 @@ Implement the function `find_largest_in_slice(slice: &[i32]) -> Option<i32>` tha
 
 Slices provide various methods that can help you work efficiently, such as iterators and bounds checking.
 
-## Requirements
+### Requirements
 
 - The function should return `Some(i32)` with the largest element in the slice if the slice is not empty.
 - If the slice is empty, the function should return `None`.
 - The function can not modify the input slice.
-
-## Example
-
-```rust
-let numbers = [1, 3, 7, 2, 5];
-assert_eq!(find_largest_in_slice(&numbers), Some(7));
-
-let empty: [i32; 0] = [];
-assert_eq!(find_largest_in_slice(&empty), None);
-
-let single_element = [42];
-assert_eq!(find_largest_in_slice(&single_element), Some(42));
-```
 
 ## Hints
 

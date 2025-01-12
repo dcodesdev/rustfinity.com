@@ -10,9 +10,7 @@ In this challenge, you'll implement a trait `Describable` and use it to define a
 2. Implement this trait for the struct `Person`.
 3. Implement this trait for the struct `Book`.
 
-## Requirements
-
-### Constraints
+### Requirements
 
 - The `Person` struct should have fields `name: String` and `age: u8`.
 - The `Book` struct should have fields `title: String` and `author: String`.

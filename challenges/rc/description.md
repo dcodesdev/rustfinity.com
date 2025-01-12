@@ -2,7 +2,7 @@ Reference-counted pointers, `Rc<T>`, are a type of smart pointer in Rust that al
 
 In this challenge, you'll use `Rc<T>` to share data between functions.
 
-### Your Task
+## Your Task
 
 Implement the functions `use_shared_data` and `share_data_to_other_functions` to work with `Rc<T>`.
 
@@ -15,7 +15,7 @@ Implement the functions `use_shared_data` and `share_data_to_other_functions` to
   - Share the input as a reference-counted pointer 3 times with the given closure.
   - Do cheap clones only and avoid deep copying the data.
 
-### Hints
+## Hints
 
 If you're stuck, here are some hints to help you solve the challenge:
 
