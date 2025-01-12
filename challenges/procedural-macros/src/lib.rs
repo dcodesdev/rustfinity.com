@@ -33,14 +33,3 @@ pub fn derive_describe(input: TokenStream) -> TokenStream {
 
     generated.into()
 }
-
-// Example Test
-// #[test]
-// fn test_example() {
-//     let person = Person {
-//         name: "Alice".to_string(),
-//         age: 30,
-//     };
-
-//     assert_eq!(person.describe(), "Person { name: \"Alice\", age: 30 }");
-// }
