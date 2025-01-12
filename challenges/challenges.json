@@ -953,6 +953,18 @@
     "updated_at": "2025-01-12T00:00:00Z"
   },
   {
+    "id": 92,
+    "title": "Procedural macros",
+    "slug": "procedural-macros",
+    "short_description": "Implement a simple procedural macro to automatically derive a custom trait.",
+    "language": "RUST",
+    "difficulty": "HARD",
+    "track": "RUST_BASICS",
+    "tags": ["procedural macros", "traits", "derive"],
+    "created_at": "2025-01-12T00:00:00Z",
+    "updated_at": "2025-01-12T00:00:00Z"
+  },
+  {
     "id": 4,
     "title": "Fizz Buzz",
     "slug": "fizz-buzz",
