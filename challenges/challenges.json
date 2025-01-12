@@ -934,8 +934,8 @@
     "slug": "macros-2",
     "short_description": "Create a macro to implement a trait for generating default values for various types.",
     "language": "RUST",
-    "difficulty": "INTERMEDIATE",
-    "track": "RUST_MACROS",
+    "difficulty": "MEDIUM",
+    "track": "RUST_BASICS",
     "tags": ["macros", "traits", "type system"],
     "created_at": "2025-01-12T00:00:00Z",
     "updated_at": "2025-01-12T00:00:00Z"
