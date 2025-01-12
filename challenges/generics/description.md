@@ -22,4 +22,4 @@ If you're stuck, here are some hints to help you solve the challenge:
   }
   ```
 
-  </details>
+</details>
