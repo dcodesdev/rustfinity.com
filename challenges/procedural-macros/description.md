@@ -25,20 +25,32 @@ assert_eq!(p.describe(), "Point { x: 1, y: 2 }");
 
 ### Requirements
 
-1. The procedural macro should be defined in a separate crate (as required by Rust's macro system).
-2. The `derive_describe` macro should:
-   - Generate the `Describe` trait implementation for the struct it is applied to.
-   - Support structs with named fields. (Tuple structs or unit structs are not required for this challenge.)
-3. The `describe` method should return a properly formatted string, including the struct name and fields with their values.
+1. The `derive_describe` macro should:
+
+- Generate the `Describe` trait implementation for the struct it is applied to.
+- Support structs with named fields. (Tuple structs or unit structs are not required for this challenge.)
+
+2. The `describe` method should return a properly formatted string, including the struct name and fields with their values.
+
+## Good to know
+
+Procedural macros must be defined in a separate crate from the one where they are used. This is because procedural macros are compiled to a shared library that is loaded by the Rust compiler at compile time. The shared library must be compiled before the crate that uses the macro.
+
+In your `Cargo.toml`, you should define a new crate for the procedural macro:
+
+```toml
+[lib]
+proc-macro = true
+```
+
+This is already done for this challenge, but it's important to understand the setup.
 
 ## Hints
 
 <details>
     <summary>Click here to reveal hints</summary>
 
-- Use the `syn` crate to parse the input TokenStream into an Abstract Syntax Tree (AST).
-- Use the `quote` crate to generate Rust code as a TokenStream.
-- You can get the name of the struct and its fields from the parsed AST.
-- Remember to handle visibility, lifetimes, and generics if applicable to the struct.
+- Use the `syn` crate to parse the input `TokenStream` into an Abstract Syntax Tree (AST).
+- Use the `quote` crate to generate Rust code as a `TokenStream`.
 
 </details>
