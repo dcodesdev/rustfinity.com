@@ -1,8 +1,6 @@
-Now that we have an overview of how macros work, let's dive into another challenge where you'll create a macro that helps implement a trait for multiple types.
+Now that we have an overview of how macros work, let's dive into another macro challenge. When implementing traits for multiple types, you often end up writing very similar code over and over.
 
-In this challenge, you'll use macros to implement a trait for defining default configuration values for different types.
-
-The goal is to create a macro called `config_default_impl` that generates implementations of a trait called `ConfigDefault` for multiple types. The `ConfigDefault` trait is designed to provide a default value for specific configuration parameters.
+In this challenge, you'll create a macro that generates implementations of a trait for multiple types. The goal is to reduce the amount of boilerplate code you need to write.
 
 ## Your Task
 
