@@ -1,4 +1,4 @@
-In this challenge, you will implement a function `calculate_area` that computes the area of a rectangle using a given width and height. The purpose of this exercise is to practice variable declaration, arithmetic operations, and using helper functions.
+In this challenge, you will implement a function `calculate_area` that computes the area of a rectangle using a given `width` and `height`. The purpose of this exercise is to practice variable declaration.
 
 ## Your Task
 
@@ -12,7 +12,7 @@ The `calculate_area` function should:
 
 Do not modify the `prints_values` function.
 
-> **Note:** While it is possible to solve the challenge and pass the tests without explicitly declaring variables (e.g., by directly passing values to `prints_values` or using expressions inline), it is strongly recommended to declare variables for `width` and `height`. This exercise is designed to help you practice and get accustomed to using variables effectively in Rust.
+> **Note:** While it is possible to solve the challenge and pass the tests without explicitly declaring variables (e.g., by directly passing values to `prints_values` or using expressions inline), we recommend you practice declaring variables using the `let` keyword.
 
 ## Hints
 
