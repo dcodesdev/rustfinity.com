@@ -1254,9 +1254,6 @@ dependencies = [
 [[package]]
 name = "primitive-data-types"
 version = "0.1.0"
-dependencies = [
- "syntest",
-]
 
 [[package]]
 name = "printing-hello-world"
