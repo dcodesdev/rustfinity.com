@@ -144,54 +144,6 @@
     "updated_at": "2024-06-12T00:00:00Z"
   },
   {
-    "id": 10,
-    "title": "Basic If-Else Statements",
-    "slug": "if-else",
-    "short_description": "Learn how to use if-else statements in Rust to control the flow of your program.",
-    "language": "RUST",
-    "difficulty": "EASY",
-    "track": "CONTROL_FLOW",
-    "tags": ["control flow", "if-else"],
-    "created_at": "2024-06-01T00:00:00Z",
-    "updated_at": "2024-06-01T00:00:00Z"
-  },
-  {
-    "id": 11,
-    "title": "Sum of Even Numbers",
-    "slug": "sum-of-even-numbers",
-    "short_description": "Implement a function to sum even numbers in a given range using a for loop.",
-    "language": "RUST",
-    "difficulty": "EASY",
-    "track": "CONTROL_FLOW",
-    "tags": ["for-loop", "iteration", "range"],
-    "created_at": "2024-06-02T00:00:00Z",
-    "updated_at": "2024-06-02T00:00:00Z"
-  },
-  {
-    "id": 12,
-    "title": "Countdown",
-    "slug": "countdown",
-    "short_description": "Implement a countdown timer using a while loop in Rust.",
-    "language": "RUST",
-    "difficulty": "EASY",
-    "track": "CONTROL_FLOW",
-    "tags": ["while", "loop", "control flow"],
-    "created_at": "2024-06-02T00:00:00Z",
-    "updated_at": "2024-06-02T00:00:00Z"
-  },
-  {
-    "id": 13,
-    "title": "Weekday from Number",
-    "slug": "weekday-from-number",
-    "short_description": "Use Rust's pattern matching to determine the weekday given its number.",
-    "language": "RUST",
-    "difficulty": "EASY",
-    "track": "CONTROL_FLOW",
-    "tags": ["pattern matching", "match", "control flow"],
-    "created_at": "2024-06-02T00:00:00Z",
-    "updated_at": "2024-06-02T00:00:00Z"
-  },
-  {
     "id": 34,
     "title": "Ownership",
     "slug": "ownership",
@@ -334,6 +286,18 @@
     "tags": ["structs", "methods", "associated functions"],
     "created_at": "2024-12-29T00:00:00Z",
     "updated_at": "2024-12-29T00:00:00Z"
+  },
+  {
+    "id": 7,
+    "title": "Animal sanctuary registry",
+    "slug": "animal-sanctuary-registry",
+    "short_description": "Create a program that manages a registry of animals in a sanctuary.",
+    "language": "RUST",
+    "difficulty": "MEDIUM",
+    "track": "RUST_BASICS",
+    "tags": [],
+    "created_at": "2024-04-30T00:00:00Z",
+    "updated_at": "2024-04-30T00:00:00Z"
   },
   {
     "id": 45,
@@ -965,6 +929,54 @@
     "updated_at": "2025-01-12T00:00:00Z"
   },
   {
+    "id": 10,
+    "title": "Basic If-Else Statements",
+    "slug": "if-else",
+    "short_description": "Learn how to use if-else statements in Rust to control the flow of your program.",
+    "language": "RUST",
+    "difficulty": "EASY",
+    "track": "CONTROL_FLOW",
+    "tags": ["control flow", "if-else"],
+    "created_at": "2024-06-01T00:00:00Z",
+    "updated_at": "2024-06-01T00:00:00Z"
+  },
+  {
+    "id": 11,
+    "title": "Sum of Even Numbers",
+    "slug": "sum-of-even-numbers",
+    "short_description": "Implement a function to sum even numbers in a given range using a for loop.",
+    "language": "RUST",
+    "difficulty": "EASY",
+    "track": "CONTROL_FLOW",
+    "tags": ["for-loop", "iteration", "range"],
+    "created_at": "2024-06-02T00:00:00Z",
+    "updated_at": "2024-06-02T00:00:00Z"
+  },
+  {
+    "id": 12,
+    "title": "Countdown",
+    "slug": "countdown",
+    "short_description": "Implement a countdown timer using a while loop in Rust.",
+    "language": "RUST",
+    "difficulty": "EASY",
+    "track": "CONTROL_FLOW",
+    "tags": ["while", "loop", "control flow"],
+    "created_at": "2024-06-02T00:00:00Z",
+    "updated_at": "2024-06-02T00:00:00Z"
+  },
+  {
+    "id": 13,
+    "title": "Weekday from Number",
+    "slug": "weekday-from-number",
+    "short_description": "Use Rust's pattern matching to determine the weekday given its number.",
+    "language": "RUST",
+    "difficulty": "EASY",
+    "track": "CONTROL_FLOW",
+    "tags": ["pattern matching", "match", "control flow"],
+    "created_at": "2024-06-02T00:00:00Z",
+    "updated_at": "2024-06-02T00:00:00Z"
+  },
+  {
     "id": 4,
     "title": "Fizz Buzz",
     "slug": "fizz-buzz",
@@ -1064,18 +1076,6 @@
     "tags": [],
     "created_at": "2024-05-03T00:00:00Z",
     "updated_at": "2024-05-03T00:00:00Z"
-  },
-  {
-    "id": 7,
-    "title": "Animal sanctuary registry",
-    "slug": "animal-sanctuary-registry",
-    "short_description": "Create a program that manages a registry of animals in a sanctuary.",
-    "language": "RUST",
-    "difficulty": "MEDIUM",
-    "track": "RUST_BASICS",
-    "tags": [],
-    "created_at": "2024-04-30T00:00:00Z",
-    "updated_at": "2024-04-30T00:00:00Z"
   },
   {
     "id": 19,
