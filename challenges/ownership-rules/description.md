@@ -26,7 +26,7 @@ If you're stuck, here are some hints that can help you:
 <details>
   <summary>Click to reveal hints</summary>
 
-In order to understand the problem, we need to undertand the signature of the `push_str` method. The method signature is as follows:
+In order to understand the problem, we need to understand the signature of the `push_str` method. The method signature is as follows:
 
 ```rust
 fn push_str(&mut self, string: &str)
