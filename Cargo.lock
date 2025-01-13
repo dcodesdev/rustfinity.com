@@ -1011,9 +1011,6 @@ version = "0.1.0"
 [[package]]
 name = "mutable-variables"
 version = "0.1.0"
-dependencies = [
- "syntest",
-]
 
 [[package]]
 name = "native-tls"
@@ -1899,9 +1896,6 @@ version = "0.1.0"
 [[package]]
 name = "the-unit-type"
 version = "0.1.0"
-dependencies = [
- "syntest",
-]
 
 [[package]]
 name = "thiserror"
