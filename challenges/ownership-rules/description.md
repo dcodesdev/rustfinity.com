@@ -15,13 +15,14 @@ Before starting to solve the challenge, try to run the code and see what error y
 
 The compile error tells us that we can't borrow `s` as mutable because it is also borrowed as immutable. If we borrow it as mutable, the value will change and the compiler can not guarantee that the immutable reference hasn't changed.
 
-You are given a function `calculate_and_modify` that violates Rust's ownership rules. Your task is to identify and fix the ownership rule violations in this function.
+You are given a function `calculate_and_modify` that violates Rust's ownership rules. Your task is to fix this function by moving exactly one line of code to a different position. Don't just try to make the tests pass - focus on understanding which single line needs to be moved and why!
 
-- Fix the code to adhere to Rust's ownership rules.
-- The code should print the reference `s2` after without any ownership rule violations.
-- The code should run the `push_str` method to mutate the string.
-- The code should return the modified string and its length.
+- The solution requires moving only one line to a different position - no other changes!
+- The code should print the reference `s2` without any ownership rule violations
+- The code should run the `push_str` method to mutate the string
+- The code should return the modified string and its length
 
 ## Hints
 
-- You only need to change the order of the function calls, just make sure you don't have invalid references.
+- Look carefully at when you create the reference and when you use it
+- Think about when the mutable borrow needs to happen in relation to the immutable reference
