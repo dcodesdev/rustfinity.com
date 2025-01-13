@@ -1,29 +1,26 @@
-Declaring variables in programming is a fundamental concept that allows you to **store and manipulate data**. Variables are used to store values that can be accessed and modified throughout the program.
+In this challenge, you will implement a function `calculate_area` that computes the area of a rectangle using a given width and height. The purpose of this exercise is to practice variable declaration, arithmetic operations, and using helper functions.
 
-In Rust, variables are declared using the `let` keyword followed by the variable name and an optional type annotation.
+## Your Task
 
-In Rust, variables are **immutable by default**. This means that once a value is bound to a variable, it cannot be changed. This is a key feature of Rust that helps ensure safety and prevent bugs by avoiding unexpected changes to values.
+You are provided with a helper function `prints_values` that takes two parameters, `width` and `height`, and prints their values. Your task is to call this helper function inside `calculate_area` and ensure that the printed values are correct.
 
-## Your task
+The `calculate_area` function should:
 
-In this challenge, you will declare and use immutable variables in Rust. You will be given a function where you need to **declare variables** and use them to perform specific operations. The goal is to get comfortable with the concept of **immutability and understand how to use immutable variables effectively.**
+1. Declare variables for `width` and `height`.
+2. Use the `prints_values` function to display the values of the `width` and `height`.
+3. Return the calculated area of the rectangle by multiplying `width` and `height`.
 
-Your task is to define two immutable variables inside the function using the `let` keyword:
+Do not modify the `prints_values` function.
 
-- `width` with a value of `10`
-- `height` with a value of `5`
-
-Then, calculate the area of a rectangle using the formula `area = width * height` and return the calculated area.
-
-## Requirements
-
-- Declare two immutable variables, `width` and `height`, and assign them values.
-- Calculate the area of the rectangle using the formula `width * height`.
-- Return the calculated area.
+> **Note:** While it is possible to solve the challenge and pass the tests without explicitly declaring variables (e.g., by directly passing values to `prints_values` or using expressions inline), it is strongly recommended to declare variables for `width` and `height`. This exercise is designed to help you practice and get accustomed to using variables effectively in Rust.
 
 ## Hints
 
-- Use the `let` keyword to declare variables.
-- Remember that variables declared with `let` are immutable by default.
-- You do not need to explicitly annotate the types (e.g., `let width: u32 = 10;`) for the variables.
-- Use multiplication `*` to calculate the area.
+<details>
+    <summary>Click here to reveal hints</summary>
+
+- Use the `let` keyword to declare variables in Rust.
+- Ensure the `prints_values` function is invoked with the correct arguments.
+- The returned area should be the result of multiplying the `width` and `height`.
+
+</details>
