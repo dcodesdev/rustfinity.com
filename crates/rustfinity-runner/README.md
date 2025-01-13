@@ -48,3 +48,12 @@ docker run -i \
 - `playground`: Runs a provided snippet of code, used in [rustfinity.com/playground](https://www.rustfinity.com/playground), requires one argument:
 
   - `--code`: Base64 encoded code (user submitted)
+
+## How to deploy
+
+Create a new tag and push to github.
+
+### Tag format
+
+- For main `v0.1.0`
+- For staging `v0.1.0-staging`
