@@ -5,7 +5,7 @@ pub fn calculate_and_modify() -> (String, usize) {
     let s2 = &s;
     s.push_str(", world");
 
-    println!("{}", s2); // uses an old reference that has been changed `s2`
+    println!("{}", s2);
 
     (s, length)
 }

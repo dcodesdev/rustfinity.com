@@ -4,17 +4,11 @@ Understanding how to declare and use these basic data types is fundamental to wr
 
 ## Your task
 
-1. Define variable `x` with type `u8`
-2. Define variable `y` with type `f64`
-3. Define variable `z` with type `bool`
-4. Define variable `a` with type `char`
-
-Each of these variables **should be annotated** with their respective types and initialized with specific **values of your choice**.
-
-## Requirements
-
-- Every variable **must be annotated** with its type.
-- Initialize each variable with any value of your choice of the correct type.
+1. Define a variable with type `u8` and value `42`
+2. Define variable with type `f64` and value `3.14`
+3. Define variable with type `bool` and value `false`
+4. Define variable with type `char` and value `a`
+5. In the end, return the tuple `(u8, f64, bool, char)` with the variables you defined.
 
 ## Explanation of Data Types
 
@@ -25,5 +19,14 @@ Each of these variables **should be annotated** with their respective types and 
 
 ## Hints
 
-- Use the `let` keyword to define a variable.
-- Annotate the variable's type by specifying `let variable_name: type = `.
+Here are some hints for you if you're stuck:
+
+<details>
+  <summary>Click to show hints</summary>
+
+- To define a variable of type `u8` you can use the syntax `let variable_name: u8 = 10;`
+- To define a variable of type `f64` you can use the syntax `let variable_name = 3.14;`
+- To define a variable of type `bool` you can use the syntax `let variable_name = false;`
+- To define a variable of type `char` you can use single quotes like `let variable_name = 'a';`
+
+</details>

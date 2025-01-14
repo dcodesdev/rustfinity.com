@@ -1,7 +1,12 @@
-pub fn mutating_variables() -> &'static str {
+pub fn mutating_variables() -> String {
     // 1. Declare a mutable variable `text` with value "hello"
 
-    // 2. Reassign the value of `text` to a new value
+    // 2. Call `mutates_value` with a mutable reference to `text`
 
-    // 3. Return the value of `text`
+    // 3. Return the value of `text` as a String
+}
+
+// Do not change this function
+pub fn mutates_value(value: &mut String) {
+    *value = String::from("bye")
 }

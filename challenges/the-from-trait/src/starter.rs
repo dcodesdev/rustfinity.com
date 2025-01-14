@@ -13,3 +13,10 @@ impl From<Minutes> for Hours {
 // TODO: implement from minutes to days
 
 // TODO: implement from days to hours
+
+// Example usage
+pub fn main() {
+    let minutes = Minutes(60);
+    let hours: Hours = minutes.into();
+    assert_eq!(hours.0, 1);
+}

@@ -1,11 +1,12 @@
-pub fn mutating_variables() -> &'static str {
-    let mut text = "hello";
+pub fn mutating_variables() -> String {
+    let mut value = "hello".to_string();
 
-    println!("Text is {}", text);
+    mutates_value(&mut value);
 
-    text = "bye";
+    String::from(value)
+}
 
-    println!("Text is {}", text);
-
-    text
+// Do not change this function
+pub fn mutates_value(value: &mut String) {
+    *value = String::from("bye")
 }
