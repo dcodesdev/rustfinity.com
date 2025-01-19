@@ -44,7 +44,7 @@ assert_eq!(result, Some(0)); // 0 is the first palindrome in the range
 
 ## Did you know?
 
-Did you know that **palindromes** are not just limited to numbers? They are found in **words, phrases, and even DNA sequences!** For example, the word **"racecar"** is a palindrome, as it reads the same backward and forward.
+Did you know that **palindromes** are not just limited to numbers? They are found in **words, phrases, and even DNA sequences!** For example, the word **"racecar"** is a palindrome, as it reads the same backward and forward. Check out this ["Weird Al" video](https://youtu.be/JUQDzj6R3p4) for many many examples.
 
 **Palindromes** are fascinating in various fields, including mathematics, literature, and biology, where they often have unique properties and significance.
 
