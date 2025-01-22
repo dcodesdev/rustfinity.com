@@ -1,35 +1,27 @@
-#[cfg(test)]
-mod tests {
-    use mutable_variables::*;
-    use syntest::{LocalVariable, Syntest};
+use mutable_variables::*;
 
-    #[test]
-    fn test_compiles() {
-        mutating_variables();
-    }
+#[test]
+fn test_compiles() {
+    mutating_variables();
+}
 
-    #[test]
-    fn test_variables() {
-        let syntest = Syntest::new("mutating_variables", "./src/lib.rs");
+#[test]
+fn test_mutates_value_works() {
+    let mut text = String::new();
 
-        let mut success = false;
-        // Expect the 2 variables to exist
-        syntest.variables().iter().for_each(|var| match var {
-            LocalVariable::Str { .. } => match var.name() {
-                "text" => {
-                    assert!(var.is_used(), "Expected 'text' to be used");
-                    assert!(var.is_mutable(), "Expected 'text' to be mutable");
-                    assert!(
-                        var.mutations().len() >= 1,
-                        "Expected 'text' to be mutated at least once"
-                    );
-                    success = true;
-                }
-                _ => {}
-            },
-            _ => {}
-        });
+    mutates_value(&mut text);
 
-        assert!(success, "Expected 'text' to be defined");
-    }
+    assert_eq!(
+        text, "bye",
+        "The function `mutates_value` should not be edited"
+    );
+}
+
+#[test]
+fn test_return_value() {
+    assert_eq!(
+        mutating_variables(),
+        "bye",
+        "Expected the value to be 'bye'"
+    );
 }

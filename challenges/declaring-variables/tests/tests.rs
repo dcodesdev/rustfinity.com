@@ -1,40 +1,53 @@
-#[cfg(test)]
-mod tests {
-    use declaring_variables::*;
-    use syntest::{Syntest, Value};
+use declaring_variables::*;
+use syntest::quote;
 
-    #[test]
-    fn test_calculate_area() {
-        assert_eq!(calculate_area(), 50);
+#[test]
+fn test_calculate_area() {
+    let area = calculate_area();
+
+    assert!(
+        area > 0,
+        "The `calculate_area` function must return a value greater than 0"
+    )
+}
+
+#[test]
+fn test_prints_values() {
+    {
+        let code = quote! {
+            use declaring_variables::*;
+
+            let width = 10;
+            let height = 50;
+
+            prints_values(width, height);
+        };
+
+        let result = syntest::create_bin_and_run(&code);
+
+        assert_eq!(
+            result.stdout(),
+            "The width is: 10\nThe height is: 50\n",
+            "The `prints_values` must not be modified for the tests to pass\nPlease reset the function to its original state"
+        );
     }
 
-    #[test]
-    fn test_variables() {
-        let syntest = Syntest::new("calculate_area", "src/lib.rs");
+    {
+        let code = quote! {
+            use declaring_variables::*;
 
-        // Expect the 2 variables to exist
-        let variables_to_exist = ["height", "width"];
-        variables_to_exist.iter().for_each(|&v| {
-            let var = syntest
-                .var_details(v)
-                .expect(&format!("Variable {} was not declared", v));
+            calculate_area();
+        };
 
-            assert!(var.is_used(), "Variable {v} was not used");
-            assert_eq!(var.name(), v);
+        let result = syntest::create_bin_and_run(&code);
 
-            if v == "width" {
-                assert_eq!(var.value(), Value::Int(10), "Width should be 10");
-            } else if v == "height" {
-                assert_eq!(var.value(), Value::Int(5), "Height should be 5");
-            }
-
-            assert_eq!(
-                syntest.count_var(v),
-                1,
-                "Variable {v} should be defined once"
-            );
-
-            assert_eq!(var.is_mutable(), false, "Variable {v} should be immutable");
-        });
+        assert!(
+            result.stdout().contains("The width is"),
+            "The `prints_values must be used"
+        );
+        assert!(
+            result.stdout().contains("The height is"),
+            "The `prints_values must be used"
+        );
     }
 }

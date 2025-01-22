@@ -22,6 +22,12 @@ COPY crates/rustfinity-runner/docker/Cargo.toml Cargo.toml
 
 RUN cargo new challenges/playground && rm -rf challenges/playground/.git
 
+WORKDIR /app/challenges/playground
+RUN cargo add \
+  syn \
+  quote
+
+WORKDIR /app
 RUN cargo build
 
 COPY --from=builder /app/target/release/rustfinity-runner /app/
