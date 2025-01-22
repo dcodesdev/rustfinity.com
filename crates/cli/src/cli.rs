@@ -4,7 +4,7 @@ use clap::{Parser, Subcommand};
 pub async fn run(cli: Cli) -> anyhow::Result<()> {
     match cli.command {
         Commands::Get { command: get } => match get {
-            Get::Challenge { challenge } => get_challenge(&challenge).await,
+            Get::Challenge { challenge, open } => get_challenge(&challenge, open).await,
         },
         Commands::Submit => submit_challenge().await,
     }
@@ -40,5 +40,10 @@ enum Commands {
 
 #[derive(Subcommand)]
 enum Get {
-    Challenge { challenge: String },
+    Challenge {
+        challenge: String,
+
+        #[clap(short, long, default_value = "false")]
+        open: bool,
+    },
 }

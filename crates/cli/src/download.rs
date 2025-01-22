@@ -13,7 +13,7 @@ const FILES: [&'static str; 4] = [
     "tests/tests.rs",
 ];
 
-pub async fn get_challenge(challenge: &str) -> anyhow::Result<()> {
+pub async fn get_challenge(challenge: &str, should_open: bool) -> anyhow::Result<()> {
     if !challenge_exists(challenge).await? {
         println!("Challenge does not exist 🥺\n\nPlease make sure you've written the challenge name correctly.");
         return Ok(());
@@ -41,8 +41,11 @@ pub async fn get_challenge(challenge: &str) -> anyhow::Result<()> {
     // Check all results are successful
     if results.iter().all(Result::is_ok) {
         // open it in the users editor
-        if let Some(editor) = Editor::find() {
-            editor.open(challenge);
+
+        if should_open {
+            if let Some(editor) = Editor::find() {
+                editor.open(challenge);
+            }
         }
 
         println!("Challenge downloaded 🥳");
@@ -119,7 +122,7 @@ mod tests {
             env::set_current_dir(&temp_path).ok();
 
             let test_challenge = |challenge: String| async move {
-                get_challenge(&challenge)
+                get_challenge(&challenge, false)
                     .await
                     .expect("Failed to download challenge");
 
