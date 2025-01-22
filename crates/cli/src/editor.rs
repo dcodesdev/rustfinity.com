@@ -38,7 +38,9 @@ impl Editor {
         Command::new(&self.program)
             .args(args)
             .spawn()
-            .expect("default editor failed to start");
+            .expect("default editor failed to start")
+            .wait()
+            .expect("default editor failed to open file");
     }
 }
 
