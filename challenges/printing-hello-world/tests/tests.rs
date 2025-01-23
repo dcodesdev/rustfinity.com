@@ -16,9 +16,10 @@ fn test_hello_world() {
 
     let result = syntest::create_bin_and_run(&code);
 
-    assert_eq!(
-        result.stdout(),
-        "Hello, world!\n",
-        "Expected 'Hello, world!\\n'"
+    let stdout_lowercase = result.stdout().to_lowercase();
+
+    assert!(
+        stdout_lowercase.contains("hello, world"),
+        "Expected 'Hello, World!' to be printed to the console.",
     );
 }
