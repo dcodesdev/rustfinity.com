@@ -25,7 +25,7 @@ jobs:
           override: true
 
       - name: Cargo test
-        run: cargo test
+        run: cargo test --all
 
   publish:
     runs-on: ubuntu-latest
