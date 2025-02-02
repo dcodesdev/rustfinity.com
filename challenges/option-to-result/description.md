@@ -9,7 +9,7 @@ Implement the function `get_first_element`:
    - A minimum allowed value (`i32`).
 2. Use the `.first()` method to retrieve the first element of the vector, this returns `Option<&T>`.
 3. If the value is `None`, convert it to a `Result<T, E>` using the `.ok_or()` method with the error message `"Vector is empty"`.
-4. Then run a validation check to ensure the first element is greater than or equal to the minimum allowed value provided.
+4. Then run a validation check to ensure the first element is greater than or equal to the minimum allowed value provided. If not, return an error with message `"First element is below the minimum allowed value"`.
 5. If everything is ok, return a `Ok(T)` with the first element.
 
 ## Hints
