@@ -5,8 +5,8 @@ use std::rc::Rc;
 #[test]
 fn test_update_shared_data() {
     let shared_data = Rc::new(RefCell::new(vec![10, 20]));
-    push(Rc::clone(&shared_data), 30);
-    push(Rc::clone(&shared_data), 40);
+    update_shared_data(Rc::clone(&shared_data), 30);
+    update_shared_data(Rc::clone(&shared_data), 40);
 
     let borrowed_data = shared_data.borrow();
     assert_eq!(
@@ -42,7 +42,7 @@ fn test_reference_count_behavior() {
 fn test_empty_vector_behavior() {
     let shared_data = Rc::new(RefCell::new(Vec::<i32>::new()));
 
-    push(Rc::clone(&shared_data), 42);
+    update_shared_data(Rc::clone(&shared_data), 42);
     assert_eq!(
         *shared_data.borrow(),
         vec![42],
