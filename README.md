@@ -149,6 +149,12 @@ Stay updated with the latest challenges, features, and announcements!
 
 ---
 
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=rustfinity/rustfinity&type=Date)](https://star-history.com/#rustfinity/rustfinity&Date)
+
+---
+
 ## ⚖️ License
 
 This project is licensed under the [Rustfinity Proprietary License](https://github.com/dcodesdev/rustfinity.com/blob/main/LICENSE).
